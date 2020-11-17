@@ -1,4 +1,4 @@
-# API仕様書
+# Ecocloud-API仕様書
 ## 通知情報API
 ### デマンド警報
 #### URL
