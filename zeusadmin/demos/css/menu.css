@@ -1,0 +1,39 @@
+.menu {
+	border-right: 1px solid rgba(0,0,0,0.1);
+}
+.nav-link{
+	border-left: 4px solid #f8f9fa;
+}
+.nav-link > div{
+	flex-direction: row;
+	align-items: center
+}
+.nav-link > div > i {
+	font-size: 1.2rem;
+}
+.nav-link > div > span {
+	font-size: 1.4rem;
+	margin-left: 0.5rem;
+}
+.nav-link.active{
+	border-left: 4px solid;
+}
+
+@media (max-width: 991.98px) {
+	.nav-link {
+		padding: 0;
+	}
+	.nav-link > div {
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	  padding: 0.25rem;
+	}
+	.nav-link > div > i {
+		font-size: 1.6rem;
+	}
+	.nav-link > div > span {
+		font-size: 0.8rem;
+		margin: 0;
+	}
+}
