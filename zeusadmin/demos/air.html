@@ -289,6 +289,15 @@
 						orient: 'virtical',
 						top: 'middle',
 						feature: {
+							magicType: {
+								type: ['line', 'bar', 'stack', 'tiled'],
+								title: {
+									line: '折れ線グラフ',
+									bar: '棒グラフ',
+									stack: '積み上げグラフ',
+									tiled: '個別'
+								}
+							},
 							saveAsImage: {
 								show: true,
 								title: '画像として保存'
@@ -387,6 +396,15 @@
 						orient: 'virtical',
 						top: 'middle',
 						feature: {
+							magicType: {
+								type: ['line', 'bar', 'stack', 'tiled'],
+								title: {
+									line: '折れ線グラフ',
+									bar: '棒グラフ',
+									stack: '積み上げグラフ',
+									tiled: '個別'
+								}
+							},
 							saveAsImage: {
 								show: true,
 								title: '画像として保存'
@@ -519,7 +537,6 @@
 			
 			// add events
 			myChart.on('click', function(params) {
-			    console.log(params);
 				var componentSubType = params.componentSubType;
 				var data = genData(10);
 				var option = {
