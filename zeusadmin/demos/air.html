@@ -268,6 +268,7 @@
 				option = {
 					legend: {
 						type: 'scroll',
+						top: 'bottom',
 						data: ['店舗1', '店舗2', '店舗3', '店舗4', '店舗5', '店舗6', '店舗7', '店舗8', '店舗9', '店舗10']
 					},
 				    xAxis: {
@@ -285,8 +286,9 @@
 					},
 					toolbox: {
 						show: true,
-						orient: 'virtical',
-						top: 'middle',
+						orient: 'horizontal',
+						top: 'top',
+						left: 'center',
 						feature: {
 							magicType: {
 								type: ['line', 'bar', 'stack', 'tiled'],
@@ -389,6 +391,7 @@
 				$(tableData).bootstrapTable('destroy');
 				$(tableData).bootstrapTable({
 					height: 460,
+					locale: 'ja',
 					columns: [
 						{field: 'datetime', title: '対象年月日', align: 'center', cellStyle: cellStyle},
 						{field: 'ST0001_usage', title: '店舗1（電力量）[kWh]', align: 'right'},
@@ -472,6 +475,7 @@
 				search: true,
 				searchAlign: 'left',
 				clickToSelect: true,
+				locale: 'ja',
 				columns: [
 					{checkbox: true},
 					{field: 'storeName', title: '店舗名'}
