@@ -47,17 +47,18 @@
 				</div>
 				<div class="flex-grow-1 overflow-hidden p-2">
 					<div class="card border-primary text-center">
-						<div class="card-header p-2">
-							プロセス状態
-						</div>
 						<div class="card-body p-0">
+							<h5 class="card-title text-primary my-2">データ修復記録</h5>
 							<table
 							  id="table-data" class="table table-sm table-bordered">
 							</table>
-						</div>
-						<div class="card-footer p-2">
-							<button type="button" id="btn-graph" class="btn btn-sm btn-outline-primary m-1" onclick="btnGraphClick();">修復開始</button>
-							<button type="button" id="btn-graph" class="btn btn-sm btn-outline-primary m-1" onclick="btnGraphClick();">修復履歴</button>
+							
+							<div class="my-2">
+								<div class="btn-group btn-group-sm">
+									<button type="button" id="btn-graph" class="btn btn-outline-primary" onclick="btnGraphClick();">修復開始</button>
+									<button type="button" id="btn-graph" class="btn btn-outline-primary" onclick="btnGraphClick();">削除</button>
+								</div>
+							</div>
 						</div>
 					</div>
 					
@@ -69,51 +70,39 @@
 							  <label class="text-info">粒度</label>
 							  <div class="d-flex align-items-center">
 								 <div class="form-check form-check-inline">
-								   <input class="form-check-input" type="radio" name="displaySpan" id="displaySpan1" value="month">
-								   <label class="form-check-label" for="inlineRadio1">月</label>
-								 </div>
-								 <div class="form-check form-check-inline">
-								   <input class="form-check-input" type="radio" name="displaySpan" id="displaySpan2" value="day" checked="checked">
-								   <label class="form-check-label" for="inlineRadio2">日</label>
-								 </div>
-								 <div class="form-check form-check-inline">
-								   <input class="form-check-input" type="radio" name="displaySpan" id="displaySpan3" value="hour">
+								   <input class="form-check-input" type="checkbox" name="displaySpan" id="displaySpan3" value="hour">
 								   <label class="form-check-label" for="inlineRadio3">時</label>
 								 </div>
 								 <div class="form-check form-check-inline">
-								   <input class="form-check-input" type="radio" name="displaySpan" id="displaySpan3" value="half-hour">
+								   <input class="form-check-input" type="checkbox" name="displaySpan" id="displaySpan3" value="half-hour">
 								   <label class="form-check-label" for="inlineRadio3">30分</label>
 								 </div>
 							  </div>
 							</div>
 							<div class="form-group col-md-6 col-xl-3">
-							  <label class="text-info">データ種類（エネルギー）</label>
+							  <label class="text-info">エネルギーセンサー</label>
 							  <div class="d-flex align-items-center">
 								 <div class="form-check form-check-inline">
 								   <input class="form-check-input" type="checkbox" name="dataType" id="displaySpan1" value="month">
-								   <label class="form-check-label" for="inlineRadio1">電力量</label>
-								 </div>
-								 <div class="form-check form-check-inline">
-								   <input class="form-check-input" type="checkbox" name="dataType" id="displaySpan2" value="day">
-								   <label class="form-check-label" for="inlineRadio2">削減電力量</label>
+								   <label class="form-check-label" for="inlineRadio1">電力量センサー</label>
 								 </div>
 							  </div>
 							</div>
 							<div class="form-group col-md-6 col-xl-3">
-							  <label class="text-info">データ種類（環境）</label>
+							  <label class="text-info">環境センサー</label>
 							  <div class="d-flex align-items-center">
 								 <div class="form-check form-check-inline">
 								   <input class="form-check-input" type="checkbox" name="dataType" id="displaySpan1" value="month">
-								   <label class="form-check-label" for="inlineRadio1">電力量</label>
+								   <label class="form-check-label" for="inlineRadio1">温度センサー</label>
 								 </div>
 								 <div class="form-check form-check-inline">
 								   <input class="form-check-input" type="checkbox" name="dataType" id="displaySpan2" value="day">
-								   <label class="form-check-label" for="inlineRadio2">削減電力量</label>
+								   <label class="form-check-label" for="inlineRadio2">温湿度センサー</label>
 								 </div>
 							  </div>
 							</div>
 							<div class="form-group col-md-6 col-xl-3">
-							  <label class="text-info">データ種類（制御解除率）</label>
+							  <label class="text-info">制御解除率</label>
 							  <div class="d-flex align-items-center">
 								 <div class="form-check form-check-inline">
 								   <input class="form-check-input" type="checkbox" name="dataType" id="displaySpan1" value="month">
@@ -208,21 +197,32 @@
 				$('#datepicker-from').datetimepicker('maxDate', e.date);
 			});
 			$(tableData).bootstrapTable({
+				height: 400,
+				detailView: true,
 				columns: [
-					{field: 'granularity', title: '粒度'},
-					{field: 'dataType', title: 'データ種類'},
-					{field: 'from', title: '開始日'},
-					{field: 'to', title: '終了日'},
+					{checkbox: true},
 					{field: 'status', title: '状態'},
-					{field: 'operation', title: '操作'}
+					{field: 'registerDatetime', title: '登録時刻', 'class': 'text-nowrap'},
+					{field: 'energySensorType', title: 'エネルギーセンサー'},
+					{field: 'envSensorType', title: '環境センサー', 'class': 'text-nowrap'},
+					{field: 'enudgeRelease', title: '制御解除率'},
+					{field: 'granularity', title: '粒度'},
+					{field: 'fromDate', title: '開始日', 'class': 'text-nowrap'},
+					{field: 'toDate', title: '終了日', 'class': 'text-nowrap'},
+					{field: 'startDatetime', title: '開始時刻', 'class': 'text-nowrap'},
+					{field: 'endDatetime', title: '終了時刻', 'class': 'text-nowrap'}
 				],
 				data: [{
-					granularity: '日',
-					dataType: '削減電力量',
-					from: '2021-01-01',
-					to: '2021-01-31',
 					status: '新規',
-					operation: '<a href="javascript:void(0);">削除</a>'
+					registerDatetime: '2021-02-08 20:59:00',
+					energySensorType: '電力量センサー',
+					envSensorType: '温度センサー<br>温湿度センサー',
+					enudgeRelease: '〇',
+					granularity: '時<br>30分',
+					fromDate: '2021-01-01',
+					toDate: '2021-01-31',
+					startDatetime: '2021-02-08 21:00:00',
+					endDatetime: '2021-02-08 22:00:00'
 				}]
 			});
 			$(tableStore).bootstrapTable({
