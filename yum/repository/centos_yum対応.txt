@@ -1,0 +1,17 @@
+2020年12月2日のサポート終止によりyumコマンドが使えなくなっている。
+
+# 1．centos-vaultを更新源にして使い続ける方法
+[https://vault.centos.org/](https://vault.centos.org/)
+
+```
+# 以下のファイルを修正する
+/etc/yum.repos.d/CentOS-Base.repo
+
+mirrorlist=で始まるURLは注釈する
+
+# baseurl=で始まるURLは注釈符号（#）を削除する
+# そして
+baseurl=http://mirror.centos.org/centos/$releasever
+# 上の部分を以下に書き換える
+baseurl=http://vault.centos.org/6.10
+```

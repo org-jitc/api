@@ -1,0 +1,1984 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache,must-revalidate">
+	<meta http-equiv="Expires" content="0">
+	<!--如果是IE，会使用最新的渲染引擎进行渲染-->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<link href="./css/font-awesome/css/all.min.css" rel="stylesheet">
+	<link href="./css/bootstrap/bootstrap.min.css" rel="stylesheet">
+	<link href="./css/css.css" rel="stylesheet">
+	
+	<script type="text/javascript" src="./js/LAB.min.js"></script>
+	<script>
+		let contextPath = './';
+		let js_ver = '0000';
+		// system encoding
+		var systemEncode = 'SJIS';
+		sessionStorage.setItem('systemEncode', systemEncode);
+		// system language
+		var sysLanguage = 'ja';
+		sessionStorage.setItem('sysLanguage', sysLanguage);
+		// bootstrap color picker option
+		var btpColorPickerOption = {format: 'hex'};
+		sessionStorage.setItem('btpColorPickerOption', btpColorPickerOption);
+		// 
+		let formAction = null;
+		let zeusStore = {};
+		//-> set server sync system param
+		zeusStore.serverSync = {};
+		zeusStore.serverSync.hasComponent = 'false' == 'true';
+		if(zeusStore.serverSync.hasComponent){
+			zeusStore.serverSync.serverSyncCheck = 'true';
+		}
+		//<- set server sync system param
+	</script>
+	<script src="./js/import/zeus.js"></script>
+
+	<title>
+		デモ&nbsp;-&nbsp;システムの設定
+	</title>
+</head>
+<body>
+	<div id="app" class="hide">
+		<div class="d-flex justify-content-center">
+			<div class="template-container">
+				<div class="d-flex flex-column" style="min-height: 100vh;">
+					<div class="zeus-frame-line-bottom py-4">
+						
+						<div class="d-flex justify-content-between align-items-center">
+							<img src="./images/ecoCloud_headlogo.gif" height="51" onerror="$(this).hide();"/>
+							<div class="align-self-end d-flex align-items-end">
+								<div>
+									<span class="test-user1">demo-user</span>&nbsp;|&nbsp;
+									<span class="login1" style="font-size:12px;color:#808080;">
+										ログアウト
+									</span>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					<div class="d-flex flex-grow-1">
+						<div class="template-menu-td zeus-frame-line-bottom" align="left">
+							
+							<div class="zeus-menu-nav mt-3">
+								<div class="active menu-level${menuMap.value.level}">
+									システムの設定
+								</div>
+							</div>
+							
+						</div>
+						<div class="template-content-td zeus-frame-line-left zeus-frame-line-bottom">
+							<div class="width-720">
+								
+								<ul class="list-group mb-0">
+									<li class="list-group-item list-group-item-info p-2 active">
+										システムの設定 - デモ   環境
+									</li>
+								</ul>
+		
+								<table class="table table-bordered mt font-bold">
+									<tbody>
+										<tr>
+											<td rowspan="2" width="35%" class="bg-zeus">デマンド逼迫時通知音</td>
+											<td>
+												<div class="flex-sb-ai-center">
+													<div>
+														<span id="span-dts-name">-</span>
+														<span class="dts-delete hide">
+															<span class="block-span">
+																<i id="i-listen" class="fas fa-volume-up cursor-pointer"></i>
+															</span>
+															<a id="a-delete-dts" href="#"></a>
+														</span>
+													</div>
+													<button id="btn-delete-dts" class="btn button-zeus dts-delete hide" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+														削除
+													</button>
+												</div>
+												<audio id="audio-dts" class="hide"></audio>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<div id="error-dts" class="error"></div>
+												<div class="flex-sb-ai-center">
+													<form id="form-demandTightSound-upload" enctype="multipart/form-data">
+														<input type="file" id="demandTightSound" name="demandTightSound" accept=".mp3">
+													</form>
+													<button id="btn-dts-upload" type="button" class="btn button-zeus" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+														アップロード
+													</button>
+												</div>
+											</td>
+										</tr>
+										<!-- サーバータイプ -->
+										<tr>
+											<td class="bg-zeus">サーバータイプ</td>
+											<td>
+												<div id="errServerType" class="error"></div>
+												<select name="serverType" class="select-text">
+													<option value="single" selected="selected">単独</option>
+													<option value="local">同期（ローカル）</option>
+													<option value="cloud">同期（クラウド）</option>
+												</select>
+											</td>
+										</tr>
+										<!-- クラウド・ローカル同期 -->
+										<tr>
+											<td class="bg-zeus">クラウド・ローカル同期</td>
+											<td>
+												<div id="errDataSync" class="error"></div>
+												<input type="radio" name="dataSync" value="1">
+												同期する
+												<input type="radio" name="dataSync" value="0" checked="checked">
+												同期しない
+											</td>
+										</tr>
+										<tr>
+											<td rowspan="2" class="bg-zeus">同期サーバー接続確認時間</td>
+											<td>
+												現在値：
+												<span id="currSyncCheckTime">5</span>
+												秒
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<div id="errSyncCheckTime" class="error"></div>
+												<div class="input-group input-group-sm w-50">
+													<input type="number" id="syncCheckTime" class="form-control">
+													<span class="input-group-addon">秒</span>
+													<span class="input-group-btn">
+														<button type="button" id="btnSetSyncCheckTime" class="btn button-zeus">設定</button>
+													</span>
+												</div>
+												<span class="help-block mb-0 font-weight-light">5以上の半角数字を入力してください。入力しない場合は5秒に設定されます。</span>
+											</td>
+										</tr>
+										<tr>
+											<td rowspan="2" class="bg-zeus">
+												PLC接続タイムアウト時間
+											</td>
+											<td>
+												現在値 :
+												<span id="currPlcConnectionTimeout">30</span>
+												秒
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<div id="errPlcConnectionTimeout" class="error"></div>
+												<div class="input-group input-group-sm w-50">
+													<input type="number" id="plcConnectionTimeout" class="form-control">
+													<span class="input-group-addon">秒</span>
+													<span class="input-group-btn">
+														<button type="button" id="btnSetPlcConnectionTimeout" class="btn button-zeus">設定</button>
+													</span>
+												</div>
+												<div class="font-weight-light">
+													<span class="help-block mb-0">30以上の半角数字を入力してください。入力しない場合は変更しません。</span>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+		
+								<div class="mt" align="right">
+									<div class="btn-group">
+										
+											<button type="button" class="btn button-zeus m-0" onclick="document.location.href='DisplayMenuSetting.action'">
+												表示メニュー設定
+											</button>
+										
+										<button type="button" class="btn button-zeus m-0" onclick="document.location.href='UpdateInput.action'">
+											変更
+										</button>
+									</div>
+								</div>
+		
+								<table class="table table-sm table-bordered mt font-weight-bold">
+									<tbody>
+										<tr>
+											<td width="35%" class="bg-zeus">CO2排出係数</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label>
+														<label id="current-co2_coefficient">0.000518</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="double" data-sync="sync" data-required="required" id="co2_coefficient" value="0.000518" class="form-control">
+														<span class="input-group-addon">t-CO2/kWh</span>
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-co2_coefficient" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td class="bg-zeus">モニタリンググラフその他表示</td>
+											<td>
+												<input type="radio" data-toggle="ajax-update" data-type="integer" data-sync="sync" data-required="required" name="mieruka_other_disp" value="1" checked="checked">
+												表示
+												<input type="radio" name="mieruka_other_disp" value="0">
+												非表示
+											</td>
+										</tr>
+										<tr>
+											<td class="bg-zeus">グラフ色（その他）</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-graph_color_other">2B2B2B</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="graph_color_other" value="2B2B2B" class="form-control color" maxlength="6" autocomplete="off" style="background-image: none; background-color: rgb(43, 43, 43); color: rgb(255, 255, 255);">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-graph_color_other" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td class="bg-zeus">モニタリンググラフ色指定</td>
+											<td>
+												<input type="radio" data-toggle="ajax-update" data-type="integer" data-sync="sync" data-required="required" name="user_defined_color" value="0">
+												自動
+												<input type="radio" name="user_defined_color" value="1" checked="checked">
+												ユーザー定義
+											</td>
+										</tr>
+										<tr>
+											<td class="bg-zeus">暖房期日</td>
+											<td>
+												<div class="d-flex justify-content-between align-items-center">
+													<div>
+														<select id="monthHeating" class="select-text">
+															<option value="01">01</option>
+															<option value="02">02</option>
+															<option value="03" selected="selected">03</option>
+															<option value="04">04</option>
+															<option value="05">05</option>
+															<option value="06">06</option>
+															<option value="07">07</option>
+															<option value="08">08</option>
+															<option value="09">09</option>
+															<option value="10">10</option>
+															<option value="11">11</option>
+															<option value="12">12</option>
+														</select>
+														月
+														<select id="dayHeating" class="select-text">
+															<option value="01">01</option>
+															<option value="02">02</option>
+															<option value="03">03</option>
+															<option value="04">04</option>
+															<option value="05">05</option>
+															<option value="06">06</option>
+															<option value="07">07</option>
+															<option value="08">08</option>
+															<option value="09">09</option>
+															<option value="10">10</option>
+															<option value="11">11</option>
+															<option value="12">12</option>
+															<option value="13">13</option>
+															<option value="14">14</option>
+															<option value="15">15</option>
+															<option value="16">16</option>
+															<option value="17">17</option>
+															<option value="18">18</option>
+															<option value="19">19</option>
+															<option value="20">20</option>
+															<option value="21">21</option>
+															<option value="22">22</option>
+															<option value="23">23</option>
+															<option value="24">24</option>
+															<option value="25">25</option>
+															<option value="26">26</option>
+															<option value="27">27</option>
+															<option value="28">28</option>
+															<option value="29">29</option>
+															<option value="30">30</option>
+															<option value="31" selected="selected">31</option>
+														</select>
+														日
+													</div>
+													<button type="button" id="btn-set-heating-date" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+														設定
+													</button>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td class="bg-zeus">冷房期日</td>
+											<td>
+												<div class="d-flex justify-content-between align-items-center">
+													<div>
+														<select id="monthCooling" class="select-text">
+															<option value="01">01</option>
+															<option value="02">02</option>
+															<option value="03">03</option>
+															<option value="04">04</option>
+															<option value="05">05</option>
+															<option value="06">06</option>
+															<option value="07">07</option>
+															<option value="08">08</option>
+															<option value="09">09</option>
+															<option value="10" selected="selected">10</option>
+															<option value="11">11</option>
+															<option value="12">12</option>
+														</select>
+														月
+														<select id="dayCooling" class="select-text">
+															<option value="01">01</option>
+															<option value="02">02</option>
+															<option value="03">03</option>
+															<option value="04">04</option>
+															<option value="05">05</option>
+															<option value="06">06</option>
+															<option value="07">07</option>
+															<option value="08">08</option>
+															<option value="09">09</option>
+															<option value="10">10</option>
+															<option value="11">11</option>
+															<option value="12">12</option>
+															<option value="13">13</option>
+															<option value="14">14</option>
+															<option value="15">15</option>
+															<option value="16">16</option>
+															<option value="17">17</option>
+															<option value="18">18</option>
+															<option value="19">19</option>
+															<option value="20">20</option>
+															<option value="21">21</option>
+															<option value="22">22</option>
+															<option value="23">23</option>
+															<option value="24">24</option>
+															<option value="25">25</option>
+															<option value="26">26</option>
+															<option value="27">27</option>
+															<option value="28">28</option>
+															<option value="29">29</option>
+															<option value="30">30</option>
+															<option value="31" selected="selected">31</option>
+														</select>
+														日
+													</div>
+													<button type="button" id="btn-set-cooling-date" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+														設定
+													</button>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td class="bg-zeus">年・年度表示</td>
+											<td>
+												<div class="d-flex justify-content-between align-items-center">
+													<div>
+														<input type="radio" name="yearlyDisp" value="0" checked="checked">
+														<label>年</label>
+														<input type="radio" name="yearlyDisp" value="1">
+														<label>年度</label>
+														<label>開始月</label>
+														<select id="yearlyStartMonth" class="select-text" disabled="disabled">
+															<option value="1" selected="selected">1</option>
+															<option value="2">2</option>
+															<option value="3">3</option>
+															<option value="4">4</option>
+															<option value="5">5</option>
+															<option value="6">6</option>
+															<option value="7">7</option>
+															<option value="8">8</option>
+															<option value="9">9</option>
+															<option value="10">10</option>
+															<option value="11">11</option>
+															<option value="12">12</option>
+														</select>
+													</div>
+													<button type="button" id="btn-set-yearly-disp" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+														設定
+													</button>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td class="bg-zeus">月開始日</td>
+											<td>
+												<div class="d-flex justify-content-between align-items-center">
+													<div>
+														<select id="month_start_day" data-toggle="ajax-update" data-type="integer" data-sync="sync" data-required="required" class="select-text">
+															<option value="1" selected="selected">1</option>
+															<option value="2">2</option>
+															<option value="3">3</option>
+															<option value="4">4</option>
+															<option value="5">5</option>
+															<option value="6">6</option>
+															<option value="7">7</option>
+															<option value="8">8</option>
+															<option value="9">9</option>
+															<option value="10">10</option>
+															<option value="11">11</option>
+															<option value="12">12</option>
+															<option value="13">13</option>
+															<option value="14">14</option>
+															<option value="15">15</option>
+															<option value="16">16</option>
+															<option value="17">17</option>
+															<option value="18">18</option>
+															<option value="19">19</option>
+															<option value="20">20</option>
+															<option value="21">21</option>
+															<option value="22">22</option>
+															<option value="23">23</option>
+															<option value="24">24</option>
+															<option value="25">25</option>
+															<option value="26">26</option>
+															<option value="27">27</option>
+															<option value="28">28</option>
+														</select>
+													</div>
+													<button type="button" id="btn-set-month_start_day" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+														設定
+													</button>
+												</div>
+											</td>
+										</tr>
+										<!-- 流量単位設定 -->
+										<tr>
+											<td class="bg-zeus">流量単位設定</td>
+											<td>
+												<span class="mr-2">
+													<input type="radio" name="flow_unit" data-toggle="ajax-update" data-type="string" data-sync="sync" value="m3">
+													<span>m3</span>
+												</span>
+												<span class="mr-2">
+													<input type="radio" name="flow_unit" value="l" checked="checked">
+													<span>L</span>
+												</span>
+											</td>
+										</tr>
+									</tbody>
+									<tbody>
+										<!-- データ出力表示順設定 -->
+										<tr>
+											<td class="bg-zeus">データ出力表示順設定</td>
+											<td>
+												<span class="mr-2">
+													<input type="radio" name="data_display_title_order" data-toggle="ajax-update" data-type="integer" data-sync="sync" value="1">
+													<span>系統毎表示</span>
+												</span>
+												<span class="mr-2">
+													<input type="radio" name="data_display_title_order" value="0" checked="checked">
+													<span>データ種別毎表示</span>
+												</span>
+											</td>
+										</tr>
+										<!-- 電力使用状況ヘッダー色 -->
+										<tr>
+											<td class="bg-zeus">電力使用状況ヘッダー色</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-electric_usage_header_rgb">C3D69B</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="electric_usage_header_rgb" value="C3D69B" class="form-control color" maxlength="6" autocomplete="off" style="background-image: none; background-color: rgb(195, 214, 155); color: rgb(0, 0, 0);">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-electric_usage_header_rgb" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 電力使用状況フッター色 -->
+										<tr>
+											<td class="bg-zeus">電力使用状況フッター色</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-electric_usage_footer_rgb">76933C</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="electric_usage_footer_rgb" value="76933C" class="form-control color" maxlength="6" autocomplete="off" style="background-image: none; background-color: rgb(118, 147, 60); color: rgb(0, 0, 0);">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-electric_usage_footer_rgb" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 電力使用状況デマンドエリア色変化 -->
+										<tr>
+											<td class="bg-zeus">電力使用状況デマンドエリア色変化</td>
+											<td>
+												<span class="mr-2">
+													<input type="radio" name="demand_area_rgb_change" data-toggle="ajax-update" data-type="integer" data-sync="sync" value="1">
+													<span>あり</span>
+												</span>
+												<span class="mr-2">
+													<input type="radio" name="demand_area_rgb_change" value="0" checked="checked">
+													<span>なし</span>
+												</span>
+											</td>
+										</tr>
+										<!-- デマンド逼迫時通知音再生 -->
+										<tr>
+											<td class="bg-zeus">デマンド逼迫時通知音再生</td>
+											<td>
+												<span class="mr-2">
+													<input type="radio" name="demand_tight_alarm" data-toggle="ajax-update" data-type="integer" data-sync="sync" value="2">
+													<span>ループ</span>
+												</span>
+												<span class="mr-2">
+													<input type="radio" name="demand_tight_alarm" value="1" checked="checked">
+													<span>一回のみ</span>
+												</span>
+												<span class="mr-2">
+													<input type="radio" name="demand_tight_alarm" value="0">
+													<span>しない</span>
+												</span>
+											</td>
+										</tr>
+										<!-- 変更・削除機能有無 -->
+										<tr>
+											<td class="bg-zeus">変更・削除機能有無</td>
+											<td>
+												<div class="d-flex">
+													<div class="flex-grow-1 mr-1">
+														<div class="select-unselect">
+															<input id="all-edit_button_display_user" type="checkbox">
+															<label>全選択 / 解除</label>
+														</div>
+														<div class="d-flex">
+															<div class="panel panel-default mb-0 flex-grow-1">
+																<div class="panel-heading">システム管理者</div>
+																<ul class="list-group">
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" name="edit_button_display_user" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" value="Administrator" checked="checked">
+																		<span>Administrator</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" name="edit_button_display_user" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" value="jinyong" checked="checked">
+																		<span>jinyong</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" name="edit_button_display_user" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" value="koba" checked="checked">
+																		<span>koba</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" name="edit_button_display_user" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" value="tateshita" checked="checked">
+																		<span>tateshita</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" name="edit_button_display_user" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" value="tommy" checked="checked">
+																		<span>tommy</span>
+																	</li>
+																</ul>
+															</div>
+															<div class="panel panel-default mb-0 flex-grow-1">
+																<div class="panel-heading">管理者</div>
+																<ul class="list-group">
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" name="edit_button_display_user" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" value="3B" checked="checked">
+																		<span>3B</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" name="edit_button_display_user" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" value="denko" checked="checked">
+																		<span>denko</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" name="edit_button_display_user" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" value="egs" checked="checked">
+																		<span>egs</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" name="edit_button_display_user" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" value="esco" checked="checked">
+																		<span>esco</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" name="edit_button_display_user" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" value="etos" checked="checked">
+																		<span>etos</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" name="edit_button_display_user" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" value="igrid" checked="checked">
+																		<span>igrid</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" name="edit_button_display_user" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" value="ishikawa" checked="checked">
+																		<span>ishikawa</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" name="edit_button_display_user" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" value="techmo" checked="checked">
+																		<span>techmo</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" name="edit_button_display_user" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" value="toho" checked="checked">
+																		<span>tohouser</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" name="edit_button_display_user" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" value="user" checked="checked">
+																		<span>管理者</span>
+																	</li>
+																</ul>
+															</div>
+															<div class="panel panel-default mb-0 flex-grow-1">
+																<div class="panel-heading">一般</div>
+																<ul class="list-group">
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" name="edit_button_display_user" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" value="123" checked="checked">
+																		<span>123</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" name="edit_button_display_user" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" value="enoot" checked="checked">
+																		<span>enoot</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" name="edit_button_display_user" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" value="normal" checked="checked">
+																		<span>normal</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" name="edit_button_display_user" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" value="test" checked="checked">
+																		<span>test</span>
+																	</li>
+																</ul>
+															</div>
+														</div>
+													</div>
+													<div>
+														<button type="button" id="btn-set-edit_button_display_user" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+															設定
+														</button>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 変更・削除機能有無（照明） -->
+										<tr>
+											<td class="bg-zeus">変更・削除機能有無（照明）</td>
+											<td>
+												<div class="d-flex">
+													<div class="flex-grow-1 mr-1">
+														<div class="select-unselect">
+															<input id="all-edit_button_display_user_light" type="checkbox">
+															全選択 / 解除
+														</div>
+														<div class="d-flex">
+															<div class="panel panel-default mb-0 flex-grow-1">
+																<div class="panel-heading">システム管理者</div>
+																<ul class="list-group">
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" name="edit_button_display_user_light" value="Administrator" checked="checked">
+																		<span>Administrator</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" name="edit_button_display_user_light" value="jinyong" checked="checked">
+																		<span>jinyong</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" name="edit_button_display_user_light" value="koba" checked="checked">
+																		<span>koba</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" name="edit_button_display_user_light" value="tateshita" checked="checked">
+																		<span>tateshita</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" name="edit_button_display_user_light" value="tommy" checked="checked">
+																		<span>tommy</span>
+																	</li>
+																</ul>
+															</div>
+															<div class="panel panel-default mb-0 flex-grow-1">
+																<div class="panel-heading">管理者</div>
+																<ul class="list-group">
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" name="edit_button_display_user_light" value="3B" checked="checked">
+																		<span>3B</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" name="edit_button_display_user_light" value="denko" checked="checked">
+																		<span>denko</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" name="edit_button_display_user_light" value="egs" checked="checked">
+																		<span>egs</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" name="edit_button_display_user_light" value="esco" checked="checked">
+																		<span>esco</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" name="edit_button_display_user_light" value="etos" checked="checked">
+																		<span>etos</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" name="edit_button_display_user_light" value="igrid" checked="checked">
+																		<span>igrid</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" name="edit_button_display_user_light" value="ishikawa" checked="checked">
+																		<span>ishikawa</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" name="edit_button_display_user_light" value="techmo" checked="checked">
+																		<span>techmo</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" name="edit_button_display_user_light" value="toho" checked="checked">
+																		<span>tohouser</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" name="edit_button_display_user_light" value="user" checked="checked">
+																		<span>管理者</span>
+																	</li>
+																</ul>
+															</div>
+															<div class="panel panel-default mb-0 flex-grow-1">
+																<div class="panel-heading">一般</div>
+																<ul class="list-group">
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" name="edit_button_display_user_light" value="123" checked="checked">
+																		<span>123</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" name="edit_button_display_user_light" value="enoot" checked="checked">
+																		<span>enoot</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" name="edit_button_display_user_light" value="normal" checked="checked">
+																		<span>normal</span>
+																	</li>
+																	<li class="list-group-item p-1">
+																		<input type="checkbox" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" name="edit_button_display_user_light" value="test" checked="checked">
+																		<span>test</span>
+																	</li>
+																</ul>
+															</div>
+														</div>
+													</div>
+													<div>
+														<button type="button" id="btn-set-edit_button_display_user_light" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+															設定
+														</button>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 初期データクリア -->
+										<tr>
+											<td class="bg-zeus">初期データクリア</td>
+											<td>
+												<div class="d-flex">
+													<div class="flex-grow-1 mr-1">
+														<div class="input-group input-group-sm input-daterange">
+														    <input type="text" id="data-clear-date-from" class="form-control">
+														    <div class="input-group-addon"> - </div>
+														    <input type="text" id="data-clear-date-to" class="form-control">
+														</div>
+														<span id="helpBlock" class="help-block font-weight-normal">
+															エネルギー使用量データ：分、30分、1時間<br>
+															エネルギー削減量データ：30分、1時間<br>
+															環境データ：分、30分、1時間<br>
+														</span>
+														<span id="helpBlock" class="help-block font-weight-normal text-danger">
+															以上の指定された期間内のデータクリアされますのでご注意ください！
+														</span>
+													</div>
+													<div>
+														<button type="button" id="btn-data-clear" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+															データクリア
+														</button>
+													</div>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+									<tbody>
+										<!-- システム導入日時 -->
+										<tr>
+											<td class="bg-zeus">システム導入日</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-system_import_date">2017-04-10</label>
+													</div>
+													<div class="input-group input-group-sm date">
+														<input type="text" id="system_import_date" value="2017-04-10" class="form-control" readonly="readonly">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-system_import_date" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 導入前契約電力 -->
+										<tr>
+											<td class="bg-zeus">導入前契約電力</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-contract_power_before"></label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="integer" data-sync="sync" id="contract_power_before" value="" class="form-control">
+														<span class="input-group-addon">kW</span>
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-contract_power_before" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 電気単価 -->
+										<tr>
+											<td class="bg-zeus">電気単価</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-electric_price">1.09</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<span class="input-group-addon">1kWhあたり</span>
+														<input type="text" data-toggle="ajax-update" data-type="double" data-sync="sync" id="electric_price" value="1.09" class="form-control">
+														<span class="input-group-addon">円</span>
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-electric_price" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 電気料金表示 -->
+										<tr>
+											<td class="bg-zeus">電気料金表示</td>
+											<td>
+												<span class="mr-2">
+													<input type="radio" data-toggle="ajax-update" data-type="integer" data-sync="sync" data-required="required" name="electric_bill_display" value="1">
+													<label>表示</label>						
+												</span>
+												<span class="mr-2">
+													<input type="radio" name="electric_bill_display" value="0" checked="checked">
+													<label>非表示</label>						
+												</span>
+											</td>
+										</tr>
+										<!-- システムロゴ -->
+										<tr>
+											<td class="bg-zeus">システムロゴ</td>
+											<td>
+												<div class="d-flex justify-content-between align-items-center">
+													<select data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="logo_id" class="select-text">
+															<option value="1">ecozeus</option>
+															<option value="2">ecoCloud</option>
+															<option value="3">topCloud</option>
+															<option value="4">enoot</option>
+															<option value="5">3B-EMS</option>
+															<option value="6">Enable-T</option>
+															<option value="7">vems</option>
+															<option value="8">e-Limited</option>
+															<option value="9" selected="selected">ENUDGE</option>
+															<option value="10">ESCO</option>
+															<option value="11">NOAH</option>
+													</select>
+													<button type="button" id="btn-set-logo_id" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+														設定
+													</button>
+												</div>
+											</td>
+										</tr>
+										<!-- ログインパスワード表示機能 -->
+										<tr>
+											<td class="bg-zeus">ログインパスワード表示機能</td>
+											<td>
+												<input type="radio" data-toggle="ajax-update" data-type="integer" data-sync="sync" data-required="required" name="login_pwd_display" value="1">
+												<label class="mr-2">ON</label>
+												<input type="radio" name="login_pwd_display" value="0" checked="checked">
+												<label>OFF</label>
+											</td>
+										</tr>
+										<!-- Copyright表示 -->
+										<tr>
+											<td class="bg-zeus">Copyright 表示</td>
+											<td>
+												<span class="mr-2">
+													<input type="radio" data-toggle="ajax-update" data-type="integer" data-sync="sync" data-required="required" name="copyright_display" value="1">
+													<span>表示</span>
+												</span>
+												<span class="mr-2">
+													<input type="radio" name="copyright_display" value="0" checked="checked">
+													<span>非表示</span>
+												</span>
+											</td>
+										</tr>
+										<!-- システム言語 -->
+										<tr>
+											<td class="bg-zeus">システム言語</td>
+											<td>
+												<div class="d-flex justify-content-between align-items-center">
+													<select data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="system_language" class="select-text">
+															<option value="ja" selected="selected">日本語</option>
+															<option value="en">English</option>
+															<option value="zh_CN">中文（简体）</option>
+															<option value="zh_TW">中文（繁體）</option>
+															<option value="ko">한국어</option>
+													</select>
+													<button type="button" id="btn-set-system_language" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+														設定
+													</button>
+												</div>
+											</td>
+										</tr>
+										<!-- ログイン履歴表示数 -->
+										<tr>
+											<td class="bg-zeus">ログイン履歴表示数</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-display_login_info_count">10</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="integer" data-sync="sync" data-required="required" id="display_login_info_count" value="10" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-display_login_info_count" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 表示単位 -->
+										<tr>
+											<td class="bg-zeus">表示単位</td>
+											<td>
+												<div class="d-flex">
+													<div class="flex-grow-1 d-flex align-items-center">
+														<div class="d-flex flex-wrap">
+																<div class="mr-2">
+																	<input type="checkbox" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" name="display_unit_option" value="elect" checked="checked">
+																	<label>電力</label>
+																</div>
+																<div class="mr-2">
+																	<input type="checkbox" data-visible="y" name="display_unit_option" value="gas" checked="checked">
+																	<label>ガス</label>
+																</div>
+																<div class="mr-2">
+																	<input type="checkbox" data-visible="y" name="display_unit_option" value="crudeOil" checked="checked">
+																	<label>原油換算</label>
+																</div>
+																<div class="mr-2">
+																	<input type="checkbox" data-visible="y" name="display_unit_option" value="water" checked="checked">
+																	<label>水量</label>
+																</div>
+																<div class="mr-2">
+																	<input type="checkbox" data-visible="y" name="display_unit_option" value="heavyOil" checked="checked">
+																	<label>重油</label>
+																</div>
+																<div class="mr-2">
+																	<input type="checkbox" data-visible="y" name="display_unit_option" value="calorie" checked="checked">
+																	<label>熱量</label>
+																</div>
+																<div class="mr-2">
+																	<input type="checkbox" data-visible="y" name="display_unit_option" value="co2" checked="checked">
+																	<label>CO2</label>
+																</div>
+														</div>
+													</div>
+													<div>
+														<button type="button" id="btn-set-display_unit_option" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+															設定
+														</button>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- オプション項目 -->
+										<tr>
+											<td class="bg-zeus">オプション項目</td>
+											<td>
+												<div class="d-flex">
+													<div class="flex-grow-1 d-flex align-items-center">
+														<div class="d-flex flex-wrap">
+															<div class="mr-2">
+																<input type="checkbox" data-toggle="ajax-update" data-type="string" data-sync="sync" data-visible="y" name="monitor_option" value="te" checked="checked">
+																<span>温度</span>
+															</div>
+															<div class="mr-2">
+																<input type="checkbox" data-visible="y" name="monitor_option" value="hu" checked="checked">
+																<span>湿度</span>
+															</div>
+															<div class="mr-2">
+																<input type="checkbox" data-visible="y" name="monitor_option" value="di" checked="checked">
+																<span>不快指数</span>
+															</div>
+															<div class="mr-2">
+																<input type="checkbox" data-visible="y" name="monitor_option" value="il" checked="checked">
+																<span>照度</span>
+															</div>
+															<div class="mr-2">
+																<input type="checkbox" data-visible="y" name="monitor_option" value="co2" checked="checked">
+																<span>CO2</span>
+															</div>
+															<div class="mr-2">
+																<input type="checkbox" data-visible="y" name="monitor_option" value="fr" checked="checked">
+																<span>周波数</span>
+															</div>
+															<div class="mr-2">
+																<input type="checkbox" data-visible="y" name="monitor_option" value="pr" checked="checked">
+																<span>圧力</span>
+															</div>
+														</div>
+													</div>
+													<div>
+														<button type="button" id="btn-set-monitor_option" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+															設定
+														</button>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 制御状況表示期間 -->
+										<tr>
+											<td class="bg-zeus">制御/入力接点状況表示期間</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-control_status_display_span">5,10,15,20,30,40</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="control_status_display_span" value="5,10,15,20,30,40" class="form-control" placeholder="例: 5,10,15,20,25...">
+														<span class="input-group-addon">分</span>
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-control_status_display_span" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 制御状況表示期間 -->
+										<tr>
+											<td class="bg-zeus">通信エラー状況表示期間</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-sensor_error_history_display_span">10,20,30,60,120</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="sensor_error_history_display_span" value="10,20,30,60,120" class="form-control" placeholder="例: 5,10,15,20,25...">
+														<span class="input-group-addon">分</span>
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-sensor_error_history_display_span" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td class="bg-zeus">外部機器無通信時リセット</td>
+											<td>
+												<div class="d-flex justify-content-between align-items-center">
+													<select data-toggle="ajax-update" data-type="string" data-sync="sync" id="reset_node_id">
+														<option value="">選択してください</option>
+															<option value="N0011">A4055_2-0</option>
+															<option value="N0004">A4056_4-0</option>
+															<option value="N0005" selected="selected">A4056_4-1</option>
+															<option value="N0006">A4056_4_2</option>
+															<option value="N0007">A4056_4_3</option>
+															<option value="N0028">A4056_4_4</option>
+															<option value="N0029">A4056_4_5</option>
+															<option value="N0009">R1212_0</option>
+															<option value="N0010">R1212_1</option>
+															<option value="N0031">入力ON時表示</option>
+															<option value="N0032">A4056_4_6</option>
+															<option value="N0033">A4056_4_7</option>
+															<option value="N0034">A4056_4_8</option>
+															<option value="N0035">test control port</option>
+													</select>
+													<button type="button" id="btn-set-reset_node_id" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+														設定
+													</button>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td class="bg-zeus">通信許可プロトコル</td>
+											<td>
+												<div class="d-flex justify-content-between align-items-center" data-root="comPermissionProtocol">
+													<div class="flex-grow-1">
+														<select id="comPermissionProtocol">
+															<option value="">選択してください</option>
+															
+																<option value="1">時分割</option>
+															
+																<option value="2">FC6A</option>
+															
+														</select>
+														<div class="form-group mt-2 mb-0 pr-2 d-none" data-root="comPermissionTimeSharing">
+															<div id="comPermissionTimeSharingError" class="text-danger d-none"></div>
+															<label class="text-info">通信許可時分割設定</label>
+															<input type="text" id="comPermissionTimeSharing" class="form-control input-sm p-1" value="">
+															<span class="help-block mb-0">
+																[0以上58以下の整数A][ハイフン][1以上59以下の整数B](整数A &lt; 整数B)のカンマ区切りの文字列を入力してください。<br>
+																入力例：0-9,20-29,40-49
+															</span>
+														</div>
+														<div class="form-group mt-2 mb-0 d-none" data-root="comPermissionIpAddress">
+															<div class="ip-error text-danger d-none"></div>
+															<label class="text-info">通信許可確認先IPアドレス : ポート番号</label>
+															<div class="form-inline">
+																<div class="form-group">
+																	<input type="text" class="form-control input-sm p-1 ip-address" style="width: 45px;" maxlength="3" value="">
+																</div>
+																<div class="form-group">
+																	<label>.</label>
+																	<input type="text" class="form-control input-sm p-1 ip-address" style="width: 45px;" maxlength="3" value="">
+																</div>
+																<div class="form-group">
+																	<label>.</label>
+																	<input type="text" class="form-control input-sm p-1 ip-address" style="width: 45px;" maxlength="3" value="">
+																</div>
+																<div class="form-group">
+																	<label>.</label>
+																	<input type="text" class="form-control input-sm p-1 ip-address" style="width: 45px;" maxlength="3" value="">
+																</div>
+																<div class="form-group">
+																	<label>:</label>
+																	<input type="text" class="form-control input-sm p-1 ip-port" style="width: 60px;" maxlength="5" value="">
+																</div>
+															</div>
+														</div>
+													</div>
+													<button type="button" id="btnSetComPermissionProtocol" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+														設定
+													</button>
+												</div>
+											</td>
+										</tr>
+										<!-- 温度変化量閾値 -->
+										<tr>
+											<td class="bg-zeus">温度変化量閾値</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-threshold_delta_temperature"></label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="double" data-sync="sync" id="threshold_delta_temperature" value="" class="form-control">
+														<span class="input-group-addon">℃</span>
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-threshold_delta_temperature" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!--  -->
+										<tr>
+											<td class="bg-zeus">湿度変化量閾値</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-threshold_delta_humidity"></label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="double" data-sync="sync" id="threshold_delta_humidity" value="" class="form-control">
+														<span class="input-group-addon">%</span>
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-threshold_delta_humidity" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 注意警報発生通知 -->
+										<tr>
+											<td class="bg-zeus">注意警報発生通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_cautionstart">注意レベル警報が発生しました。施設名称: {0}、現在電力: {1} kW、予測電力: {2} kW、目標電力: {3} kW、限界電力: {4} kW、警戒レベル: ☆ ※引き続きご注意ください。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_cautionstart" value="注意レベル警報が発生しました。施設名称: {0}、現在電力: {1} kW、予測電力: {2} kW、目標電力: {3} kW、限界電力: {4} kW、警戒レベル: ☆ ※引き続きご注意ください。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_cautionstart" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 注意警報解除通知 -->
+										<tr>
+											<td class="bg-zeus">注意警報解除通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_cautionend">注意レベル警報が解除されました。施設名称: {0}、現在電力: {1} kW、予測電力: {2} kW、目標電力: {3} kW、限界電力: {4} kW、警戒レベル: ☆ ※引き続きご注意ください。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_cautionend" value="注意レベル警報が解除されました。施設名称: {0}、現在電力: {1} kW、予測電力: {2} kW、目標電力: {3} kW、限界電力: {4} kW、警戒レベル: ☆ ※引き続きご注意ください。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_cautionend" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 遮断警報発生通知 -->
+										<tr>
+											<td class="bg-zeus">遮断警報発生通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_demandstart">遮断レベル警報が発生しました。施設名称: {0}、現在電力: {1} kW、予測電力: {2} kW、目標電力: {3} kW、限界電力: {4} kW、警戒レベル: ☆☆ ※引き続きご注意ください。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_demandstart" value="遮断レベル警報が発生しました。施設名称: {0}、現在電力: {1} kW、予測電力: {2} kW、目標電力: {3} kW、限界電力: {4} kW、警戒レベル: ☆☆ ※引き続きご注意ください。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_demandstart" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 遮断警報解除通知 -->
+										<tr>
+											<td class="bg-zeus">遮断警報解除通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_demandend">遮断レベル警報が解除されました。施設名称: {0}、現在電力: {1} kW、予測電力: {2} kW、目標電力: {3} kW、限界電力: {4} kW、警戒レベル: ☆☆ ※引き続きご注意ください。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_demandend" value="遮断レベル警報が解除されました。施設名称: {0}、現在電力: {1} kW、予測電力: {2} kW、目標電力: {3} kW、限界電力: {4} kW、警戒レベル: ☆☆ ※引き続きご注意ください。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_demandend" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 限界警報発生通知 -->
+										<tr>
+											<td class="bg-zeus">限界警報発生通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_limitstart">限界レベル警報が発生しました。施設名称: {0}、現在電力: {1} kW、限界電力({2} kW)を超えました。警戒レベル： ☆☆☆ ※契約電力を超過するおそれがあります。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_limitstart" value="限界レベル警報が発生しました。施設名称: {0}、現在電力: {1} kW、限界電力({2} kW)を超えました。警戒レベル： ☆☆☆ ※契約電力を超過するおそれがあります。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_limitstart" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 個別遮断警報発生通知 -->
+										<tr>
+											<td class="bg-zeus">個別遮断警報発生通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_demandstart_individual">個別遮断レベル警報発生（{0}kW）</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_demandstart_individual" value="個別遮断レベル警報発生（{0}kW）" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_demandstart_individual" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 個別遮断警報解除通知 -->
+										<tr>
+											<td class="bg-zeus">個別遮断警報解除通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_demandend_individual">個別遮断レベル警報解除（{0}kW）</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_demandend_individual" value="個別遮断レベル警報解除（{0}kW）" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_demandend_individual" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 電池電圧残量通知 -->
+										<tr>
+											<td class="bg-zeus">電池電圧残量通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_cellvoltage">子機{0}のセンサー{1}の電池電圧が{2}V未満（{3}V）になりました。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_cellvoltage" value="子機{0}のセンサー{1}の電池電圧が{2}V未満（{3}V）になりました。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_cellvoltage" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- ディスク使用率警報 -->
+										<tr>
+											<td class="bg-zeus">ディスク使用率警報</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_checkdisk">子機{0}のディスク使用率が{1}％になりました。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_checkdisk" value="子機{0}のディスク使用率が{1}％になりました。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_checkdisk" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 電力量異常エラー通知 -->
+										<tr>
+											<td class="bg-zeus">電力量異常エラー通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_electricthreshold">エネルギーセンサー{0}の電力量が異常（{1}）です。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_electricthreshold" value="エネルギーセンサー{0}の電力量が異常（{1}）です。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_electricthreshold" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 調光機通信エラー通知 -->
+										<tr>
+											<td class="bg-zeus">調光機通信エラー通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_lightcontrollercomerror">子機{0}と照明{1}間でエラーが発生しました。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_lightcontrollercomerror" value="子機{0}と照明{1}間でエラーが発生しました。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_lightcontrollercomerror" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- EcoKeeper通信エラー通知 -->
+										<tr>
+											<td class="bg-zeus">EcoKeeper通信エラー通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_ecokeepercomerror">子機{0}とEco Keeper {1}間でエラーが発生しました。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_ecokeepercomerror" value="子機{0}とEco Keeper {1}間でエラーが発生しました。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_ecokeepercomerror" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- デマンドセンサー通信エラー通知 -->
+										<tr>
+											<td class="bg-zeus">デマンドセンサー通信エラー通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_demandcomerror">子機{0}とデマンドセンサー{1}間でエラーが発生しました。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_demandcomerror" value="子機{0}とデマンドセンサー{1}間でエラーが発生しました。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_demandcomerror" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 電力量センサー通信エラー通知 -->
+										<tr>
+											<td class="bg-zeus">電力量センサー通信エラー通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_electriccomerror">子機{0}とエネルギーセンサー{1}間でエラーが発生しました。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_electriccomerror" value="子機{0}とエネルギーセンサー{1}間でエラーが発生しました。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_electriccomerror" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 漏電センサー通信エラー通知 -->
+										<tr>
+											<td class="bg-zeus">漏電センサー通信エラー通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_leakcomerror">子機{0}と漏電センサー{1}間でエラーが発生しました。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_leakcomerror" value="子機{0}と漏電センサー{1}間でエラーが発生しました。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_leakcomerror" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 温湿度センサー通信エラー通知 -->
+										<tr>
+											<td class="bg-zeus">温湿度センサー通信エラー通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_tempcomerror">子機{0}と環境センサー{1}間でエラーが発生しました。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_tempcomerror" value="子機{0}と環境センサー{1}間でエラーが発生しました。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_tempcomerror" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- DO通信エラー通知 -->
+										<tr>
+											<td class="bg-zeus">DO通信エラー通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_relaycomerror">子機{0}と出力{1}（ID{2}）間でエラーが発生しました。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_relaycomerror" value="子機{0}と出力{1}（ID{2}）間でエラーが発生しました。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_relaycomerror" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- センサーデータプール通知 -->
+										<tr>
+											<td class="bg-zeus">センサーデータプール通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_datapool">子機{0}のセンサーデータがプールされています。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_datapool" value="子機{0}のセンサーデータがプールされています。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_datapool" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- モジュールJ再起動通知 -->
+										<tr>
+											<td class="bg-zeus">モジュールJ再起動通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_javarestart">子機{0}のモジュールJを再起動しました。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_javarestart" value="子機{0}のモジュールJを再起動しました。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_javarestart" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- サーバー再起動通知 -->
+										<tr>
+											<td class="bg-zeus">サーバー再起動通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_vpsreboot_start">サーバーを再起動します。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_vpsreboot_start" value="サーバーを再起動します。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_vpsreboot_start" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- サーバー再起動完了通知 -->
+										<tr>
+											<td class="bg-zeus">サーバー再起動完了通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_vpsreboot">サーバーを再起動しました。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_vpsreboot" value="サーバーを再起動しました。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_vpsreboot" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 主装置再起動通知 -->
+										<tr>
+											<td class="bg-zeus">主装置再起動通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_reboot_start">子機{0}の機器を再起動します。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_reboot_start" value="子機{0}の機器を再起動します。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_reboot_start" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 主装置再起動完了通知 -->
+										<tr>
+											<td class="bg-zeus">主装置再起動完了通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_reboot">子機{0}の機器を再起動しました。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_reboot" value="子機{0}の機器を再起動しました。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_reboot" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- モジュールV起動失敗通知 -->
+										<tr>
+											<td class="bg-zeus">モジュールV起動失敗通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_virtualhub">子機{0}のモジュールVに関するエラーまたは処理が実行されました。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_virtualhub" value="子機{0}のモジュールVに関するエラーまたは処理が実行されました。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_virtualhub" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- DO変更異常通知 -->
+										<tr>
+											<td class="bg-zeus">DO変更異常通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_relaychange">出力{0}（ID{1}、チャネル{2}）が予期せず{3}に変更されました。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_relaychange" value="出力{0}（ID{1}、チャネル{2}）が予期せず{3}に変更されました。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_relaychange" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- サーバ主装置間通信異常通知 -->
+										<tr>
+											<td class="bg-zeus">サーバ主装置間通信異常通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_communication_ng">子機{0}とサーバー間で通信異常が発生しました。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_communication_ng" value="子機{0}とサーバー間で通信異常が発生しました。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_communication_ng" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- サーバー主装置間通信異常制御解除通知 -->
+										<tr>
+											<td class="bg-zeus">サーバー主装置間通信異常制御解除通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_communication_controloff">子機{0}とサーバー間で通信障害が発生したため制御解除しました。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_communication_controloff" value="子機{0}とサーバー間で通信障害が発生したため制御解除しました。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_communication_controloff" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- サーバー主装置間通信回復制御開始通知 -->
+										<tr>
+											<td class="bg-zeus">サーバー主装置間通信回復制御開始通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_communication_controlon">子機{0}とサーバー間の通信が回復したため制御開始しました。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_communication_controlon" value="子機{0}とサーバー間の通信が回復したため制御開始しました。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_communication_controlon" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 個別エラーログ通知 -->
+										<tr>
+											<td class="bg-zeus">個別エラーログ通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_errorlog">エラーログ{0}が発生しました。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_errorlog" value="エラーログ{0}が発生しました。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_errorlog" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- 個別ログ未記録通知 -->
+										<tr>
+											<td class="bg-zeus">個別ログ未記録通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_nolog">ログ{0}が記録されません。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_nolog" value="ログ{0}が記録されません。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_nolog" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- システム基盤エラー通知 -->
+										<tr>
+											<td class="bg-zeus">システム基盤エラー通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_system">システム基盤エラー（{0}）が発生しました。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_system" value="システム基盤エラー（{0}）が発生しました。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_system" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- システムシャットダウン通知 -->
+										<tr>
+											<td class="bg-zeus">システムシャットダウン通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_shutdown">システムがシャットダウンしました。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_shutdown" value="システムがシャットダウンしました。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_shutdown" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- ストレージエラー通知 -->
+										<tr>
+											<td class="bg-zeus">ストレージエラー通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_smarterror">子機{0}のストレージにエラー（{1}）が発生しました。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_smarterror" value="子機{0}のストレージにエラー（{1}）が発生しました。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_smarterror" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- DBダンプエラー通知 -->
+										<tr>
+											<td class="bg-zeus">DBダンプエラー通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_dbdumperror">データベースエクスポート{0}でエラーが発生しました。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_dbdumperror" value="データベースエクスポート{0}でエラーが発生しました。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_dbdumperror" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- バックアップエラー通知 -->
+										<tr>
+											<td class="bg-zeus">バックアップエラー通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_backuperror">バックアップファイル{0}の送信でエラーが発生しました。</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_backuperror" value="バックアップファイル{0}の送信でエラーが発生しました。" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_backuperror" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<!-- バックアップエラー通知 -->
+										<tr>
+											<td class="bg-zeus">システム稼働状況通知</td>
+											<td>
+												<div class="form-group m-0">
+													<div>
+														<label>現在値 :</label><label id="current-message_serverrunning">システム稼働中</label>
+													</div>
+													<div class="input-group input-group-sm">
+														<input type="text" data-toggle="ajax-update" data-type="string" data-sync="sync" data-required="required" id="message_serverrunning" value="システム稼働中" class="form-control">
+														<span class="input-group-btn">
+															<button type="button" id="btn-set-message_serverrunning" class="btn button-zeus m-0" data-loading-text="<i class='fas fa-spinner fa-spin'></i>">
+																設定
+															</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								
+							</div>
+						</div>
+					</div>
+					<div>
+						<div class="d-flex justify-content-between copyright1">
+							<div>
+								&copy;2010 JIT Consulting
+							</div>
+							<div>
+								<div id="fieldclock" class="font-bold"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- *****************************共通エラーメッセージポップアップ -->
+	<div id="errorPopup" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		      	</div>
+				<div id="errorPopupBody" class="modal-body error">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ____________________________________________共通エラーメッセージポップアップ -->
+	<!-- * 共通メッセージポップアップ -->
+	<div id="modal-msg" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		      	</div>
+				<div class="modal-body msg">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- _ 共通メッセージポップアップ -->
+	<!-- * 共通イメージポップアップ -->
+	<div id="modal-img" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<img style="width: 100%;">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- _ 共通イメージポップアップ -->
+	
+	<script>
+		let reqDemandTightSoundName = '';
+		let reqDemandTightSoundSaveName = '';
+		
+		_zeus.addSubCSS('css/datepicker/1.9.0/bootstrap-datepicker.min.css');
+		
+		_zeus.addSubJS('js/datepicker/1.9.0/bootstrap-datepicker.min.js');
+		_zeus.addSubJS('js/datepicker/1.9.0/bootstrap-datepicker.' + sessionStorage.getItem('sysLanguage') + '.min.js');
+		_zeus.addSubJS('js/jscolor.js');
+		_zeus.addSubJS('js/component/ZeusAjaxUpdates.js');
+		_zeus.addSubJS('js/component/ZeusIpAddress.js');
+		_zeus.addSubJS('js/zeus/systemSetting.list.js');
+		// load main js files first
+		_zeus.loadJS();
+		
+		let app = document.querySelector('#app');
+		let cssClass = app.getAttribute('class');
+		app.setAttribute('class', '');
+	</script>
+</body>
+</html>
