@@ -687,6 +687,50 @@ new AjaxUpdateItems({
 	url: contextPath + 'Rest/SystemSetting/UpdateColumnOne.action'
 });
 
+function ModalConfirm(){
+	this.modal = document.querySelector('#modal-confirm');
+	this.modalBody = this.modal.querySelector('.modal-body');
+	this.btnClose = document.querySelector('.btn.dismiss');
+	this.btnConfirm = document.querySelector('.btn.confirm');
+	
+	// binding events
+	this.btnConfirm.onclick = this.onBtnConfirmClick.bind(this);
+}
+ModalConfirm.prototype = {
+	onBtnConfirmClick: function(){
+		this.hide();
+		$(initialDataClear.btnDataClear).button('loading');
+		setTimeout(this.onDataClearSuccess.bind(this), 3000);
+	},
+	onDataClearSuccess: function(){
+		$(initialDataClear.btnDataClear).button('reset');
+		
+		popupMessage.clear();
+		popupMessage.appendMessage(initialDataClear.toDateText());
+		popupMessage.appendMessage('指定期間のデータが削除されました。');
+		popupMessage.show();
+	},
+	// methods
+	show: function(){
+		$(this.modal).modal('show');
+	},
+	hide: function(){
+		$(this.modal).modal('hide');
+	},
+	clear: function(){
+		this.modalBody.innerHTML = '';
+	},
+	setMessage: function(msg){
+		this.modalBody.innerHTML = msg;
+	},
+	appendMessage: function(msg){
+		let div = document.createElement('div');
+		div.innerText = msg;
+		this.modalBody.appendChild(div);
+	}
+};
+let modalConfirm = new ModalConfirm();
+
 function InitialDataClear(){
 	this.textDateFrom = document.querySelector('#data-clear-date-from');
 	this.textDateTo = document.querySelector('#data-clear-date-to');
@@ -713,19 +757,27 @@ InitialDataClear.prototype = {
 			popupError.appendMessage('終了期間は必須です。');
 			popupError.show();
 		}else{
-			$(this.btnDataClear).button('loading');
-			
-			setTimeout(this.onDataClearSuccess.bind(this), 3000);
+			modalConfirm.clear();
+			modalConfirm.appendMessage(this.toDateText());
+			modalConfirm.appendMessage('指定期間のデータが削除されますがよろしいでしょうか。');
+			modalConfirm.show();
 		}
-	},
-	onDataClearSuccess: function(){
-		$(this.btnDataClear).button('reset');
-		
-		popupMessage.setMessage('データがクリアされました。');
 	},
 	// methods
 	isDateValid: function(){
 		return this.textDateTo.value.trim() === '';
+	},
+	dateFrom: function(){
+		return this.textDateFrom.value.trim();
+	},
+	dateTo: function(){
+		return this.textDateTo.value.trim();
+	},
+	isDateFromEmpty: function(){
+		return this.dateFrom() === '';
+	},
+	toDateText: function(){
+		return this.isDateFromEmpty()? '': (this.dateFrom() + 'から') + this.dateTo() + 'まで';
 	}
 }
 let initialDataClear = new InitialDataClear();
