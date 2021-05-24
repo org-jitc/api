@@ -31,11 +31,240 @@ function tableDataCompareCellStyle(value, row, index){
 	return {};
 }
 
+function TableNodeTotal(){
+	this.arrColumn = [
+		{
+			checkbox: true
+		},{
+			field: 'nodeId',
+			title: fmt.node.id
+		},{
+			field: 'nodeName',
+			title: fmt.node.name
+		},{
+			field: 'arsIdBefore',
+			title: '算出設定（ビフォー）',
+			formatter: this.arsIdBeforeFormatter
+		},{
+			field: 'arsIdAfter',
+			title: '算出設定（アフター）',
+			formatter: this.arsIdAfterFormatter
+		}
+	];
+	this.jqTable = $('#tableNodeTotal');
+	// initialization
+	this.jqTable.bootstrapTable({
+		columns: this.arrColumn,
+		data: [{
+			nodeId: 'N0001',
+			nodeName: 'ノード1',
+			arrArsId: [{
+				arsId: 'ARS0001',
+				arsName: '設定1'
+			},{
+				arsId: 'ARS0002',
+				arsName: '設定2'
+			}]
+		},{
+			nodeId: 'N0002',
+			nodeName: 'ノード2',
+			arrArsId: [{
+				arsId: 'ARS0001',
+				arsName: '設定1'
+			},{
+				arsId: 'ARS0002',
+				arsName: '設定2'
+			}]
+		}],
+		uniqueId: 'nodeId',
+		locale: 'ja-jp'
+	});
+}
+TableNodeTotal.prototype = {
+	// methods
+	getChecked: function(){
+		return this.jqTable.bootstrapTable('getSelections');
+	},
+	arsIdBeforeFormatter: function(value, row){
+		let div = document.createElement('div');
+		
+		if(row.arrArsId !== null){
+			let option;
+			let select = document.createElement('select');
+			select.setAttribute('class', 'form-control input-sm');
+			
+			for(let index in row.arrArsId){
+				option = document.createElement('option');
+				option.value = row.arrArsId[index].arsId;
+				option.text = row.arrArsId[index].arsName;
+				select.appendChild(option);
+			}
+			div.appendChild(select);
+		}else{
+			return null;
+		}
+		return div.innerHTML;
+	},
+	arsIdAfterFormatter: function(value, row){
+		let div = document.createElement('div');
+		
+		if(row.arrArsId !== null){
+			let option;
+			let select = document.createElement('select');
+			select.setAttribute('class', 'form-control input-sm');
+			
+			for(let index in row.arrArsId){
+				option = document.createElement('option');
+				option.value = row.arrArsId[index].arsId;
+				option.text = row.arrArsId[index].arsName;
+				select.appendChild(option);
+			}
+			div.appendChild(select);
+		}else{
+			return null;
+		}
+		return div.innerHTML;
+	}
+};
+
+function TableDataTotal(){
+	this.tableConfig = {
+		columns: [{
+			field: 'datetime',
+			title: '時刻',
+			'class': 'bg-zeus text-center'
+		},{
+			field: 'before',
+			title: 'ビフォー'
+		},{
+			field: 'after',
+			title: 'アフター'
+		}],
+		data: [{
+			datetime: '2021-05-24 00:00'
+		},{
+			datetime: '2021-05-24 00:30'
+		},{
+			datetime: '...'
+		},{
+			datetime: '2021-05-24 23:30'
+		},{
+			datetime: '合計'
+		}],
+		striped: false,
+		height: 400,
+		locale: 'ja-JP',
+		undefinedText: '',
+		showColumns: true,
+		showToggle: true,
+		headerStyle: function(column){
+			
+			if(column.field === 'datetime'){
+				return {
+					css: {
+						'width': '120px',
+						'min-width': '120px',
+						'max-width': '120px'
+					},
+					classes: 'text-center'
+				};
+			}else{
+				return {
+					css: {
+						'width': '120px',
+						'min-width': '120px',
+						'max-width': '120px'
+					},
+					classes: 'text-center'
+				};
+			}
+		}
+	};
+	this.jqTable = $('#table-data-total');
+}
+TableDataTotal.prototype = {
+	// methods
+	init: function(){
+		this.jqTable.bootstrapTable(this.tableConfig);
+	}
+};
+
+function TabTotal(){
+	// data table
+	this.tableDataTotal = new TableDataTotal();
+	// period form
+	this.periodPickerTotal = new ZeusPeriodPicker({
+		r: {
+			name: 'viewSpanTotal',
+			isCallOnChange: false,
+			onchange: function(){
+				periodPickerTotal.refreshDivVisible();
+				periodPickerTotal.refreshDatepickerViewMode();
+			}
+		},
+		periodType: 'list',
+		dateinput: {
+			inputs: [
+				{y: 'yTotal', m: 'mTotal', d: 'dTotal'}
+			],
+			onblur: function(){
+				if(this.dateinput.isValid()){
+					this.datepicker.update(this.dateinput.getMoment().toDate());
+				}
+			}
+		},
+		datepicker: {
+			pickers: ['zeus-datepicker-total'],
+			option: {
+				startView: 'days',
+				minViewMode: 'days',
+				maxViewMode: 'years',
+				todayBtn: 'linked',
+				language: sessionStorage.getItem('sysLanguage'),
+				autoclose: true,
+				todayHighlight: true
+			},
+			onChangeDate: function(e){
+				if(e.date != null) {
+					this.dateinput.setTextDate(e.date.getFullYear(), e.date.getMonth() + 1, e.date.getDate());
+				}
+			}
+		},
+		arrow: {
+			arrows: [
+				{left: 'zeus-arrow-left-total', right: 'zeus-arrow-right-total'}
+			],
+			onClick: function(period){
+				if(period.dateinput.isValid()){
+					let add = this.getAttribute('data-add');
+					let mo = period.dateinput.getMoment();
+					mo.add(add, periodPicker.r.getCheckedValue());
+					period.datepicker.update(mo.toDate());
+					period.dateinput.setTextDate(mo.year(), mo.month() + 1, mo.date());
+				}
+			}
+		}
+	});
+	// buttons
+	this.btnTableTotal = document.querySelector('#btn-table-total');
+	this.btnCSVTotal = document.querySelector('#btn-csv-total');
+	// node table
+	this.tableNodeTotal = new TableNodeTotal();
+	
+	// binding events
+	this.btnTableTotal.onclick = this.onBtnTableTotalClick;
+}
+TabTotal.prototype = {
+	onBtnTableTotalClick: function(){
+		tabTotal.tableDataTotal.init();
+	}
+};
+
 let tableDataCompare = function(){
 	let tableConfig = {
 		striped: false,
 		height: 400,
-		locale: sessionStorage.getItem(STORE_KEY.bootstrapTable.language),
+		locale: 'ja-JP',
 		undefinedText: '',
 		showColumns: true,
 		showToggle: true,
@@ -75,7 +304,7 @@ let tableDataCompare = function(){
 	}
 }();
 
-let tableNode = function(){
+let tableNodeIndividual = function(){
 	let arrColumn = [
 		{
 			radio: true
@@ -93,7 +322,7 @@ let tableNode = function(){
 		columns: arrColumn,
 		data: arrNode,
 		uniqueId: 'nodeId',
-		locale: sessionStorage.getItem(STORE_KEY.bootstrapTable.language),
+		locale: 'ja-JP',
 		search: true,
 		searchAlign: 'left'
 	});
@@ -227,3 +456,5 @@ let buttons = function(){
 		}
 	}
 }();
+
+let tabTotal = new TabTotal();
