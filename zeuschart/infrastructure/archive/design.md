@@ -15,8 +15,9 @@ Ver.1にはメモリ使用量が多いことによってTomcatサーバーの再
 4. 臨時ファイルをレスポンスする
 
 # アーカイブ
+
 |url|マスター|バージョン|
-|-|-|-|
+|:-:|:-:|-:|
 |/zeuschart/Mieruka/Archive/Energy.do|mst_electric_energy_record_realtime|Ver.2|
 |/zeuschart/Mieruka/Archive/Demand.do|mst_electric_energy_record_realtime_demand|Ver.2|
 |/zeuschart/InputInfo/Archive.do|mst_input_status_history|Ver.2|
@@ -26,6 +27,7 @@ Ver.1にはメモリ使用量が多いことによってTomcatサーバーの再
 |/zeuschart/Mieruka/Archive/Env.do|mst_temperature_record_realtime|Ver.2|
 
 # 画面CSV
+
 |url|バージョン|
 |:-:|:-:|
 |/zeuschart/InputInfo/CSV.do|Ver.2|
