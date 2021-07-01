@@ -21,8 +21,8 @@ Ver.1にはメモリ使用量が多いことによってTomcatサーバーの再
 |/zeuschart/Mieruka/Archive/Energy.do|mst_electric_energy_record_realtime|Ver.2|
 |/zeuschart/Mieruka/Archive/Demand.do|mst_electric_energy_record_realtime_demand|Ver.2|
 |/zeuschart/InputInfo/Archive.do|mst_input_status_history|Ver.2|
-||mst_node_status_history|Ver.1|
-||mst_period_data_csv|Ver.1|
+|/zeuschart/ChartViewer?c=2&csvtype=db|mst_node_status_history|Ver.1|
+|/zeuschart/CSVOutput?csvtype=db|mst_electric_energy_record<br>mst_temperature_record|Ver.1|
 ||mst_spp_network_status|Ver.1|
 |/zeuschart/Mieruka/Archive/Env.do|mst_temperature_record_realtime|Ver.2|
 
@@ -31,3 +31,16 @@ Ver.1にはメモリ使用量が多いことによってTomcatサーバーの再
 |メニュー|url|バージョン|
 |-|-|-|
 |入力接点状況|/zeuschart/InputInfo/CSV.do|Ver.2|
+
+# アーカイブするマスターの一日のレコード数：szmpa
+
+|テーブル|バージョン|2021-06-30|2021-06-29|2021-06-28|
+|-|-|-|-|-|
+|mst_input_status_history|Ver.2|531,951|529,299|532,836|
+|mst_node_status_history|Ver.1|446,139|443,883|446,939|
+|mst_temperature_record_realtime|Ver.2|132,483|131,405|134,009|
+|mst_electric_energy_record_realtime|Ver.2|78,884|72,172|72,308|
+|mst_temperature_record|Ver.1|59,040|58,986|59,020|
+|mst_electric_energy_record|Ver.1|57,228|48,946|48,956|
+|mst_electric_energy_record_realtime_demand|Ver.2|7,997|7,914|8,042|
+|mst_spp_network_status|Ver.1|2,535|3,075|2,695|
