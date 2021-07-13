@@ -18,7 +18,7 @@ Ver.1にはメモリ使用量が多いことによってTomcatサーバーの再
 
 |url|マスター|バージョン|
 |-|-|-|
-|/zeuschart/Mieruka/Archive/Energy.do|mst_electric_energy_record_realtime|Ver.2|
+|/zeuschart/Mieruka/Archive/Energy.do?date=yyyy-MM-dd|mst_electric_energy_record_realtime|Ver.2|
 |/zeuschart/Mieruka/Archive/Demand.do|mst_electric_energy_record_realtime_demand|Ver.2|
 |/zeuschart/InputInfo/Archive.do|mst_input_status_history|Ver.2|
 |/zeuschart/ChartViewer?c=2&csvtype=db&fromdate=yyyy-MM-dd,HH:mm<br>redirect:/zeuschart/node/status/archive.do?date=yyyy-MM-dd|mst_node_status_history|Ver.2|
