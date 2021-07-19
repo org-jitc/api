@@ -31,8 +31,8 @@ zeusとzeuschartから除外された全てのjarファイルをtomcat/libに置
 		</tr>
 		<tr>
 			<td>3</td>
-			<td>全てのjarを除外</td>
-			<td>jarを除外しない</td>
+			<td>全て除外</td>
+			<td>除外しない</td>
 			<td>tomcatが正常に起動する</td>
 			<td></td>
 		</tr>
