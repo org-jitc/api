@@ -38,3 +38,15 @@ zeusとzeuschartから除外された全てのjarファイルをtomcat/libに置
 		</tr>
 	</tbody>
 </table>
+
+## warサイズ
+
+||zeus|
+|-|-|
+|jarを含む|34,757KB|
+|jarを含まない|15,894KB|
+
+||zeuschart|
+|-|-|
+|jarを含む|24,890KB|
+|jarを含まない|3,271KB|
