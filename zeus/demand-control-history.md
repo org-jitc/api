@@ -25,7 +25,7 @@
     mst_node_status_history.timestamp = '2021-07-30 17:10:00'
     mst_node_status_history.diff_sec = '30'
 
-    IF (timestamp - diff_sec < 時限) {
+    IF (timestamp - diff_sec < 時限 and 前の時限のレコードが存在する) {
         前の時限.制御時間 = 前の時限.制御時間 + diff_sec
     }
     ```
