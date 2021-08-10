@@ -30,13 +30,50 @@
 
 ## 入力接点状況
 
-||zeus|zeuschart|
-|-|-|-|
-|->|||
-||->||
-|||<ul><li>アーカイブからの場合<ul><li>zipファイルを読み込む（SJIS）</ul></li><li>CSVファイルを作成する（UTF-8）<li>CSVファイルのバイトデータをファイルとしてレスポンス（UTF-8）<li><-</ul>|
-||<ul><li>レスポンスされたデータをバイトデータとして読み込む（エンコードは指定しない）<li>読み込んだバイトデータをファイルとしてレスポンス（UTF-8）<li><-</ul>||
-|<-|||
+<table>
+    <thead>
+        <tr>
+            <th></th><th>zeus</th><th>zeuschart</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>-></td><td></td><td></td>
+        </tr>
+        <tr>
+            <td></td>-><td></td><td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <ul>
+                    <li>アーカイブからの場合</li>
+                    <ul>
+                        <li>zipファイルを読み込む（SJIS）</li>
+                    </ul>
+                    <li>CSVファイルを作成する（UTF-8）</li>
+                    <li>CSVファイルのバイトデータをファイルとしてレスポンス（UTF-8）</li>
+                    <li><-</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <ul>
+                    <li>レスポンスされたデータをバイトデータとして読み込む（エンコードは指定しない）</li>
+                    <li>読み込んだバイトデータをファイルとしてレスポンス（UTF-8）</li>
+                    <li><-</li>
+                </ul>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><-</td><td></td><td></td>
+        </tr>
+    </tbody>
+</table>
 
 ## モニタリング
 
