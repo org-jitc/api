@@ -471,34 +471,198 @@
 
 ## 通信エラー状況
 
-||zeus|zeuschart|
-|-|-|-|
-|->|||
-||->||
-|||<ul><li>CSV文字列を作成する<li>CSV文字列をレスポンスする（システム言語によるエンコード）<li><-|
-||<-||
-|<-|||
+<table>
+    <thead>
+        <tr>
+            <th></th><th>zeus</th><th>zeuschart</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>-></td><td></td><td></td>
+        </tr>
+        <tr>
+            <td></td><td>-></td><td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <ul>
+                    <li>CSV文字列を作成する</li>
+                    <li>CSV文字列をレスポンスする（システム言語によるエンコード）</li>
+                    <li><-</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td></td><td><-</td><td></td>
+        </tr>
+        <tr>
+            <td><-</td><td></td><td></td>
+        </tr>
+    </tbody>
+</table>
 
 ## 期間データ出力
 
-||zeus|zeuschart|
-|-|-|-|
-|->|||
-||->||
-|||<ul><li>アーカイブからの場合<ul><li>zipファイルを読み込む（SJIS）</ul><li>CSVファイルを作成する（システム言語によるエンコード）<li>分粒度の場合<ul><li>zipファイルを作成する（エンコードは指定しない）</ul><li>ファイルのパスをレスポンスする<li><-|
-||<ul><li>レスポンスからファイルのパスを取得する<li>パスでファイルを請求する<li>->||
-|||<ul><li>パスでCSVファイルを読み込む（エンコードは指定しない）<li>読み込んだデータをレスポンスする（UTF-8）|
-|<-|||
+<table>
+    <thead>
+        <tr>
+            <th></th><th>zeus</th><th>zeuschart</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>-></td><td></td><td></td>
+        </tr>
+        <tr>
+            <td></td><td>-></td><td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <ul>
+                    <li>アーカイブからの場合</li>
+                    <ul>
+                        <li>zipファイルを読み込む（SJIS）</li>
+                    </ul>
+                    <li>CSVファイルを作成する（システム言語によるエンコード）</li>
+                    <li>分粒度の場合</li>
+                    <ul>
+                        <li>zipファイルを作成する（エンコードは指定しない）</li>
+                    </ul>
+                    <li>ファイルのパスをレスポンスする</li>
+                    <li><-</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <ul>
+                    <li>レスポンスからファイルのパスを取得する</li>
+                    <li>パスでファイルを請求する</li>
+                    <li>-></li>
+                </ul>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <ul>
+                    <li>パスでCSVファイルを読み込む（エンコードは指定しない）</li>
+                    <li>読み込んだデータをレスポンスする（UTF-8）</li>
+                    <li><-</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td></td><td><-</td><td></td>
+        </tr>
+        <tr>
+            <td><-</td><td></td><td></td>
+        </tr>
+    </tbody>
+</table>
 
 ## 無線通信状況履歴
 
-||zeus|zeuschart|
-|-|-|-|
-|->|||
-||<ul><li>マージの場合<ul><li>画面表示用データを請求する<li>-></ul>||
-|||<ul><li>アーカイブからの場合<ul><li>zipファイルを読み込む（SJIS）</ul><li>画面表示用データを作成する<li>画面表示用データをレスポンスする（UTF-8）<li><-|
-||<ul><ul><li>画面表示用データをレスポンスから取得する<li>JS処理：画面表示用データをBLOBデータに変換する（システム言語によるエンコード）<li>CSVファイルをダウンロードさせる||
-||<ul><li>マージでない場合<ul><li>->||
-|||<ul><li>アーカイブからの場合<ul><li>zipファイルを読み込む（SJIS）</ul><li>CSVファイルを作成する（システム言語によるエンコード）<li>zipファイルを作成する（エンコードは指定しない）<li>zipファイルのurlをレスポンスする<li><-|
-||<ul><ul><li>zipファイルのurlをレスポンスから取得する<li>zipファイルのurlを直接アクセスしてファイルをダウンロードする<li><-||
-|<-|||
+<table>
+    <thead>
+        <tr>
+            <th></th><th>zeus</th><th>zeuschart</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>-></td><td></td><td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <ul>
+                    <li>マージの場合</li>
+                    <ul>
+                        <li>画面表示用データを請求する</li>
+                        <li>-></li>
+                    </ul>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <ul>
+                    <li>アーカイブからの場合</li>
+                    <ul>
+                        <li>zipファイルを読み込む（SJIS）</li>
+                    </ul>
+                    <li>画面表示用データを作成する</li>
+                    <li>画面表示用データをレスポンスする（UTF-8）</li>
+                    <li><-</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <ul>
+                    <ul>
+                        <li>画面表示用データをレスポンスから取得する</li>
+                        <li>JS処理：画面表示用データをBLOBデータに変換する（システム言語によるエンコード）</li>
+                        <li>CSVファイルをダウンロードさせる</li>
+                    </ul>
+                </ul>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <ul>
+                    <li>マージでない場合</li>
+                    <ul>
+                        <li>-></li>
+                    </ul>
+                </ul>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td><td></td>
+            <td>
+                <ul>
+                    <li>アーカイブからの場合</li>
+                    <ul>
+                        <li>zipファイルを読み込む（SJIS）</li>
+                    </ul>
+                    <li>CSVファイルを作成する（システム言語によるエンコード）</li>
+                    <li>zipファイルを作成する（エンコードは指定しない）</li>
+                    <li>zipファイルのurlをレスポンスする</li>
+                    <li><-</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <ul>
+                    <ul>
+                        <li>zipファイルのurlをレスポンスから取得する</li>
+                        <li>zipファイルのurlを直接アクセスしてファイルをダウンロードする</li>
+                        <li><-</li>
+                    </ul>
+                </ul>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><-</td><td></td><td></td>
+        </tr>
+    </tbody>
+</table>
