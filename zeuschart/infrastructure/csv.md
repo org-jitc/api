@@ -24,7 +24,7 @@
         <tr>
             <td><-</td>
         </tr>
-    <tbody>
+    </tbody>
 </table>
 
 ## 入力接点状況
