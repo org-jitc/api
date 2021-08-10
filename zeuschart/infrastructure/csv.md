@@ -41,7 +41,7 @@
             <td>-></td><td></td><td></td>
         </tr>
         <tr>
-            <td></td>-><td></td><td></td>
+            <td></td><td>-></td><td></td>
         </tr>
         <tr>
             <td></td>
@@ -77,13 +77,46 @@
 
 ## モニタリング
 
-||zeus|zeuschart|
-|-|-|-|
-|->|||
-||->||
-|||<ul><li>CSV文字列を作成する<li>CSV文字列をレスポンスする（システム言語によるエンコード）<li><-</ul>|
-||<ul><li>レスポンスデータを読み込む（システム言語によるエンコード）<li>読み込んだデータをレスポンスする（システム言語によるエンコード）<li><-||
-|<-|||
+<table>
+    <thead>
+        <tr>
+            <th></th><th>zeus</th><th>zeuschart</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>-></td><td></td><td></td>
+        </tr>
+        <tr>
+            <td></td><td>-></td><td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <ul>
+                    <li>CSV文字列を作成する</li>
+                    <li>CSV文字列をレスポンスする（システム言語によるエンコード）</li>
+                    <li><-</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <ul>
+                    <li>レスポンスデータを読み込む（システム言語によるエンコード）</li>
+                    <li>読み込んだデータをレスポンスする（システム言語によるエンコード）</li>
+                    <li><-</li>
+                </ul>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><-</td><td></td><td></td>
+        </tr>
+    </tbody>
+</table>
 
 ## モニタリング：「削減電力量」ボタンによるCSV（旧）
 
