@@ -25,12 +25,27 @@ Ver.1にはメモリ使用量が多いことによってTomcatサーバーの再
 |/zeuschart/CSVOutput?csvtype=db&ys=yyyy&ms=M&ds=d<br>redirect:/zeuschart/PeriodOutput/archive/get.do?date=yyyy-MM-dd|mst_electric_energy_record<br>mst_temperature_record|Ver.2|
 |/zeuschart/WirelessStateHistory/GetArchiveCSV.do?archiveDate=yyyy-MM-dd<br>redirect:/zeuschart/spp/network/status/archive/get.do?date=yyyy-MM-dd|mst_spp_network_status|Ver.2|
 |/zeuschart/Mieruka/Archive/Env.do|mst_temperature_record_realtime|Ver.2|
+|/zeuschart/Dimming/Archive.do?date=yyyy-MM-dd|level|Ver.1|
 
 # 画面CSV
 
 |メニュー|url|バージョン|
 |-|-|-|
 |入力接点状況|/zeuschart/InputInfo/CSV.do|Ver.2|
+
+# <mark>アーカイブする（CSVファイルをレスポンス）時のエンコード</mark>
+|url|ファイルエンコード|レスポンスエンコード|BOM|
+|-|-|-|-|
+|/zeuschart/Mieruka/Archive/Energy.do?date=yyyy-MM-dd|UTF-8|UTF-8|無し|
+|/zeuschart/Mieruka/Archive/Demand.do|UTF-8|UTF-8|無し|
+|/zeuschart/InputInfo/Archive.do|UTF-8|UTF-8|無し|
+|/zeuschart/ChartViewer?c=2&csvtype=db&fromdate=yyyy-MM-dd,HH:mm<br>redirect:/zeuschart/node/status/archive.do?date=yyyy-MM-dd|UTF-8|UTF-8|無し|
+|/zeuschart/CSVOutput?csvtype=db&ys=yyyy&ms=M&ds=d<br>redirect:/zeuschart/PeriodOutput/archive/get.do?date=yyyy-MM-dd|UTF-8|UTF-8|無し|
+|/zeuschart/WirelessStateHistory/GetArchiveCSV.do?archiveDate=yyyy-MM-dd<br>redirect:/zeuschart/spp/network/status/archive/get.do?date=yyyy-MM-dd|UTF-8|UTF-8|無し|
+|/zeuschart/Mieruka/Archive/Env.do|UTF-8|UTF-8|無し|
+|/zeuschart/Dimming/Archive.do?date=yyyy-MM-dd|文字列|UTF-8|無し|
+
+# 画面CSV
 
 # アーカイブするマスターの一日のレコード数：szmpa
 
