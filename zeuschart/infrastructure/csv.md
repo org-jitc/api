@@ -1,11 +1,31 @@
 # <mark>CSV出力・レポート出力の文字コード</mark>
 ## 通知情報
 
-||zeus|zeuschart|
-|-|-|-|
-|->|||
-||<ul><li>CSV文字列を作成</li><li>CSV文字列をレスポンス（システム言語によるエンコード）</li><li><-</li></ul>|
-|<-|||
+<table>
+    <thead>
+        <tr>
+            <th></th><th>zeus</th><th>zeuschart</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>-></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <ul>
+                    <li>CSV文字列を作成
+                    <li>CSV文字列をレスポンス（システム言語によるエンコード）
+                    <li><-
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td><-</td>
+        </tr>
+    <tbody>
+</table>
 
 ## 入力接点状況
 
