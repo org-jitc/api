@@ -34,6 +34,7 @@ Ver.1にはメモリ使用量が多いことによってTomcatサーバーの再
 |入力接点状況|/zeuschart/InputInfo/CSV.do|Ver.2|
 
 # <mark>アーカイブする（CSVファイルをレスポンス）時のエンコード</mark>
+
 |url|ファイルエンコード|レスポンスエンコード|BOM|
 |-|-|-|-|
 |/zeuschart/Mieruka/Archive/Energy.do?date=yyyy-MM-dd|UTF-8|UTF-8|無し|
@@ -57,5 +58,5 @@ Ver.1にはメモリ使用量が多いことによってTomcatサーバーの再
 |mst_electric_energy_record_realtime|Ver.2|78,884|72,172|72,308|
 |mst_temperature_record|Ver.1|59,040|58,986|59,020|
 |mst_electric_energy_record|Ver.1|57,228|48,946|48,956|
-|mst_electric_energy_record_realtime_demand|Ver.2|7,997|7,914|8,042|
+|mst_electric_energy_record_realtime_demand|Ver.2|7,997|7,914|8,042|u
 |mst_spp_network_status|Ver.1|2,535|3,075|2,695|
