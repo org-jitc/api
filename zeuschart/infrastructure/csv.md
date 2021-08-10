@@ -323,38 +323,151 @@
 
 ## 空調冷凍制御：設定情報出力
 
-||zeus|zeuschart|
-|-|-|-|
-|->|||
-||<ul><li>CSV文字列を作成する<li>CSV文字列をレスポンスする（システム言語によるエンコード）<li><-||
-|<-|||
+<table>
+    <thead>
+        <tr>
+            <th></th><th>zeus</th><th>zeuschart</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>-></td><td></td><td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <ul>
+                    <li>CSV文字列を作成する</li>
+                    <li>CSV文字列をレスポンスする（システム言語によるエンコード）</li>
+                    <li><-</li>
+                </ul>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><-</td><td></td><td></td>
+        </tr>
+    </tbody>
+</table>
 
 ## 出力管理：設定情報出力
 
-||zeus|zeuschart|
-|-|-|-|
-|->|||
-||<ul><li>CSV文字列を作成する<li>CSV文字列をレスポンスする（システム言語によるエンコード）<li><-||
-|<-|||
+<table>
+    <thead>
+        <tr>
+            <th></th><th>zeus</th><th>zeuschart</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>-></td><td></td><td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <ul>
+                    <li>CSV文字列を作成する</li>
+                    <li>CSV文字列をレスポンスする（システム言語によるエンコード）</li>
+                    <li><-</li>
+                </ul>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><-</td><td></td><td></td>
+        </tr>
+    </tbody>
+</table>
 
 ## 環境センサー：設定情報出力
 
-||zeus|zeuschart|
-|-|-|-|
-|->|||
-||<ul><li>CSV文字列を作成する<li>CSV文字列をレスポンスする（システム言語によるエンコード）<li><-||
-|<-|||
+<table>
+    <thead>
+        <tr>
+            <th></th><th>zeus</th><th>zeuschart</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>-></td><td></td><td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <ul>
+                    <li>CSV文字列を作成する</li>
+                    <li>CSV文字列をレスポンスする（システム言語によるエンコード）</li>
+                    <li><-</li>
+                </ul>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><-</td><td></td><td></td>
+        </tr>
+    </tbody>
+</table>
 
 ## 調光制御履歴
 
-||zeus|zeuschart|
-|-|-|-|
-|->|||
-||->||
-|||<ul><li>アーカイブからの場合<ul><li>zipファイルを読み込む（SJIS）</ul><li>CSVファイルを作成する（システム言語によるエンコード）<li>CSVファイルのパスをレスポンスする<li><-|
-||<ul><li>レスポンスからCSVファイルのパスを取得する<li>パスでCSVファイルを請求する<li>->||
-|||<ul><li>パスでCSVファイルを読み込む（エンコードは指定しない）<li>読み込んだデータをレスポンスする（UTF-8）|
-|<-|||
+<table>
+    <thead>
+        <tr>
+            <th></th><th>zeus</th><th>zeuschart</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>-></td><td></td><td></td>
+        </tr>
+        <tr>
+            <td></td><td>-></td><td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <ul>
+                    <li>アーカイブからの場合</li>
+                    <ul>
+                        <li>zipファイルを読み込む（SJIS）</li>
+                    </ul>
+                    <li>CSVファイルを作成する（システム言語によるエンコード）</li>
+                    <li>CSVファイルのパスをレスポンスする</li>
+                    <li><-</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <ul>
+                    <li>レスポンスからCSVファイルのパスを取得する</li>
+                    <li>パスでCSVファイルを請求する</li>
+                    <li>-></li>
+                </ul>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <ul>
+                    <li>パスでCSVファイルを読み込む（エンコードは指定しない）</li>
+                    <li>読み込んだデータをレスポンスする（UTF-8）</li>
+                    <li><-</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td></td><td><-</td><td></td>
+        </tr>
+        <tr>
+            <td><-</td><td></td><td></td>
+        </tr>
+    </tbody>
+</table>
 
 ## 通信エラー状況
 
