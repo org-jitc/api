@@ -28,53 +28,6 @@
     </tbody>
 </table>
 
-## 入力接点状況
-
-<table>
-    <thead>
-        <tr>
-            <th></th><th>zeus</th><th>zeuschart</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>-></td><td></td><td></td>
-        </tr>
-        <tr>
-            <td></td><td>-></td><td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td>
-                <ul>
-                    <li>アーカイブからの場合</li>
-                    <ul>
-                        <li>zipファイルを読み込む（SJIS）</li>
-                    </ul>
-                    <li>CSVファイルを作成する（UTF-8）</li>
-                    <li>CSVファイルのバイトデータをファイルとしてレスポンス（UTF-8）</li>
-                    <li><-</li>
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                <ul>
-                    <li>レスポンスされたデータをバイトデータとして読み込む（エンコードは指定しない）</li>
-                    <li>読み込んだバイトデータをファイルとしてレスポンス（UTF-8）</li>
-                    <li><-</li>
-                </ul>
-            </td>
-            <td></td>
-        </tr>
-        <tr>
-            <td><-</td><td></td><td></td>
-        </tr>
-    </tbody>
-</table>
-
 ## モニタリング
 
 <table>
@@ -204,6 +157,71 @@
     </tbody>
 </table>
 
+## 期間データ出力
+
+<table>
+    <thead>
+        <tr>
+            <th></th><th>zeus</th><th>zeuschart</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>-></td><td></td><td></td>
+        </tr>
+        <tr>
+            <td></td><td>-></td><td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <ul>
+                    <li>アーカイブからの場合</li>
+                    <ul>
+                        <li>zipファイルを読み込む（SJIS）</li>
+                    </ul>
+                    <li>CSVファイルを作成する（システム言語によるエンコード）</li>
+                    <li>分粒度の場合</li>
+                    <ul>
+                        <li>zipファイルを作成する（エンコードは指定しない）</li>
+                    </ul>
+                    <li>ファイルのパスをレスポンスする</li>
+                    <li><-</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <ul>
+                    <li>レスポンスからファイルのパスを取得する</li>
+                    <li>パスでファイルを請求する</li>
+                    <li>-></li>
+                </ul>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <ul>
+                    <li>パスでCSVファイルを読み込む（エンコードは指定しない）</li>
+                    <li>読み込んだデータをレスポンスする（UTF-8）</li>
+                    <li><-</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td></td><td><-</td><td></td>
+        </tr>
+        <tr>
+            <td><-</td><td></td><td></td>
+        </tr>
+    </tbody>
+</table>
+
 ## 制御状況
 
 <table>
@@ -257,7 +275,7 @@
     </tbody>
 </table>
 
-## レポート送信設定：レポートダウンロード
+## 入力接点状況
 
 <table>
     <thead>
@@ -277,8 +295,12 @@
             <td></td>
             <td>
                 <ul>
-                    <li>レポートファイルを作成する（エンコードは指定しない）</li>
-                    <li>作成されたレポートファイルのurlをレスポンスする</li>
+                    <li>アーカイブからの場合</li>
+                    <ul>
+                        <li>zipファイルを読み込む（SJIS）</li>
+                    </ul>
+                    <li>CSVファイルを作成する（UTF-8）</li>
+                    <li>CSVファイルのバイトデータをファイルとしてレスポンス（UTF-8）</li>
                     <li><-</li>
                 </ul>
             </td>
@@ -287,29 +309,8 @@
             <td></td>
             <td>
                 <ul>
-                    <li>レポートファイルのurlをレスポンスから取得する</li>
-                    <li>-></li>
-                </ul>
-            </td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td>
-                <ul>
-                    <li>レポートファイルのurlによりレポートファイルを読み込む</li>
-                    <li>読み込んだデータをレスポンスする（エンコードは指定しない）</li>
-                    <li><-</li>
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                <ul>
-                    <li>レスポンスデータを読み込む（エンコードは指定しない）</li>
-                    <li>読み込んだデータをレスポンスする（システム言語によるエンコード）</li>
+                    <li>レスポンスされたデータをバイトデータとして読み込む（エンコードは指定しない）</li>
+                    <li>読み込んだバイトデータをファイルとしてレスポンス（UTF-8）</li>
                     <li><-</li>
                 </ul>
             </td>
@@ -469,6 +470,70 @@
     </tbody>
 </table>
 
+## レポート送信設定：レポートダウンロード
+
+<table>
+    <thead>
+        <tr>
+            <th></th><th>zeus</th><th>zeuschart</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>-></td><td></td><td></td>
+        </tr>
+        <tr>
+            <td></td><td>-></td><td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <ul>
+                    <li>レポートファイルを作成する（エンコードは指定しない）</li>
+                    <li>作成されたレポートファイルのurlをレスポンスする</li>
+                    <li><-</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <ul>
+                    <li>レポートファイルのurlをレスポンスから取得する</li>
+                    <li>-></li>
+                </ul>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <ul>
+                    <li>レポートファイルのurlによりレポートファイルを読み込む</li>
+                    <li>読み込んだデータをレスポンスする（エンコードは指定しない）</li>
+                    <li><-</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <ul>
+                    <li>レスポンスデータを読み込む（エンコードは指定しない）</li>
+                    <li>読み込んだデータをレスポンスする（システム言語によるエンコード）</li>
+                    <li><-</li>
+                </ul>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><-</td><td></td><td></td>
+        </tr>
+    </tbody>
+</table>
+
 ## 通信エラー状況
 
 <table>
@@ -491,71 +556,6 @@
                 <ul>
                     <li>CSV文字列を作成する</li>
                     <li>CSV文字列をレスポンスする（システム言語によるエンコード）</li>
-                    <li><-</li>
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td></td><td><-</td><td></td>
-        </tr>
-        <tr>
-            <td><-</td><td></td><td></td>
-        </tr>
-    </tbody>
-</table>
-
-## 期間データ出力
-
-<table>
-    <thead>
-        <tr>
-            <th></th><th>zeus</th><th>zeuschart</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>-></td><td></td><td></td>
-        </tr>
-        <tr>
-            <td></td><td>-></td><td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td>
-                <ul>
-                    <li>アーカイブからの場合</li>
-                    <ul>
-                        <li>zipファイルを読み込む（SJIS）</li>
-                    </ul>
-                    <li>CSVファイルを作成する（システム言語によるエンコード）</li>
-                    <li>分粒度の場合</li>
-                    <ul>
-                        <li>zipファイルを作成する（エンコードは指定しない）</li>
-                    </ul>
-                    <li>ファイルのパスをレスポンスする</li>
-                    <li><-</li>
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                <ul>
-                    <li>レスポンスからファイルのパスを取得する</li>
-                    <li>パスでファイルを請求する</li>
-                    <li>-></li>
-                </ul>
-            </td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td>
-                <ul>
-                    <li>パスでCSVファイルを読み込む（エンコードは指定しない）</li>
-                    <li>読み込んだデータをレスポンスする（UTF-8）</li>
                     <li><-</li>
                 </ul>
             </td>
