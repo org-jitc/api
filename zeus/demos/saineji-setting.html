@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache,must-revalidate">
+	<meta http-equiv="Expires" content="0">
+	<!--如果是IE，会使用最新的渲染引擎进行渲染-->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<link href="./css/font-awesome/css/all.min.css" rel="stylesheet">
+	<link href="./css/bootstrap/bootstrap.min.css" rel="stylesheet">
+	<link href="./css/override.css" rel="stylesheet"/>
+	<link href="./css/css.css" rel="stylesheet">
+	<link href="./css/enoot.css" rel="stylesheet">
+	
+	<script type="text/javascript" src="./js/LAB.min.js"></script>
+	<script>
+		let contextPath = './';
+		let js_ver = '0000';
+		// system encoding
+		var systemEncode = 'SJIS';
+		sessionStorage.setItem('systemEncode', systemEncode);
+		// system language
+		var sysLanguage = 'ja';
+		sessionStorage.setItem('sysLanguage', sysLanguage);
+		// bootstrap color picker option
+		var btpColorPickerOption = {format: 'hex'};
+		sessionStorage.setItem('btpColorPickerOption', btpColorPickerOption);
+		// 
+		let formAction = null;
+		let zeusStore = {};
+		//-> set server sync system param
+		zeusStore.serverSync = {};
+		zeusStore.serverSync.hasComponent = 'false' == 'true';
+		if(zeusStore.serverSync.hasComponent){
+			zeusStore.serverSync.serverSyncCheck = 'true';
+		}
+		//<- set server sync system param
+	</script>
+	<script src="./js/import/zeus.js"></script>
+
+	<title>
+		デモ&nbsp;-&nbsp;サイネージ設定
+	</title>
+</head>
+<body>
+	<div id="app" class="hide">
+		<div class="d-flex justify-content-center">
+			<div class="template-container">
+				<div class="d-flex flex-column" style="min-height: 100vh;">
+					<div class="zeus-frame-line-bottom py-4">
+						
+						<div class="d-flex justify-content-between align-items-center">
+							<img src="./images/ecoCloud_headlogo.gif" height="51" onerror="$(this).hide();"/>
+							<div class="align-self-end d-flex align-items-end">
+								<div>
+									<span class="test-user1">demo-user</span>&nbsp;|&nbsp;
+									<span class="login1" style="font-size:12px;color:#808080;">
+										ログアウト
+									</span>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					<div class="d-flex flex-grow-1">
+						<div class="template-menu-td zeus-frame-line-bottom" align="left">
+							
+							<div class="zeus-menu-nav mt-3">
+								<div class="active menu-level${menuMap.value.level}">
+									サイネージ設定
+								</div>
+							</div>
+							
+						</div>
+						<div class="template-content-td zeus-frame-line-left zeus-frame-line-bottom">
+							<div class="width-720">
+								
+								<!-- content -->
+								<!-- Nav tabs -->
+								<ul class="nav nav-tabs" role="tablist">
+								    <li role="presentation" class="active"><a href="#zeus" aria-controls="zeus" role="tab" data-toggle="tab">エヌート</a></li>
+								</ul>
+								
+								<!-- Tab panes -->
+								<div class="tab-content">
+								    <div role="tabpanel" class="tab-pane active" id="enoot">
+										<table class="table table-sm mt-3 table-bordered font-bold">
+											<tbody>
+												<tr>
+													<td width="35%" class="td-with-bg">電力使用状況表示パターン</td>
+													<td>
+														<select id="powerUsageDisplayPattern" class="select-text">
+															<option value="">選択してください</option>
+															<option value="normal">通常（削減表示あり）</option>
+															<option value="2split">全体＋2分割表示</option>
+														</select>
+													</td>
+												</tr>
+											</tbody>
+											<tbody id="twoSplit" class="d-none">
+												<tr>
+													<td colspan="2" class="td-with-bg" align="center">全体＋2分割表示設定</td>
+												</tr>
+												<tr>
+													<td class="td-with-bg">第一項目</td>
+													<td>
+														<div class="form-group form-group-sm">
+															<label for="exampleInputEmail1">名称</label>
+															<input type="text" class="form-control" value="全体電力使用量">
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td class="td-with-bg">第二項目</td>
+													<td>
+														<div class="form-group form-group-sm">
+															<label for="exampleInputEmail1">名称</label>
+															<input type="text" class="form-control" value="既設第一キュービクル">
+														</div>
+														<div class="form-group form-group-sm">
+															<label for="exampleInputEmail1">エネルギーセンサー</label>
+															<select class="form-control">
+																<option value="">センサー1</option>
+																<option value="">センサー2</option>
+																<option value="">センサー3</option>
+																<option value="">センサー4</option>
+																<option value="">センサー5</option>
+																<option value="">センサー6</option>
+															</select>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td class="td-with-bg">第三項目</td>
+													<td>
+														<div class="form-group form-group-sm">
+															<label for="exampleInputEmail1">名称</label>
+															<input type="text" class="form-control" value="第二工場（太陽光発電含む）">
+														</div>
+														<div class="form-group form-group-sm">
+															<label for="exampleInputEmail1">エネルギーセンサー</label>
+															<select class="form-control">
+																<option value="">センサー1</option>
+																<option value="">センサー2</option>
+																<option value="">センサー3</option>
+																<option value="">センサー4</option>
+																<option value="">センサー5</option>
+																<option value="">センサー6</option>
+															</select>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+					<div>
+						<div class="d-flex justify-content-between copyright1">
+							<div>
+								&copy;2010 JIT Consulting
+							</div>
+							<div>
+								<div id="fieldclock" class="font-bold"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="settingInfoImportDiv" class="modal fade" role="dialog">
+		<div class="modal-dialog" style="max-width: 500px;">
+			<div class="modal-content">
+				<div class="modal-body">
+					<iframe id="settingInfoImportFrame" scrolling="no" style="width: 100%; border: 0;"></iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="modal-settingInfoImport" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">設定情報入力</h4>
+				</div>
+				
+				<div class="modal-body">
+					<form id="form-settingInfoImport" enctype="multipart/form-data">
+						<div id="div-error-settingInfoImport" class="text-danger"></div>
+						<div class="form-group">
+						    <label class="text-info">ファイル</label>
+						    <input type="file" id="file-settingInfoImport" name="settingImportFile" accept=".csv">
+					  	</div>
+					</form>
+				</div>
+				
+				<div class="modal-footer">
+					<div class="btn-group btn-group-sm">
+    	    			<button type="button" id="btn-settingInfoUpload" class="btn button-zeus m-0">
+    	    				アップロード
+    	    			</button>
+						<button type="button" class="btn button-zeus m-0" data-dismiss="modal">
+							<fmt:message key='window.electricEnergySensor.button.cancel'/>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- **********************電池交換日履歴関連  -->
+	<div id="batteryExchangeInsertConfirmModal" class="modal fade" role="dialog">
+		<div class="modal-dialog" style="max-width: 300px;">
+			<div class="modal-content">
+		    	<div class="modal-header text-left" align="left">
+		      		<h4 class="modal-title bg1-word1">電池交換日登録確認</h4>
+		    	</div>
+		    	
+		    	<div class="modal-body bg1-word1">
+		      		<p>電池交換日: <span id="batteryExchangeDateConfirmSpan"></span></p>
+		      		<input id="sensorIdHidden" type="hidden"> 
+	    		</div>
+	    		
+		    	<div class="modal-footer">
+		      		<button type="button" class="btn button-zeus" onclick="insertBatteryExchangeDate();">登 録</button>
+		      		<button type="button" class="btn button-zeus" data-dismiss="modal">キャンセル</button>
+		    	</div>
+		  	</div>
+		</div>
+	</div>
+
+	<div id="batteryExchangeDeleteConfirmModal" class="modal fade" role="dialog">
+		<div class="modal-dialog" style="max-width: 300px;">
+		  	<div class="modal-content">
+		    	<div class="modal-header">
+			      	<h4 class="modal-title bg1-word1" style="text-align: left;">電池交換日削除確認</h4>
+			    </div>
+			    
+			    <div class="modal-body bg1-word1">
+			      	<p>電池交換日: <span id="batteryExchangeDateDeleteConfirmSpan"></span></p>
+			      	<input id="sensorIdDeleteHidden" type="hidden"> 
+			    </div>
+			    
+			    <div class="modal-footer">
+			     	<button type="button" class="btn button-zeus" onclick="deleteBatteryExchangeDate();">削 除</button>
+			      	<button type="button" class="btn button-zeus" data-dismiss="modal">キャンセル</button>
+			    </div>
+		  	</div>
+		</div>
+	</div>
+	<!-- _____________________________電池交換日履歴関連  -->
+	
+	<!-- *****************************共通エラーメッセージポップアップ -->
+	<div id="errorPopup" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		      	</div>
+				<div id="errorPopupBody" class="modal-body error">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ____________________________________________共通エラーメッセージポップアップ -->
+	<!-- * 共通メッセージポップアップ -->
+	<div id="modal-msg" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		      	</div>
+				<div class="modal-body msg">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- _ 共通メッセージポップアップ -->
+	<!-- * 共通イメージポップアップ -->
+	<div id="modal-img" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<img style="width: 100%;">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- _ 共通イメージポップアップ -->
+	
+	<script>
+		// load main js files first
+		_zeus.loadJS();
+		
+		let app = document.querySelector('#app');
+		let cssClass = app.getAttribute('class');
+		app.setAttribute('class', '');
+
+		function SainejiSettingEnoot(){
+			this.ui = {
+				selects: {
+					powerUsageDisplayPattern: document.querySelector('#powerUsageDisplayPattern')
+				},
+				tbodys: {
+					twoSplit: document.querySelector('#twoSplit')
+				}
+			};
+			// binding events
+			this.ui.selects.powerUsageDisplayPattern.onchange = this.onPowerUsageDisplayPatternChange.bind(this);
+		}
+		SainejiSettingEnoot.prototype = {
+			// events
+			onPowerUsageDisplayPatternChange: function(){
+
+				if(this.ui.selects.powerUsageDisplayPattern.value === '2split'){
+					zeus.showElement(this.ui.tbodys.twoSplit);
+				}else{
+					zeus.hideElement(this.ui.tbodys.twoSplit);
+				}
+			}
+		};
+		// initialization
+		const sainejiSettingEnoot = new SainejiSettingEnoot();
+	</script>
+</body>
+</html>
