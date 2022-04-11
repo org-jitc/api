@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache,must-revalidate">
+	<meta http-equiv="Expires" content="0">
+	<!--如果是IE，会使用最新的渲染引擎进行渲染-->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+	<script>
+		let contextPath = './';
+		let js_ver = '0000';
+		// system encoding
+		var systemEncode = 'SJIS';
+		sessionStorage.setItem('systemEncode', systemEncode);
+		// system language
+		var sysLanguage = 'ja';
+		sessionStorage.setItem('sysLanguage', sysLanguage);
+		// bootstrap color picker option
+		var btpColorPickerOption = {format: 'hex'};
+		sessionStorage.setItem('btpColorPickerOption', btpColorPickerOption);
+		// 
+		let formAction = null;
+		let zeusStore = {};
+		//-> set server sync system param
+		zeusStore.serverSync = {};
+		zeusStore.serverSync.hasComponent = 'false' == 'true';
+		if(zeusStore.serverSync.hasComponent){
+			zeusStore.serverSync.serverSyncCheck = 'true';
+		}
+		//<- set server sync system param
+	</script>
+
+	<style>
+		:root {
+			--img-normal-width: 16%;
+			--img-normal-up-top: 28%;
+			--img-arrow-width: 12%;
+		}
+
+		#panel {
+			font-size: 12px;
+			width: 100%;
+			height: 100%;
+			min-width: 800px;
+			min-height: 600px;
+			padding: 2%;
+		}
+		#panel-title{
+			height: 16%;
+		}
+		#panel-title-main{
+			height: 60%;
+		}
+		#panel-title-sub{
+			height: 40%
+		}
+
+		#panel-body-images{
+			width: 65%;
+		}
+		#panel-body-images > #panel-body-images-down {
+			padding-top: 2%;
+		}
+		#panel-body-images > #panel-body-images-down > #panel-body-buy {
+			width: 30%;
+		}
+		#panel-body-images > #panel-body-images-down > #panel-body-charge-release {
+			width: 30%;
+			padding-left: 1%;
+			padding-right: 1%;
+			padding-top: 2%; 
+		}
+		#panel-body-images > #panel-body-images-down > #panel-body-charge-release > div {
+			width: 30%;
+		}
+		#panel-body-images > #panel-body-images-down > #panel-body-generation {
+			width: 40%;
+		}
+		#panel-body-pie {
+			width: 35%;
+		}
+
+		.pg-img {
+			top: 0;
+			left: 0;
+		}
+		.pg-img-tower {
+			width: var(--img-normal-width);
+			top: var(--img-normal-up-top);
+			left: 7%;
+		}
+		.pg-img-skyline {
+			width: var(--img-normal-width);
+			top: var(--img-normal-up-top);
+			left: 37%;
+		}
+		.pg-img-solar-panel {
+			width: var(--img-normal-width);
+			top: var(--img-normal-up-top);
+			left: 72%;
+		}
+		.pg-img-battery-status {
+			width: var(--img-normal-width);
+			top: 67%;
+			left: 37%;
+		}
+		.pg-img-left-arrow {
+			width: var(--img-arrow-width);
+			top: 33%;
+			left: 24%;
+		}
+		.pg-img-right-arrow {
+			width: var(--img-arrow-width);
+			top: 33%;
+			left: 56.5%;
+		}
+		.pg-img-up-down-arrow {
+			width: var(--img-arrow-width);
+			top: 52%;
+			left: 39%;
+		}
+	</style>
+
+	<title>
+		発電監視
+	</title>
+</head>
+<body>
+	<div class="vw-100 vh-100 d-flex justify-content-center align-items-center">
+		<div id="panel" class="d-flex flex-column bg-info bg-opacity-50">
+
+			<div id="panel-title">
+
+				<div id="panel-title-main" class="d-flex justify-content-center align-items-center" align="center">
+					<label id="text-main-title" class="pg-font-element pg-font-main-title">買電量・発電量・蓄電量監視</label>
+				</div>
+
+				<div id="panel-title-sub" class="d-flex align-items-center py-2">
+					<label id="text-sub-title" class="pg-font-element pg-font-sub-title">全体電力監視</label>
+				</div>
+
+			</div>
+
+			<div id="panel-body" class="flex-grow-1 border border-dark d-flex pg-font-element pg-font-normal">
+
+				<div id="panel-body-images" class="border-dark d-flex align-items-end position-relative">
+					<img src="./images/powerGeneration/tower.png" alt="" class="position-absolute pg-img pg-img-tower">
+					<img src="./images/powerGeneration/skyline.png" alt="" class="position-absolute pg-img pg-img-skyline">
+					<img src="./images/powerGeneration/solar-panel.png" alt="" class="position-absolute pg-img pg-img-solar-panel">
+					<img src="./images/powerGeneration/battery-status.png" alt="" class="position-absolute pg-img pg-img-battery-status">
+					<img src="./images/powerGeneration/left-arrow.png" alt="" class="position-absolute pg-img pg-img-left-arrow">
+					<img src="./images/powerGeneration/right-arrow.png" alt=""class="position-absolute pg-img pg-img-right-arrow">
+					<img src="./images/powerGeneration/up-down.png" alt="" class="position-absolute pg-img pg-img-arrow pg-img-up-down-arrow">
+
+					<div id="panel-body-images-down" class="w-100 h-50 d-flex justify-content-between">
+
+						<div id="panel-body-buy" align="center">
+							
+							<table class="table table-sm w-auto table-bordered border-dark text-center">
+								<tbody>
+									<tr>
+										<td class="bg-success bg-opacity-25">買電電力</td>
+										<td>
+											<label>50</label>kW
+										</td>
+									</tr>
+									<tr>
+										<td class="bg-success bg-opacity-25">供給率</td>
+										<td>
+											<label>60</label>%
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+						</div>
+
+						<div id="panel-body-charge-release" class="text-center d-flex justify-content-between">
+
+							<div id="panel-body-charge">
+								<div>放電</div>
+								<div>
+									<label>10</label>kW
+								</div>
+							</div>
+
+							<div id="panel-body-release">
+								<div>充電</div>
+								<div>
+									<label>10</label>kW
+								</div>
+							</div>
+
+						</div>
+						
+						<div id="panel-body-generation" class="px-2" align="center" style="width: 40%">
+							<table class="table table-sm w-auto table-bordered border-dark text-center">
+								<tbody>
+									<tr>
+										<td class="bg-success bg-opacity-25">発電電力（瞬時）</td>
+										<td><label>100</label>kW</td>
+									</tr>
+									<tr>
+										<td class="bg-success bg-opacity-25">当時限の発電電力量</td>
+										<td><label>30</label>kWh</td>
+									</tr>
+									<tr>
+										<td class="bg-success bg-opacity-25">供給率</td>
+										<td><label>40</label>%</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<div id="panel-body-pie" class="p-1 d-flex justify-content-center">
+					<div class="w-100 d-flex flex-column justify-content-between">
+						<div>
+							<table class="table table-sm table-bordered border-dark text-center">
+								<tbody>
+									<tr>
+										<td colspan="2">当日使用電力量</td>
+										<td colspan="2">当月使用電力量</td>
+									</tr>
+									<tr>
+										<td colspan="2">1000 kWh</td>
+										<td colspan="2">50000 kWh</td>
+									</tr>
+									<tr>
+										<td colspan="2">当日買電電力量</td>
+										<td colspan="2">当月買電電力量</td>
+									</tr>
+									<tr>
+										<td colspan="2">1000 kWh</td>
+										<td colspan="2">50000 kWh</td>
+									</tr>
+									<tr>
+										<td colspan="2">当日発電量</td>
+										<td colspan="2">当月発電量</td>
+									</tr>
+									<tr>
+										<td colspan="2">400 kWh</td>
+										<td colspan="2">20000 kWh</td>
+									</tr>
+									<tr>
+										<td colspan="2">当日充放電量</td>
+										<td colspan="2">当月充放電量</td>
+									</tr>
+									<tr>
+										<td>
+											<div>310</div>
+											<div>kWh</div>
+										</td>
+										<td>
+											<div>300</div>
+											<div>kWh</div>
+										</td>
+										<td>
+											<div>10310</div>
+											<div>kWh</div>
+										</td>
+										<td>
+											<div>10300</div>
+											<div>kWh</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<div>
+							<div class="d-flex">
+								<div class="col" align="center">
+									<div>本日</div>
+									<div>（<label>2022年3月15日</label>）</div>
+								</div>
+								<div class="col" align="center">
+									<div>今月</div>
+									<div>（<label>2022年3月</label>）</div>
+								</div>
+							</div>
+							<div class="ratio" style="--bs-aspect-ratio: 50%;">
+								<div id="pie"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="./js/echarts/echarts.common.min.js"></script>
+	<script type="text/javascript" src="./js/component/ResizeByRatio.js"></script>
+	<script type="text/javascript" src="./js/zeus/powerGenerationMonitoringPopup.js"></script>
+	<script>
+		class ElectricityMonitoringPanel {
+			#data;
+			#fontElements;
+			#imgElements;
+			#resizeByRatio;
+			constructor(config){
+				this.#data = {
+					ratios: {
+						panel: {
+							x: 4,
+							y: 3
+						}
+					},
+					sizes: {
+						images: {
+							default: 0.12,
+							arrows: 0.1
+						},
+						fonts: {
+							normal: 0.02,
+							mainTitle: 0.05,
+							subTitle: 0.03
+						}
+					},
+					positions: {
+						tower: {
+							top: '41%',
+							left: '3.75%'
+						}
+					},
+					current: {
+						panelSize: null
+					}
+				};
+				this.#resizeByRatio = new ResizeByRatio({
+					ratios: this.#data.ratios.panel,
+					callbacks: [this.onResize.bind(this)]
+				});
+				this.#fontElements = Array.from(document.querySelectorAll('.pg-font-element'));
+				this.#imgElements = Array.from(document.querySelectorAll('.pg-img'));
+				this.root = document.querySelector(`#${config.id}`);
+				this.charts = {
+					pie: echarts.init(document.querySelector('#pie'))
+				};
+				// initialization
+				this.charts.pie.setOption(graphOption);
+			}
+			getMainTitleFontSize(){
+				return parseInt(this.#data.current.panelSize.height * this.#data.sizes.fonts.mainTitle);
+			}
+			getSubTitleFontSize(){
+				return parseInt(this.#data.current.panelSize.height * this.#data.sizes.fonts.subTitle);
+			}
+			getNormalFontSize() {
+				return parseInt(this.#data.current.panelSize.height * this.#data.sizes.fonts.normal);
+			}
+			onResize(newSize){
+				this.#data.current.panelSize = newSize;
+				// resize root div
+				this.resizeRoot();
+				// resize fonts
+				this.resizeFonts();
+				// resize graph
+				this.charts.pie.resize();
+			}
+			resizeRoot(size){
+				this.root.style.width = `${this.#data.current.panelSize.width}px`;
+				this.root.style.height = `${this.#data.current.panelSize.height}px`;
+			}
+			resizeFonts(){
+				// main title
+				this.#fontElements
+				.filter(fontEl => {
+					return fontEl.getAttribute('class').indexOf('main-title') >= 0;
+				}).forEach(fontElement => {
+					fontElement.style.fontSize = `${this.getMainTitleFontSize()}px`;
+				});
+				// sub title
+				this.#fontElements
+				.filter(fontEl => {
+					return fontEl.getAttribute('class').indexOf('sub-title') >= 0;
+				}).forEach(fontElement => {
+					fontElement.style.fontSize = `${this.getSubTitleFontSize()}px`;
+				});
+				// normal
+				this.#fontElements
+				.filter(fontEl => {
+					return fontEl.getAttribute('class').indexOf('font-normal') >= 0;
+				})
+				.forEach(fontEl => {
+					fontEl.style.fontSize = `${this.getNormalFontSize()}px`;
+				});
+			}
+		}
+
+		let panel = new ElectricityMonitoringPanel({
+			id: 'panel'
+		});
+		panel.onResize({width: 800, height: 600});
+	</script>
+</body>
+</html>
