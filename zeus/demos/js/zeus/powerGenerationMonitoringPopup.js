@@ -27,8 +27,7 @@ var graphOption = {
         },
         data: [
           { value: 64, name: '買電電力' },
-          { value: 25, name: '発電電力' },
-          { value: 11, name: 'その他' }
+          { value: 36, name: '発電電力' }
         ]
       },
       {
@@ -41,8 +40,7 @@ var graphOption = {
         },
         data: [
             { value: 64, name: '買電電力' },
-            { value: 25, name: '発電電力' },
-            { value: 11, name: 'その他' }
+            { value: 36, name: '発電電力' }
         ]
       }
     ]
