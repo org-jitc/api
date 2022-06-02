@@ -218,7 +218,7 @@
 			function genStoreTableData(){
 				var arr = [];
 				for(var i = 1; i <= 10; i++){
-					arr.push({storeId: i, storeName: '店舗' + i});
+					arr.push({storeId: i, storeName: '拠点' + i});
 				}
 				return arr;
 			}
@@ -265,7 +265,7 @@
 						left: 'center'
 					},
 					legend: {
-						data: displayFormat === 'store'? ['店舗1', '店舗2', '店舗3', '店舗4', '店舗5', '店舗6', '店舗7', '店舗8', '店舗9', '店舗10']: ['デマンド1'],
+						data: displayFormat === 'store'? ['拠点1', '拠点2', '拠点3', '拠点4', '拠点5', '拠点6', '拠点7', '拠点8', '拠点9', '拠点10']: ['デマンド1'],
 						top: 'bottom'
 					},
 				    xAxis: {
@@ -308,70 +308,70 @@
 					},
 					dataset: displayFormat === 'store'? graphDatasetStore: graphDatasetSensor,
 				    series: displayFormat === 'store'? [{
-						name: '店舗1',
+						name: '拠点1',
 				        type: 'line',
 						seriesLayoutBy: 'row',
 						emphasis: {
 							focus: 'series'
 						}
 					},{
-						name: '店舗2',
+						name: '拠点2',
 				        type: 'line',
 						seriesLayoutBy: 'row',
 						emphasis: {
 							focus: 'series'
 						}
 				    },{
-						name: '店舗3',
+						name: '拠点3',
 				        type: 'line',
 						seriesLayoutBy: 'row',
 						emphasis: {
 							focus: 'series'
 						}
 				    },{
-						name: '店舗4',
+						name: '拠点4',
 				        type: 'line',
 						seriesLayoutBy: 'row',
 						emphasis: {
 							focus: 'series'
 						}
 				    },{
-						name: '店舗5',
+						name: '拠点5',
 				        type: 'line',
 						seriesLayoutBy: 'row',
 						emphasis: {
 							focus: 'series'
 						}
 				    },{
-						name: '店舗6',
+						name: '拠点6',
 				        type: 'line',
 						seriesLayoutBy: 'row',
 						emphasis: {
 							focus: 'series'
 						}
 				    },{
-						name: '店舗7',
+						name: '拠点7',
 				        type: 'line',
 						seriesLayoutBy: 'row',
 						emphasis: {
 							focus: 'series'
 						}
 				    },{
-						name: '店舗8',
+						name: '拠点8',
 				        type: 'line',
 						seriesLayoutBy: 'row',
 						emphasis: {
 							focus: 'series'
 						}
 				    },{
-						name: '店舗9',
+						name: '拠点9',
 				        type: 'line',
 						seriesLayoutBy: 'row',
 						emphasis: {
 							focus: 'series'
 						}
 				    },{
-						name: '店舗10',
+						name: '拠点10',
 				        type: 'line',
 						seriesLayoutBy: 'row',
 						emphasis: {
@@ -393,11 +393,15 @@
 				zeusadmin.hideElement(divData);
 				zeusadmin.showElement(divGraph);
 
-				let displayFormat = document.querySelector('[name="displayFormat"]:checked').value;
-
 				let option = {
+					title: {
+						text: 'デマンド',
+						left: 'center'
+					},
 					legend: {
-						data: ['店舗1', '店舗2', '店舗3', '店舗4', '店舗5', '店舗6', '店舗7', '店舗8', '店舗9', '店舗10']
+						data: ['拠点1', '拠点2', '拠点3', '拠点4', '拠点5', '拠点6', '拠点7', '拠点8', '拠点9', '拠点10'],
+						top: 'bottom',
+						left: 'center'
 					},
 				    xAxis: {
 				        type: 'category',
@@ -415,6 +419,7 @@
 					toolbox: {
 						show: true,
 						orient: 'virtical',
+						top: 'middle',
 						feature: {
 							saveAsImage: {
 								show: true,
@@ -433,9 +438,9 @@
 							}
 						}
 					},
-					dataset: graphDataset,
+					dataset: graphDatasetStore,
 				    series: [{
-						name: '店舗1',
+						name: '拠点1',
 						stack: '合計',
 				        type: 'bar',
 						seriesLayoutBy: 'row',
@@ -443,7 +448,7 @@
 							focus: 'series'
 						}
 					},{
-						name: '店舗2',
+						name: '拠点2',
 						stack: '合計',
 				        type: 'bar',
 						seriesLayoutBy: 'row',
@@ -451,7 +456,7 @@
 							focus: 'series'
 						}
 				    },{
-						name: '店舗3',
+						name: '拠点3',
 						stack: '合計',
 				        type: 'bar',
 						seriesLayoutBy: 'row',
@@ -459,7 +464,7 @@
 							focus: 'series'
 						}
 				    },{
-						name: '店舗4',
+						name: '拠点4',
 						stack: '合計',
 				        type: 'bar',
 						seriesLayoutBy: 'row',
@@ -467,7 +472,7 @@
 							focus: 'series'
 						}
 				    },{
-						name: '店舗5',
+						name: '拠点5',
 						stack: '合計',
 				        type: 'bar',
 						seriesLayoutBy: 'row',
@@ -475,7 +480,7 @@
 							focus: 'series'
 						}
 				    },{
-						name: '店舗6',
+						name: '拠点6',
 						stack: '合計',
 				        type: 'bar',
 						seriesLayoutBy: 'row',
@@ -483,7 +488,7 @@
 							focus: 'series'
 						}
 				    },{
-						name: '店舗7',
+						name: '拠点7',
 						stack: '合計',
 				        type: 'bar',
 						seriesLayoutBy: 'row',
@@ -491,7 +496,7 @@
 							focus: 'series'
 						}
 				    },{
-						name: '店舗8',
+						name: '拠点8',
 						stack: '合計',
 				        type: 'bar',
 						seriesLayoutBy: 'row',
@@ -499,7 +504,7 @@
 							focus: 'series'
 						}
 				    },{
-						name: '店舗9',
+						name: '拠点9',
 						stack: '合計',
 				        type: 'bar',
 						seriesLayoutBy: 'row',
@@ -507,7 +512,7 @@
 							focus: 'series'
 						}
 				    },{
-						name: '店舗10',
+						name: '拠点10',
 						stack: '合計',
 				        type: 'bar',
 						seriesLayoutBy: 'row',
@@ -605,7 +610,6 @@
 				let displayFormat = document.querySelector('[name="displayFormat"]:checked').value;
 				
 				if(displayFormat === 'store'){
-					console.log(params);
 					var componentSubType = params.componentSubType;
 
 					let dataset = [];
@@ -616,7 +620,6 @@
 							config: { dimension: params.data[0], order: 'desc' }
 						}
 					});
-					console.log(dataset);
 	
 					var option = {
 						legend: {},
@@ -631,7 +634,7 @@
 						},
 						series: {
 							name: params.data[0],
-							type: 'bar',
+							type: 'line',
 							encode: { x: 'store', y: params.data[0] },
 							datasetIndex: 1
 						}
@@ -648,7 +651,7 @@
 			$(tableStore).bootstrapTable({
 				columns: [
 					{checkbox: true},
-					{field: 'storeName', title: '店舗名'}
+					{field: 'storeName', title: '拠点名'}
 				],
 				data: genStoreTableData()
 			});
