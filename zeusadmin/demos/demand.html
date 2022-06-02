@@ -15,7 +15,7 @@
 	<body>
 		<div class="body d-flex flex-column">
 			<div id="header">
-				<nav class="navbar navbar-light bg-light justify-content-between">
+				<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
 					<a class="navbar-brand" href="#">
 						<img src="images/enudge_headlogo.png"/>
 					</a>
@@ -39,18 +39,16 @@
 						<a class="nav-link active p-0" href="#">
 							<div class="d-flex p-2 align-items-center">
 								<i class="fas fa-chart-bar"></i>
-								<span class="text-nowrap">電力量・削減量</span>
+								<span class="text-nowrap">デマンド</span>
 							</div>
 						</a>
 					</nav>
 				</div>
 				<div class="flex-grow-1 overflow-hidden p-2">
-					<div id="div-graph" class="m-auto d-none">
-						<div class="row row-cols-1 row-cols-xl-2 justify-content-center">
-							<div class="mt-2" style="max-width: 800px;">
-								<div class="scale mt-2">
-									<div id="main" style="width: 100%;height:100%; position: absolute;"></div>
-								</div>
+					<div>
+						<div id="div-graph" class="m-auto d-none" style="max-width: 800px;">
+							<div class="scale">
+								<div id="main" style="width: 100%;height:100%; position: absolute;"></div>
 							</div>
 						</div>
 						<div id="div-data" class="m-auto w-100 d-none">
@@ -60,10 +58,10 @@
 						</div>
 					</div>
 					
-					<div class="card border-primary my-3">
+					<div class="card mt-3">
 					  <div class="card-body">
 						<form>
-						  <div class="form-row">
+						  <div class="d-flex flex-wrap justify-content-center">
 							<div class="form-group col-md-12 col-lg-6 col-xl-3">
 								<label class="text-primary">表示形式</label>
 								<div class="align-items-center">
@@ -79,7 +77,7 @@
 							</div>
 							<div class="form-group col-md-12 col-lg-6 col-xl-3">
 							  <label class="text-primary">粒度</label>
-							  <div class="align-items-center">
+							  <div class="form-row align-items-center">
 								 <div class="form-check form-check-inline">
 								   <input class="form-check-input" type="radio" name="displaySpan" id="displaySpan1" value="month">
 								   <label class="form-check-label" for="inlineRadio1">月</label>
@@ -93,8 +91,8 @@
 								   <label class="form-check-label" for="inlineRadio3">時</label>
 								 </div>
 								 <div class="form-check form-check-inline">
-								   <input class="form-check-input" type="radio" name="displaySpan" id="displaySpan4" value="half-hour">
-								   <label class="form-check-label" for="inlineRadio4">30分</label>
+								   <input class="form-check-input" type="radio" name="displaySpan" id="displaySpan3" value="half-hour">
+								   <label class="form-check-label" for="inlineRadio3">30分</label>
 								 </div>
 							  </div>
 							</div>
@@ -102,7 +100,7 @@
 								<label class="text-primary">対象期間</label>
 								<div class="form-row align-items-center">
 									<div class="col-auto">
-										<div class="input-group input-group-sm date" id="datepicker" data-target-input="nearest">
+										<div class="input-group date" id="datepicker" data-target-input="nearest">
 											<input type="text" class="form-control datetimepicker-input" data-target="#datepicker"/>
 											<div class="input-group-append" data-target="#datepicker" data-toggle="datetimepicker">
 												<div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -111,38 +109,12 @@
 									</div>
 								</div>
 							</div>
-							<div class="form-group col-md-12 col-lg-6 col-xl-3">
-								<label class="text-primary">削減量表示</label>
-								<div class="custom-control custom-switch">
-								  <input type="checkbox" id="reductionDisplay" class="custom-control-input">
-								  <label class="custom-control-label" for="reductionDisplay">表示</label>
-								</div>
-							</div>
-							<div class="form-group col-md-12 col-lg-6 col-xl-3">
-								<div class="d-flex align-items-center justify-content-between">
-									<label class="text-primary">削減率閾値</label>
-									<span class="badge badge-pill badge-info">
-										レポート送信設定値：<label>30</label>%
-									</span>
-								</div>
-								<div class="input-group input-group-sm">
-									<input type="text" value="30" id="reductionRateThreshold" class="form-control">
-									<div class="input-group-append">
-										<span class="input-group-text">%</span>
-										<button type="button" class="btn btn-outline-primary">
-											レポート送信にも適応
-										</button>
-									</div>
-								</div>
-								<small class="form-text text-muted">
-									閾値より小さい場合は<font class="text-danger">赤色</font>で表示されます。
-								</small>
-							</div>
 						  </div>
 						  <div class="form-row align-items-center justify-content-center">
-								<button type="button" id="btn-graph" class="btn btn-outline-primary btn-sm m-1" onclick="btnGraphClick();">グラフ表示</button>
-								<button type="button" id="btn-data" class="btn btn-outline-primary btn-sm m-1" onclick="btnDataClick();">レポート表示</button>
-								<button type="button" id="btn-csv" class="btn btn-outline-primary btn-sm m-1">CSV</button>
+								<button type="button" id="btn-graph" class="btn btn-outline-primary m-1" onclick="btnGraphClick();">グラフ表示（個別）</button>
+								<button type="button" id="btn-graph-sum" class="btn btn-outline-primary m-1" onclick="btnGraphSumClick();">グラフ表示（合計）</button>
+								<button type="button" id="btn-data" class="btn btn-outline-primary m-1" onclick="btnDataClick();">レポート表示</button>
+								<button type="button" id="btn-csv" class="btn btn-outline-primary m-1">CSV</button>
 						  </div>
 						</form>
 					  </div>
@@ -150,7 +122,7 @@
 				
 					<table
 					  id="table-store"
-					  class="">
+					  class="mt-3">
 					</table>
 				</div>
 			</div>
@@ -177,7 +149,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+						<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">閉じる</button>
 					</div>
 				</div>
 			</div>
@@ -246,13 +218,21 @@
 			function genStoreTableData(){
 				var arr = [];
 				for(var i = 1; i <= 10; i++){
-					arr.push({storeId: 'store' + i, storeName: '店舗' + i});
+					arr.push({storeId: i, storeName: '店舗' + i});
 				}
 				return arr;
 			}
 			
 			function genRandom(maximum){
 				return Math.round(Math.random() * maximum);
+			}
+
+			function genGraphDataset(displayFormat, i){
+				let name = displayFormat === 'store'? '拠点': 'デマンド';
+				let arr = [`${name}${i}`];
+				let arrData = randomData();
+				arr.push(...arrData);
+				return arr;
 			}
 			
 			function genDataTableData(){
@@ -265,12 +245,7 @@
 							ST0002_usage: genRandom(1000),
 							ST0003_usage: genRandom(1000),
 							ST0004_usage: genRandom(1000),
-							ST0005_usage: genRandom(1000),
-							ST0001_reduction: genRandom(1000),
-							ST0002_reduction: genRandom(1000),
-							ST0003_reduction: genRandom(1000),
-							ST0004_reduction: genRandom(1000),
-							ST0005_reduction: genRandom(1000)
+							ST0005_usage: genRandom(1000)
 						}
 					);
 				}
@@ -280,15 +255,148 @@
 			function btnGraphClick(){
 				zeusadmin.hideElement(divData);
 				zeusadmin.showElement(divGraph);
-				option = {
+
+				let displayFormat = document.querySelector('[name="displayFormat"]:checked').value;
+
+				let option = {
 					title: {
-						text: '電力量',
+						text: 'デマンド',
 						top: 'top',
 						left: 'center'
 					},
 					legend: {
-						type: 'scroll',
-						top: 'bottom',
+						data: displayFormat === 'store'? ['店舗1', '店舗2', '店舗3', '店舗4', '店舗5', '店舗6', '店舗7', '店舗8', '店舗9', '店舗10']: ['デマンド1'],
+						top: 'bottom'
+					},
+				    xAxis: {
+				        type: 'category',
+				        data: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']
+				    },
+				    yAxis: {
+				        type: 'value',
+						name: 'デマンド[kW]',
+						nameLocation: 'center',
+						nameGap: 60
+				    },
+					tooltip: {
+						trigger: 'axis',
+						axisPointer: {
+							type: 'cross'
+						}
+					},
+					toolbox: {
+						show: true,
+						orient: 'virtical',
+						top: 'middle',
+						feature: {
+							saveAsImage: {
+								show: true,
+								title: '画像として保存'
+							},
+							dataView: {
+								show: true,
+								title: 'データ表示'
+							},
+							dataZoom: {
+								show: true,
+								title: {
+									zoom: 'ズーム',
+									back: 'リセット'
+								}
+							}
+						}
+					},
+					dataset: displayFormat === 'store'? graphDatasetStore: graphDatasetSensor,
+				    series: displayFormat === 'store'? [{
+						name: '店舗1',
+				        type: 'line',
+						seriesLayoutBy: 'row',
+						emphasis: {
+							focus: 'series'
+						}
+					},{
+						name: '店舗2',
+				        type: 'line',
+						seriesLayoutBy: 'row',
+						emphasis: {
+							focus: 'series'
+						}
+				    },{
+						name: '店舗3',
+				        type: 'line',
+						seriesLayoutBy: 'row',
+						emphasis: {
+							focus: 'series'
+						}
+				    },{
+						name: '店舗4',
+				        type: 'line',
+						seriesLayoutBy: 'row',
+						emphasis: {
+							focus: 'series'
+						}
+				    },{
+						name: '店舗5',
+				        type: 'line',
+						seriesLayoutBy: 'row',
+						emphasis: {
+							focus: 'series'
+						}
+				    },{
+						name: '店舗6',
+				        type: 'line',
+						seriesLayoutBy: 'row',
+						emphasis: {
+							focus: 'series'
+						}
+				    },{
+						name: '店舗7',
+				        type: 'line',
+						seriesLayoutBy: 'row',
+						emphasis: {
+							focus: 'series'
+						}
+				    },{
+						name: '店舗8',
+				        type: 'line',
+						seriesLayoutBy: 'row',
+						emphasis: {
+							focus: 'series'
+						}
+				    },{
+						name: '店舗9',
+				        type: 'line',
+						seriesLayoutBy: 'row',
+						emphasis: {
+							focus: 'series'
+						}
+				    },{
+						name: '店舗10',
+				        type: 'line',
+						seriesLayoutBy: 'row',
+						emphasis: {
+							focus: 'series'
+						}
+				    }]: [{
+						name: 'デマンド1',
+						type: 'line',
+						seriesLayoutBy: 'row',
+						emphasis: {
+							focus: 'series'
+						}
+					}]
+				};
+				myChart.setOption(option, true);
+				myChart.resize();
+			}
+			function btnGraphSumClick(){
+				zeusadmin.hideElement(divData);
+				zeusadmin.showElement(divGraph);
+
+				let displayFormat = document.querySelector('[name="displayFormat"]:checked').value;
+
+				let option = {
+					legend: {
 						data: ['店舗1', '店舗2', '店舗3', '店舗4', '店舗5', '店舗6', '店舗7', '店舗8', '店舗9', '店舗10']
 					},
 				    xAxis: {
@@ -307,21 +415,14 @@
 					toolbox: {
 						show: true,
 						orient: 'virtical',
-						top: 'middle',
-						left: 'right',
 						feature: {
-							magicType: {
-								type: ['line', 'bar', 'stack', 'tiled'],
-								title: {
-									line: '折れ線グラフ',
-									bar: '棒グラフ',
-									stack: '積み上げグラフ',
-									tiled: '個別'
-								}
-							},
 							saveAsImage: {
 								show: true,
 								title: '画像として保存'
+							},
+							dataView: {
+								show: true,
+								title: 'データ表示'
 							},
 							dataZoom: {
 								show: true,
@@ -332,66 +433,87 @@
 							}
 						}
 					},
+					dataset: graphDataset,
 				    series: [{
-						id: 'ST0001',
 						name: '店舗1',
-				        data: randomData(),
-				        type: 'line',
-						emphasis: { focus: 'series' }
+						stack: '合計',
+				        type: 'bar',
+						seriesLayoutBy: 'row',
+						emphasis: {
+							focus: 'series'
+						}
 					},{
-						id: 'ST0002',
 						name: '店舗2',
-				        data: randomData(),
-				        type: 'line',
-						emphasis: { focus: 'series' }
+						stack: '合計',
+				        type: 'bar',
+						seriesLayoutBy: 'row',
+						emphasis: {
+							focus: 'series'
+						}
 				    },{
-						id: 'ST0003',
 						name: '店舗3',
-				        data: randomData(),
-				        type: 'line',
-						emphasis: { focus: 'series' }
+						stack: '合計',
+				        type: 'bar',
+						seriesLayoutBy: 'row',
+						emphasis: {
+							focus: 'series'
+						}
 				    },{
-						id: 'ST0004',
 						name: '店舗4',
-				        data: randomData(),
-				        type: 'line',
-						emphasis: { focus: 'series' }
+						stack: '合計',
+				        type: 'bar',
+						seriesLayoutBy: 'row',
+						emphasis: {
+							focus: 'series'
+						}
 				    },{
-						id: 'ST0005',
 						name: '店舗5',
-				        data: randomData(),
-				        type: 'line',
-						emphasis: { focus: 'series' }
+						stack: '合計',
+				        type: 'bar',
+						seriesLayoutBy: 'row',
+						emphasis: {
+							focus: 'series'
+						}
 				    },{
-						id: 'ST0006',
 						name: '店舗6',
-				        data: randomData(),
-				        type: 'line',
-						emphasis: { focus: 'series' }
+						stack: '合計',
+				        type: 'bar',
+						seriesLayoutBy: 'row',
+						emphasis: {
+							focus: 'series'
+						}
 				    },{
-						id: 'ST0007',
 						name: '店舗7',
-				        data: randomData(),
-				        type: 'line',
-						emphasis: { focus: 'series' }
+						stack: '合計',
+				        type: 'bar',
+						seriesLayoutBy: 'row',
+						emphasis: {
+							focus: 'series'
+						}
 				    },{
-						id: 'ST0008',
 						name: '店舗8',
-				        data: randomData(),
-				        type: 'line',
-						emphasis: { focus: 'series' }
+						stack: '合計',
+				        type: 'bar',
+						seriesLayoutBy: 'row',
+						emphasis: {
+							focus: 'series'
+						}
 				    },{
-						id: 'ST0009',
 						name: '店舗9',
-				        data: randomData(),
-				        type: 'line',
-						emphasis: { focus: 'series' }
+						stack: '合計',
+				        type: 'bar',
+						seriesLayoutBy: 'row',
+						emphasis: {
+							focus: 'series'
+						}
 				    },{
-						id: 'ST00010',
 						name: '店舗10',
-				        data: randomData(),
-				        type: 'line',
-						emphasis: { focus: 'series' }
+						stack: '合計',
+				        type: 'bar',
+						seriesLayoutBy: 'row',
+						emphasis: {
+							focus: 'series'
+						}
 				    }]
 				};
 				myChart.setOption(option);
@@ -410,33 +532,40 @@
 				zeusadmin.hideElement(divGraph);
 				zeusadmin.showElement(divData);
 
+				let displayFormat = document.querySelector('[name="displayFormat"]:checked').value;
+				let name = displayFormat === 'store'? '拠点': 'デマンド';
+
 				$(tableData).bootstrapTable('destroy');
 				$(tableData).bootstrapTable({
 					height: 460,
-					locale: 'ja',
 					columns: [
 						{field: 'datetime', title: '対象年月日', align: 'center', cellStyle: cellStyle},
-						{field: 'ST0001_usage', title: '店舗1（電力量）[kWh]', align: 'right'},
-						{field: 'ST0002_usage', title: '店舗2（電力量）[kWh]', align: 'right'},
-						{field: 'ST0003_usage', title: '店舗3（電力量）[kWh]', align: 'right'},
-						{field: 'ST0004_usage', title: '店舗4（電力量）[kWh]', align: 'right'},
-						{field: 'ST0005_usage', title: '店舗5（電力量）[kWh]', align: 'right'},
-						{field: 'ST0001_reduction', title: '店舗1（削減電力量）[kWh]', align: 'right'},
-						{field: 'ST0002_reduction', title: '店舗2（削減電力量）[kWh]', align: 'right'},
-						{field: 'ST0003_reduction', title: '店舗3（削減電力量）[kWh]', align: 'right'},
-						{field: 'ST0004_reduction', title: '店舗4（削減電力量）[kWh]', align: 'right'},
-						{field: 'ST0005_reduction', title: '店舗5（削減電力量）[kWh]', align: 'right'},
+						{field: 'ST0001_usage', title: `${name}1[kW]`, align: 'right'},
+						{field: 'ST0002_usage', title: `${name}2[kW]`, align: 'right'},
+						{field: 'ST0003_usage', title: `${name}3[kW]`, align: 'right'},
+						{field: 'ST0004_usage', title: `${name}4[kW]`, align: 'right'},
+						{field: 'ST0005_usage', title: `${name}5[kW]`, align: 'right'},
 					],
 					data: genDataTableData()
 				});
 			}
 
+			function onDisplayFormatClick(){
+
+				if(this.value === 'store'){
+					zeusadmin.showElement(btnGraphSum);
+				}else{
+					zeusadmin.hideElement(btnGraphSum);
+				}
+			}
+			
 			var divGraph = document.querySelector('#div-graph');
 			var divData = document.querySelector('#div-data');
 			var tableData = document.querySelector('#table-data');
 			// 基于准备好的dom，初始化echarts实例
 			var myChart = echarts.init(document.getElementById('main'));
 			var btnGraph = document.querySelector('#btn-graph');
+			var btnGraphSum = document.querySelector('#btn-graph-sum');
 			var btnData = document.querySelector('#btn-data');
 			var tableStore = document.querySelector('#table-store');
 			var modalBarDetail = new ModalBarDetail({
@@ -444,50 +573,71 @@
 			});
 			// 指定图表的配置项和数据
 			var option;
+			var graphDatasetStore = {
+				source: [
+					['store', '00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
+					genGraphDataset('store', 1),
+					genGraphDataset('store', 2),
+					genGraphDataset('store', 3),
+					genGraphDataset('store', 4),
+					genGraphDataset('store', 5),
+					genGraphDataset('store', 6),
+					genGraphDataset('store', 7),
+					genGraphDataset('store', 8),
+					genGraphDataset('store', 9),
+					genGraphDataset('store', 10),
+				]
+			};
+			var graphDatasetSensor = {
+				source: [
+					['sensor', '00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
+					genGraphDataset('sensor', 1)
+				]
+			};
+
+			Array.from(document.querySelectorAll('[name="displayFormat"]'))
+				.forEach(element => {
+					element.addEventListener('change', onDisplayFormatClick);
+				});
 			
 			// add events
 			myChart.on('click', function(params) {
-				var componentSubType = params.componentSubType;
-				var data = genData(10);
-				var option = {
-					title: {
-						text: '電力量割合',
-						left: 'center'
-					},
-					tooltip: {
-						trigger: 'item',
-						formatter: '{a} <br/>{b} : {c} ({d}%)'
-					},
-					legend: {
-						type: 'scroll',
-						orient: 'vertical',
-						right: 10,
-						top: 20,
-						bottom: 20,
-						data: data.legendData
-					},
-					series: [
-						{
-							name: '電力量',
-							type: 'pie',
-							radius: '55%',
-							center: ['40%', '50%'],
-							data: data.seriesData,
-							emphasis: {
-								itemStyle: {
-									shadowBlur: 10,
-									shadowOffsetX: 0,
-									shadowColor: 'rgba(0, 0, 0, 0.5)'
-								}
-							}
-						}
-					]
-				};
-				modalBarDetail.setOption(option);
-			});
+				let displayFormat = document.querySelector('[name="displayFormat"]:checked').value;
+				
+				if(displayFormat === 'store'){
+					console.log(params);
+					var componentSubType = params.componentSubType;
 
-			window.addEventListener('resize', function(){
-				myChart.resize();
+					let dataset = [];
+					dataset.push(graphDatasetStore);
+					dataset.push({
+						transform: {
+							type: 'sort',
+							config: { dimension: params.data[0], order: 'desc' }
+						}
+					});
+					console.log(dataset);
+	
+					var option = {
+						legend: {},
+						dataset: dataset,
+						xAxis: {
+							type: 'category',
+							axisLabel: { interval: 0, rotate: 30 }
+						},
+						yAxis: {},
+						tooltip: {
+							trigger: 'axis'
+						},
+						series: {
+							name: params.data[0],
+							type: 'bar',
+							encode: { x: 'store', y: params.data[0] },
+							datasetIndex: 1
+						}
+					};
+					modalBarDetail.setOption(option);
+				}
 			});
 			
 			// initialization
@@ -496,12 +646,6 @@
 				format: 'YYYY-MM-DD'
 			});
 			$(tableStore).bootstrapTable({
-				idField: 'storeId',
-				maintainMetaData: true,
-				search: true,
-				searchAlign: 'left',
-				clickToSelect: true,
-				locale: 'ja',
 				columns: [
 					{checkbox: true},
 					{field: 'storeName', title: '店舗名'}
