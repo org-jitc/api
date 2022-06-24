@@ -9,6 +9,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap/5/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/font-awesome/css/all.min.css"/>
 
 	<script>
 		let contextPath = './';
@@ -41,26 +42,22 @@
 			--img-arrow-width: 12%;
 		}
 
-		#panel {
+		html {
 			font-size: 12px;
+		}
+
+		#panel {
 			width: 100%;
 			height: 100%;
 			min-width: 800px;
 			min-height: 600px;
-			padding: 2%;
 		}
 		#panel-title{
-			height: 16%;
-		}
-		#panel-title-main{
-			height: 60%;
-		}
-		#panel-title-sub{
-			height: 40%
+			font-size: 1.6rem;
 		}
 
 		#panel-body-images{
-			width: 65%;
+			width: 66%;
 		}
 		#panel-body-images > #panel-body-images-down {
 			padding-top: 2%;
@@ -94,8 +91,8 @@
 			left: 7%;
 		}
 		.pg-label-skyline {
-			top: 22%;
-			left: 43.5%;
+			top: 45%;
+			left: 43%;
 		}
 		.pg-img-skyline {
 			width: var(--img-normal-width);
@@ -119,12 +116,12 @@
 		.pg-img-left-arrow {
 			width: var(--img-arrow-width);
 			top: 33%;
-			left: 24%;
+			left: 54%;
 		}
 		.pg-img-right-arrow {
 			width: var(--img-arrow-width);
 			top: 33%;
-			left: 56.5%;
+			left: 24%;
 		}
 		.pg-img-up-down-arrow {
 			width: var(--img-arrow-width);
@@ -138,175 +135,162 @@
 	</title>
 </head>
 <body>
-	<div class="vw-100 vh-100 d-flex justify-content-center align-items-center">
-		<div id="panel" class="d-flex flex-column">
+	<div class="vw-100 vh-100 bg-light d-flex justify-content-center align-items-center">
+		<div id="panel" class="d-flex flex-column p-3">
 
-			<div id="panel-title">
-
-				<div id="panel-title-main" class="d-flex justify-content-center align-items-center" align="center">
-					<label id="text-main-title" class="pg-font-element pg-font-main-title">電力使用状況</label>
-				</div>
-
-				<div id="panel-title-sub" class="d-flex align-items-center py-2">
-					<label id="text-sub-title" class="pg-font-element pg-font-sub-title">全体電力監視</label>
-				</div>
-
+			<div id="panel-title" class="p-3 d-flex justify-content-between align-items-center">
+				<label id="text-main-title" class="pg-font-element pg-font-main-title">施設名：東北冷蔵製氷様 本社・第1工場</label>
+				<label id="text-main-title" class="pg-font-element pg-font-main-title">2022年6月3日</label>
 			</div>
 
-			<div id="panel-body" class="flex-grow-1 border border-dark d-flex pg-font-element pg-font-normal">
+			<div id="panel-body" class="flex-grow-1 d-flex pg-font-element pg-font-normal">
 
-				<div id="panel-body-images" class="border-dark d-flex align-items-end position-relative">
-					<img src="./images/powerGeneration/tower.png" alt="" class="position-absolute pg-img pg-img-tower">
-					<img src="./images/powerGeneration/skyline.png" alt="" class="position-absolute pg-img pg-img-skyline">
-					<img src="./images/powerGeneration/solar-panel.png" alt="" class="position-absolute pg-img pg-img-solar-panel">
-					<img src="./images/powerGeneration/battery-status.png" alt="" class="storage-battery position-absolute pg-img pg-img-battery-status d-none">
-					<img src="./images/powerGeneration/left-arrow.png" alt="" class="position-absolute pg-img pg-img-left-arrow">
-					<img src="./images/powerGeneration/right-arrow.png" alt=""class="position-absolute pg-img pg-img-right-arrow">
-					<img src="./images/powerGeneration/up-down.png" alt="" class="storage-battery position-absolute pg-img pg-img-arrow pg-img-up-down-arrow d-none">
-					<label class="position-absolute pg-label-skyline">建物</label>
-					<div class="storage-battery position-absolute pg-label-battery-status d-none">
-						<div>電池残量</div>
-						<div><label>50</label>kWh</div>
-					</div>
-
-					<div id="panel-body-images-down" class="w-100 h-50 d-flex justify-content-between">
-
-						<div id="panel-body-buy" align="center">
-							
-							<table class="table table-sm w-auto table-bordered border-dark text-center">
-								<tbody>
-									<tr>
-										<td class="bg-success bg-opacity-25">買電電力</td>
-										<td>
-											<label>50</label>kW
-										</td>
-									</tr>
-									<tr>
-										<td class="bg-success bg-opacity-25">供給率</td>
-										<td>
-											<label>60</label>%
-										</td>
-									</tr>
-								</tbody>
-							</table>
-
+				<div id="panel-body-images" style="position: relative;">
+					<img src="./images/powerGeneration/left-arrow-500.gif" style="width: 10%; position: absolute; top: 20%; left: 30%; transform: rotate(210deg);">
+					<img src="./images/powerGeneration/left-arrow-500.gif" style="width: 10%; position: absolute; top: 20%; left: 60%; transform: rotate(-30deg);">
+					<div class="d-flex flex-column w-100 h-100" style="position: absolute; top: 0; left: 0;">
+						<div class="col d-flex">
+							<div class="col d-flex justify-content-center align-items-start pt-3">
+								<img src="./images/powerGeneration/tower.png" style="width:60%;">
+							</div>
+							<div class="col d-flex justify-content-center align-items-end">
+								<div class="mb-3" style="font-size: 1.6rem;">当施設</div>
+							</div>
+							<div class="col d-flex justify-content-center align-items-start pt-3">
+								<img src="./images/powerGeneration/solar-panel.png" style="width: 60%;">
+							</div>
 						</div>
-
-						<div id="panel-body-charge-release" class="storage-battery text-center d-flex justify-content-between d-none">
-
-							<div id="panel-body-charge">
-								<div>放電</div>
-								<div>
-									<label>10</label>kW
+						<div class="col d-flex">
+							<div class="col d-flex justify-content-center align-items-start">
+								<table class="table table-sm table-bordered table-bordered w-auto text-center">
+									<tbody>
+										<tr>
+											<td class="bg-success bg-opacity-25">買電電力</td>
+											<td>27kW</td>
+										</tr>
+										<tr>
+											<td class="bg-success bg-opacity-25">供給率</td>
+											<td>32%</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="col d-flex justify-content-center align-items-center">
+								<img src="./images/powerGeneration/skyline.png" class="w-100">
+							</div>
+							<div class="col d-flex justify-content-center align-items-start">
+								<table class="table table-sm table-bordered table-bordered w-auto text-center">
+									<tbody>
+										<tr>
+											<td class="bg-success bg-opacity-25">発電電力（瞬時）</td>
+											<td>27kW</td>
+										</tr>
+										<tr>
+											<td class="bg-success bg-opacity-25">当時限の発電電力</td>
+											<td>2kWh</td>
+										</tr>
+										<tr>
+											<td class="bg-success bg-opacity-25">供給率</td>
+											<td>32%</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="col d-flex">
+							<div class="col-4"></div>
+							<div class="col-8 pt-3">
+								<div class="d-flex">
+									<div class="col" align="center">
+										<div>本日</div>
+									</div>
+									<div class="col" align="center">
+										<div>今月</div>
+									</div>
+								</div>
+								<div class="ratio" style="--bs-aspect-ratio: 50%;">
+									<div id="pie"></div>
 								</div>
 							</div>
-
-							<div id="panel-body-release">
-								<div>充電</div>
-								<div>
-									<label>10</label>kW
-								</div>
-							</div>
-
-						</div>
-						
-						<div id="panel-body-generation" class="px-2" align="center" style="width: 40%">
-							<table class="table table-sm w-auto table-bordered border-dark text-center">
-								<tbody>
-									<tr>
-										<td class="bg-success bg-opacity-25">発電電力（瞬時）</td>
-										<td><label>100</label>kW</td>
-									</tr>
-									<tr>
-										<td class="bg-success bg-opacity-25">当時限の発電電力量</td>
-										<td><label>30</label>kWh</td>
-									</tr>
-									<tr>
-										<td class="bg-success bg-opacity-25">供給率</td>
-										<td><label>40</label>%</td>
-									</tr>
-								</tbody>
-							</table>
 						</div>
 					</div>
 				</div>
 
 				<div id="panel-body-pie" class="p-1 d-flex justify-content-center">
-					<div class="w-100 d-flex flex-column justify-content-center">
+					<div class="w-100 d-flex flex-column justify-content-between text-center p-2">
 						<div>
-							<table class="table table-sm table-bordered border-dark text-center">
-								<tbody>
-									<tr>
-										<td colspan="2">当日使用電力量</td>
-										<td colspan="2">当月使用電力量</td>
-									</tr>
-									<tr>
-										<td colspan="2">1000 kWh</td>
-										<td colspan="2">50000 kWh</td>
-									</tr>
-									<tr>
-										<td colspan="2">当日買電電力量</td>
-										<td colspan="2">当月買電電力量</td>
-									</tr>
-									<tr>
-										<td colspan="2">1000 kWh</td>
-										<td colspan="2">50000 kWh</td>
-									</tr>
-									<tr>
-										<td colspan="2">当日発電量</td>
-										<td colspan="2">当月発電量</td>
-									</tr>
-									<tr>
-										<td colspan="2">400 kWh</td>
-										<td colspan="2">20000 kWh</td>
-									</tr>
-									<tr class="storage-battery d-none">
-										<td colspan="2">当日充放電量</td>
-										<td colspan="2">当月充放電量</td>
-									</tr>
-									<tr class="storage-battery d-none">
-										<td>
-											<div>310</div>
-											<div>kWh</div>
-										</td>
-										<td>
-											<div>300</div>
-											<div>kWh</div>
-										</td>
-										<td>
-											<div>10310</div>
-											<div>kWh</div>
-										</td>
-										<td>
-											<div>10300</div>
-											<div>kWh</div>
-										</td>
-									</tr>
-									<tr class="storage-battery d-none">
-										<td colspan="2">当日再エネ率</td>
-										<td colspan="2">当月再エネ率</td>
-									</tr>
-									<tr class="storage-battery d-none">
-										<td colspan="2">400 kWh</td>
-										<td colspan="2">20000 kWh</td>
-									</tr>
-								</tbody>
-							</table>
+							<div align="center">【使用電力量】</div>
+							<div class="d-flex mt-2">
+								<div class="col m-0 p-0">
+									<ul class="list-group">
+										<li class="list-group-item">当日</li>
+										<li class="list-group-item">1500kWh</li>
+									</ul>
+								</div>
+								<div class="col m-0 p-0">
+									<ul class="list-group">
+										<li class="list-group-item">当月</li>
+										<li class="list-group-item">6649kWh</li>
+									</ul>
+								</div>
+							</div>
 						</div>
 
 						<div>
-							<div class="d-flex">
-								<div class="col" align="center">
-									<div>本日</div>
-									<div>（<label>2022年3月15日</label>）</div>
+							<div align="center">【買電・売電電力量】</div>
+							<div class="d-flex mt-2">
+								<div class="col m-0 p-0">
+									<ul class="list-group">
+										<li class="list-group-item">当日（買電）</li>
+										<li class="list-group-item">1095kWh</li>
+										<li class="list-group-item">当日（売電）</li>
+										<li class="list-group-item">0kWh</li>
+									</ul>
 								</div>
-								<div class="col" align="center">
-									<div>今月</div>
-									<div>（<label>2022年3月</label>）</div>
+								<div class="col m-0 p-0">
+									<ul class="list-group">
+										<li class="list-group-item">当月（買電）</li>
+										<li class="list-group-item">5006kWh</li>
+										<li class="list-group-item">当月（売電）</li>
+										<li class="list-group-item">0kWh</li>
+									</ul>
 								</div>
 							</div>
-							<div class="ratio" style="--bs-aspect-ratio: 50%;">
-								<div id="pie"></div>
+						</div>
+
+						<div>
+							<div align="center">【発電量】</div>
+							<div class="d-flex mt-2">
+								<div class="col m-0 p-0">
+									<ul class="list-group">
+										<li class="list-group-item">当日</li>
+										<li class="list-group-item">405kWh</li>
+									</ul>
+								</div>
+								<div class="col m-0 p-0">
+									<ul class="list-group">
+										<li class="list-group-item">当月</li>
+										<li class="list-group-item">1643kWh</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<div>
+							<div align="center">【再エネ率】</div>
+							<div class="d-flex mt-2">
+								<div class="col m-0 p-0">
+									<ul class="list-group">
+										<li class="list-group-item">当日</li>
+										<li class="list-group-item">27%</li>
+									</ul>
+								</div>
+								<div class="col m-0 p-0">
+									<ul class="list-group">
+										<li class="list-group-item">当月</li>
+										<li class="list-group-item">24%</li>
+									</ul>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -321,6 +305,7 @@
 	<script>
 		class ElectricityMonitoringPanel {
 			#data
+			#html
 			#fontElements
 			#imgElements
 			#resizeByRatio
@@ -339,8 +324,9 @@
 							arrows: 0.1
 						},
 						fonts: {
+							percentage: 0.015,
 							normal: 0.02,
-							mainTitle: 0.05,
+							mainTitle: 0.04,
 							subTitle: 0.03
 						}
 					},
@@ -354,6 +340,7 @@
 						panelSize: null
 					}
 				};
+				this.#html = document.getElementsByTagName('html')[0];
 				this.#resizeByRatio = new ResizeByRatio({
 					ratios: this.#data.ratios.panel,
 					callbacks: [this.onResize.bind(this)]
@@ -398,12 +385,13 @@
 				this.root.style.height = `${this.#data.current.panelSize.height}px`;
 			}
 			resizeFonts(){
+				this.#html.style.fontSize = `${parseInt(this.#data.current.panelSize.width * this.#data.sizes.fonts.percentage)}px`;
 				// main title
 				this.#fontElements
 				.filter(fontEl => {
 					return fontEl.getAttribute('class').indexOf('main-title') >= 0;
 				}).forEach(fontElement => {
-					fontElement.style.fontSize = `${this.getMainTitleFontSize()}px`;
+					//fontElement.style.fontSize = `${this.getMainTitleFontSize()}px`;
 				});
 				// sub title
 				this.#fontElements

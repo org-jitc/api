@@ -69,7 +69,7 @@
 								<div class="align-items-center">
 									<div class="form-check form-check-inline">
 									   <input type="radio" id="displayFormat1" name="displayFormat" value="store" class="form-check-input" checked="checked">
-									   <label class="form-check-label" for="displayFormat1">全体</label>
+									   <label class="form-check-label" for="displayFormat1">全拠点</label>
 									</div>
 									<div class="form-check form-check-inline">
 									   <input class="form-check-input" type="radio" name="displayFormat" id="displayFormat2" value="sensor">
@@ -246,7 +246,7 @@
 			function genStoreTableData(){
 				var arr = [];
 				for(var i = 1; i <= 10; i++){
-					arr.push({storeId: 'store' + i, storeName: '店舗' + i});
+					arr.push({storeId: 'store' + i, storeName: '拠点' + i});
 				}
 				return arr;
 			}
@@ -276,6 +276,41 @@
 				}
 				return arr;
 			}
+
+			function onMagicTypeLineClick(){
+				let option = this.getOption();
+				let series = option.series;
+
+				series.forEach(serie => {
+					serie.type = 'line';
+				});
+				this.setOption(option, true);
+			}
+
+			function onMagicTypeBarClick(){
+				let option = this.getOption();
+				let series = option.series;
+
+				series.forEach(serie => {
+					serie.type = 'bar';
+				});
+				this.setOption(option, true);
+			}
+
+			function onMagicTypeStackClick(){
+				let option = this.getOption();
+				let series = option.series;
+
+				let newSeries = series.map(serie => {
+
+					if(serie.stack){
+						delete serie.stack;
+						return;
+					}
+					serie.stack = 'total';
+				});
+				this.setOption(option, true);
+			}
 			
 			function btnGraphClick(){
 				zeusadmin.hideElement(divData);
@@ -289,7 +324,7 @@
 					legend: {
 						type: 'scroll',
 						top: 'bottom',
-						data: ['店舗1', '店舗2', '店舗3', '店舗4', '店舗5', '店舗6', '店舗7', '店舗8', '店舗9', '店舗10']
+						data: ['拠点1', '拠点2', '拠点3', '拠点4', '拠点5', '拠点6', '拠点7', '拠点8', '拠点9', '拠点10']
 					},
 				    xAxis: {
 				        type: 'category',
@@ -310,14 +345,23 @@
 						top: 'middle',
 						left: 'right',
 						feature: {
-							magicType: {
-								type: ['line', 'bar', 'stack', 'tiled'],
-								title: {
-									line: '折れ線グラフ',
-									bar: '棒グラフ',
-									stack: '積み上げグラフ',
-									tiled: '個別'
-								}
+							myLine: {
+								show: true,
+								title: 'line',
+								icon: 'path://M4.1,28.9h7.1l9.3-22l7.4,38l9.7-19.7l3,12.8h14.9M4.1,58h51.4',
+								onclick: onMagicTypeLineClick.bind(myChart)
+							},
+							myBar: {
+								show: true,
+								title: 'bar',
+								icon: 'path://M6.7,22.9h10V48h-10V22.9zM24.9,13h10v35h-10V13zM43.2,2h10v46h-10V2zM3.1,58h53.7',
+								onclick: onMagicTypeBarClick.bind(myChart)
+							},
+							myStack: {
+								show: true,
+								title: 'stack',
+								icon: 'path://M8.2,38.4l-8.4,4.1l30.6,15.3L60,42.5l-8.1-4.1l-21.5,11L8.2,38.4z M51.9,30l-8.1,4.2l-13.4,6.9l-13.9-6.9L8.2,30l-8.4,4.2l8.4,4.2l22.2,11l21.5-11l8.1-4.2L51.9,30z M51.9,21.7l-8.1,4.2L35.7,30l-5.3,2.8L24.9,30l-8.4-4.1l-8.3-4.2l-8.4,4.2L8.2,30l8.3,4.2l13.9,6.9l13.4-6.9l8.1-4.2l8.1-4.1L51.9,21.7zM30.4,2.2L-0.2,17.5l8.4,4.1l8.3,4.2l8.4,4.2l5.5,2.7l5.3-2.7l8.1-4.2l8.1-4.2l8.1-4.1L30.4,2.2z',
+								onclick: onMagicTypeStackClick.bind(myChart)
 							},
 							saveAsImage: {
 								show: true,
@@ -334,61 +378,61 @@
 					},
 				    series: [{
 						id: 'ST0001',
-						name: '店舗1',
+						name: '拠点1',
 				        data: randomData(),
 				        type: 'line',
 						emphasis: { focus: 'series' }
 					},{
 						id: 'ST0002',
-						name: '店舗2',
+						name: '拠点2',
 				        data: randomData(),
 				        type: 'line',
 						emphasis: { focus: 'series' }
 				    },{
 						id: 'ST0003',
-						name: '店舗3',
+						name: '拠点3',
 				        data: randomData(),
 				        type: 'line',
 						emphasis: { focus: 'series' }
 				    },{
 						id: 'ST0004',
-						name: '店舗4',
+						name: '拠点4',
 				        data: randomData(),
 				        type: 'line',
 						emphasis: { focus: 'series' }
 				    },{
 						id: 'ST0005',
-						name: '店舗5',
+						name: '拠点5',
 				        data: randomData(),
 				        type: 'line',
 						emphasis: { focus: 'series' }
 				    },{
 						id: 'ST0006',
-						name: '店舗6',
+						name: '拠点6',
 				        data: randomData(),
 				        type: 'line',
 						emphasis: { focus: 'series' }
 				    },{
 						id: 'ST0007',
-						name: '店舗7',
+						name: '拠点7',
 				        data: randomData(),
 				        type: 'line',
 						emphasis: { focus: 'series' }
 				    },{
 						id: 'ST0008',
-						name: '店舗8',
+						name: '拠点8',
 				        data: randomData(),
 				        type: 'line',
 						emphasis: { focus: 'series' }
 				    },{
 						id: 'ST0009',
-						name: '店舗9',
+						name: '拠点9',
 				        data: randomData(),
 				        type: 'line',
 						emphasis: { focus: 'series' }
 				    },{
 						id: 'ST00010',
-						name: '店舗10',
+						name: '拠点10',
 				        data: randomData(),
 				        type: 'line',
 						emphasis: { focus: 'series' }
@@ -396,6 +440,7 @@
 				};
 				myChart.setOption(option);
 				myChart.resize();
+				console.log(myChart.getOption());
 			}
 			
 			function cellStyle(value, row, index) {
@@ -416,16 +461,16 @@
 					locale: 'ja',
 					columns: [
 						{field: 'datetime', title: '対象年月日', align: 'center', cellStyle: cellStyle},
-						{field: 'ST0001_usage', title: '店舗1（電力量）[kWh]', align: 'right'},
-						{field: 'ST0002_usage', title: '店舗2（電力量）[kWh]', align: 'right'},
-						{field: 'ST0003_usage', title: '店舗3（電力量）[kWh]', align: 'right'},
-						{field: 'ST0004_usage', title: '店舗4（電力量）[kWh]', align: 'right'},
-						{field: 'ST0005_usage', title: '店舗5（電力量）[kWh]', align: 'right'},
-						{field: 'ST0001_reduction', title: '店舗1（削減電力量）[kWh]', align: 'right'},
-						{field: 'ST0002_reduction', title: '店舗2（削減電力量）[kWh]', align: 'right'},
-						{field: 'ST0003_reduction', title: '店舗3（削減電力量）[kWh]', align: 'right'},
-						{field: 'ST0004_reduction', title: '店舗4（削減電力量）[kWh]', align: 'right'},
-						{field: 'ST0005_reduction', title: '店舗5（削減電力量）[kWh]', align: 'right'},
+						{field: 'ST0001_usage', title: '拠点1（電力量）[kWh]', align: 'right'},
+						{field: 'ST0002_usage', title: '拠点2（電力量）[kWh]', align: 'right'},
+						{field: 'ST0003_usage', title: '拠点3（電力量）[kWh]', align: 'right'},
+						{field: 'ST0004_usage', title: '拠点4（電力量）[kWh]', align: 'right'},
+						{field: 'ST0005_usage', title: '拠点5（電力量）[kWh]', align: 'right'},
+						{field: 'ST0001_reduction', title: '拠点1（削減電力量）[kWh]', align: 'right'},
+						{field: 'ST0002_reduction', title: '拠点2（削減電力量）[kWh]', align: 'right'},
+						{field: 'ST0003_reduction', title: '拠点3（削減電力量）[kWh]', align: 'right'},
+						{field: 'ST0004_reduction', title: '拠点4（削減電力量）[kWh]', align: 'right'},
+						{field: 'ST0005_reduction', title: '拠点5（削減電力量）[kWh]', align: 'right'},
 					],
 					data: genDataTableData()
 				});
@@ -504,7 +549,7 @@
 				locale: 'ja',
 				columns: [
 					{checkbox: true},
-					{field: 'storeName', title: '店舗名'}
+					{field: 'storeName', title: '拠点名'}
 				],
 				data: genStoreTableData()
 			});

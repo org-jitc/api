@@ -607,6 +607,7 @@
 			
 			// add events
 			myChart.on('click', function(params) {
+				console.log(params);
 				let displayFormat = document.querySelector('[name="displayFormat"]:checked').value;
 				
 				if(displayFormat === 'store'){
@@ -617,7 +618,7 @@
 					dataset.push({
 						transform: {
 							type: 'sort',
-							config: { dimension: params.data[0], order: 'desc' }
+							config: { dimension: params.data[0], order: 'asc' }
 						}
 					});
 	
@@ -625,17 +626,17 @@
 						legend: {},
 						dataset: dataset,
 						xAxis: {
-							type: 'category',
-							axisLabel: { interval: 0, rotate: 30 }
 						},
-						yAxis: {},
+						yAxis: {
+							type: 'category'
+						},
 						tooltip: {
 							trigger: 'axis'
 						},
 						series: {
 							name: params.data[0],
-							type: 'line',
-							encode: { x: 'store', y: params.data[0] },
+							type: 'bar',
+							encode: { x: params.data[0], y: 'store' },
 							datasetIndex: 1
 						}
 					};
