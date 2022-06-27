@@ -37,9 +37,8 @@
 
 	<style>
 		:root {
-			--img-normal-width: 16%;
-			--img-normal-up-top: 28%;
-			--img-arrow-width: 12%;
+			--img-arrow-width: 10%;
+			--img-in-div-width: 60%;
 		}
 
 		html {
@@ -55,78 +54,43 @@
 		#panel-title{
 			font-size: 1.6rem;
 		}
+		#panel-body {
+			flex: 1;
+		}
 
 		#panel-body-images{
 			width: 66%;
+			position: relative;
 		}
-		#panel-body-images > #panel-body-images-down {
-			padding-top: 2%;
-		}
-		#panel-body-images > #panel-body-images-down > #panel-body-buy {
-			width: 30%;
-		}
-		#panel-body-images > #panel-body-images-down > #panel-body-charge-release {
-			width: 30%;
-			padding-left: 1%;
-			padding-right: 1%;
-			padding-top: 2%; 
-		}
-		#panel-body-images > #panel-body-images-down > #panel-body-charge-release > div {
-			width: 30%;
-		}
-		#panel-body-images > #panel-body-images-down > #panel-body-generation {
-			width: 40%;
-		}
-		#panel-body-pie {
-			width: 35%;
+		#panel-body-list {
+			width: 34%;
 		}
 
-		.pg-img {
+		#img-arrow-left {
+			width: var(--img-arrow-width);
+			position: absolute;
+			top: 20%;
+			left: 30%;
+			transform: rotate(210deg);
+		}
+		#img-arrow-right {
+			width: var(--img-arrow-width);
+			position: absolute;
+			top: 20%;
+			left: 60%;
+			transform: rotate(-30deg);
+		}
+		#nine-square {
+			position: absolute;
 			top: 0;
 			left: 0;
 		}
-		.pg-img-tower {
-			width: var(--img-normal-width);
-			top: var(--img-normal-up-top);
-			left: 7%;
+		#img-towers, #img-solar-panels {
+			width: var(--img-in-div-width);
 		}
-		.pg-label-skyline {
-			top: 45%;
-			left: 43%;
-		}
-		.pg-img-skyline {
-			width: var(--img-normal-width);
-			top: var(--img-normal-up-top);
-			left: 37%;
-		}
-		.pg-img-solar-panel {
-			width: var(--img-normal-width);
-			top: var(--img-normal-up-top);
-			left: 72%;
-		}
-		.pg-img-battery-status {
-			width: var(--img-normal-width);
-			top: 67%;
-			left: 37%;
-		}
-		.pg-label-battery-status {
-			top: 72%;
-			left: 56%;
-		}
-		.pg-img-left-arrow {
-			width: var(--img-arrow-width);
-			top: 33%;
-			left: 54%;
-		}
-		.pg-img-right-arrow {
-			width: var(--img-arrow-width);
-			top: 33%;
-			left: 24%;
-		}
-		.pg-img-up-down-arrow {
-			width: var(--img-arrow-width);
-			top: 52%;
-			left: 39%;
+
+		#facility-title {
+			font-size: 1.6rem;
 		}
 	</style>
 
@@ -139,25 +103,25 @@
 		<div id="panel" class="d-flex flex-column p-3">
 
 			<div id="panel-title" class="p-3 d-flex justify-content-between align-items-center">
-				<label id="text-main-title" class="pg-font-element pg-font-main-title">施設名：東北冷蔵製氷様 本社・第1工場</label>
-				<label id="text-main-title" class="pg-font-element pg-font-main-title">2022年6月3日</label>
+				<div>施設名：<label id="facility-name">東北冷蔵製氷様 本社・第1工場</label></div>
+				<label id="date">2022年6月3日</label>
 			</div>
 
-			<div id="panel-body" class="flex-grow-1 d-flex pg-font-element pg-font-normal">
+			<div id="panel-body" class="d-flex">
 
-				<div id="panel-body-images" style="position: relative;">
-					<img src="./images/powerGeneration/left-arrow-500.gif" style="width: 10%; position: absolute; top: 20%; left: 30%; transform: rotate(210deg);">
-					<img src="./images/powerGeneration/left-arrow-500.gif" style="width: 10%; position: absolute; top: 20%; left: 60%; transform: rotate(-30deg);">
-					<div class="d-flex flex-column w-100 h-100" style="position: absolute; top: 0; left: 0;">
+				<div id="panel-body-images">
+					<img id="img-arrow-left" src="./images/powerGeneration/left-arrow-500.gif">
+					<img id="img-arrow-right" src="./images/powerGeneration/left-arrow-500.gif">
+					<div id="nine-square" class="d-flex flex-column w-100 h-100">
 						<div class="col d-flex">
 							<div class="col d-flex justify-content-center align-items-start pt-3">
-								<img src="./images/powerGeneration/towers.png" style="width:60%;">
+								<img id="img-towers" src="./images/powerGeneration/towers.png">
 							</div>
 							<div class="col d-flex justify-content-center align-items-end">
-								<div class="mb-3" style="font-size: 1.6rem;">当施設</div>
+								<label id="facility-title" class="mb-3">当施設</label>
 							</div>
 							<div class="col d-flex justify-content-center align-items-start pt-3">
-								<img src="./images/powerGeneration/solar-panels.png" style="width: 60%;">
+								<img id="img-solar-panels" src="./images/powerGeneration/solar-panels.png">
 							</div>
 						</div>
 						<div class="col d-flex">
@@ -166,32 +130,32 @@
 									<tbody>
 										<tr>
 											<td class="bg-success bg-opacity-25">買電電力</td>
-											<td>27kW</td>
+											<td><label id="purchasedPower">27</label>kW</td>
 										</tr>
 										<tr>
 											<td class="bg-success bg-opacity-25">供給率</td>
-											<td>32%</td>
+											<td><label id="purchasedPowerSupplyRate">32</label>%</td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
 							<div class="col d-flex justify-content-center align-items-center">
-								<img src="./images/powerGeneration/skyline.png" class="w-100">
+								<img id="img-facility" src="./images/powerGeneration/skyline.png" class="w-100">
 							</div>
 							<div class="col d-flex justify-content-center align-items-start">
 								<table class="table table-sm table-bordered table-bordered w-auto text-center">
 									<tbody>
 										<tr>
 											<td class="bg-success bg-opacity-25">発電電力（瞬時）</td>
-											<td>27kW</td>
+											<td><label id="powerGenerationInstantaneous">27</label>kW</td>
 										</tr>
 										<tr>
 											<td class="bg-success bg-opacity-25">当時限の発電電力</td>
-											<td>2kWh</td>
+											<td><label id="powerGeneration30">2</label>kWh</td>
 										</tr>
 										<tr>
 											<td class="bg-success bg-opacity-25">供給率</td>
-											<td>32%</td>
+											<td><label id="powerGenerationSupplyRate">32</label>%</td>
 										</tr>
 									</tbody>
 								</table>
@@ -216,7 +180,7 @@
 					</div>
 				</div>
 
-				<div id="panel-body-pie" class="p-1 d-flex justify-content-center">
+				<div id="panel-body-list" class="p-1 d-flex justify-content-center">
 					<div class="w-100 d-flex flex-column justify-content-between text-center p-2">
 						<div>
 							<div align="center">【使用電力量】</div>
@@ -224,13 +188,13 @@
 								<div class="col m-0 p-0">
 									<ul class="list-group">
 										<li class="list-group-item">当日</li>
-										<li class="list-group-item">1500kWh</li>
+										<li class="list-group-item"><label id="usedDay">1500</label>kWh</li>
 									</ul>
 								</div>
 								<div class="col m-0 p-0">
 									<ul class="list-group">
 										<li class="list-group-item">当月</li>
-										<li class="list-group-item">6649kWh</li>
+										<li class="list-group-item"><label id="usedMonth"></label>6649kWh</li>
 									</ul>
 								</div>
 							</div>
@@ -242,17 +206,17 @@
 								<div class="col m-0 p-0">
 									<ul class="list-group">
 										<li class="list-group-item">当日（買電）</li>
-										<li class="list-group-item">1095kWh</li>
+										<li class="list-group-item"><label id="purchasedDay">1095</label>kWh</li>
 										<li class="list-group-item">当日（売電）</li>
-										<li class="list-group-item">0kWh</li>
+										<li class="list-group-item"><label id="generatedDay">0</label>kWh</li>
 									</ul>
 								</div>
 								<div class="col m-0 p-0">
 									<ul class="list-group">
 										<li class="list-group-item">当月（買電）</li>
-										<li class="list-group-item">5006kWh</li>
+										<li class="list-group-item"><label id="purchasedMonth">5006</label>kWh</li>
 										<li class="list-group-item">当月（売電）</li>
-										<li class="list-group-item">0kWh</li>
+										<li class="list-group-item"><label id="generatedMonth">0</label>kWh</li>
 									</ul>
 								</div>
 							</div>
@@ -306,10 +270,8 @@
 		class ElectricityMonitoringPanel {
 			#data
 			#html
-			#fontElements
-			#imgElements
+			#images
 			#resizeByRatio
-			#storageBatteryItems
 			constructor(config){
 				this.#data = {
 					ratios: {
@@ -318,65 +280,44 @@
 							y: 3
 						}
 					},
-					sizes: {
-						images: {
-							default: 0.12,
-							arrows: 0.1
-						},
-						fonts: {
-							percentage: 0.015,
-							normal: 0.02,
-							mainTitle: 0.04,
-							subTitle: 0.03
-						}
-					},
-					positions: {
-						tower: {
-							top: '41%',
-							left: '3.75%'
-						}
-					},
 					current: {
-						panelSize: null
+						panelSize: null,
+						facility: null
 					}
 				};
 				this.#html = document.getElementsByTagName('html')[0];
+				this.#images = {
+					facility: document.querySelector('#img-facility')
+				};
 				this.#resizeByRatio = new ResizeByRatio({
 					ratios: this.#data.ratios.panel,
 					callbacks: [this.onResize.bind(this)]
 				});
-				this.#fontElements = Array.from(document.querySelectorAll('.pg-font-element'));
-				this.#imgElements = Array.from(document.querySelectorAll('.pg-img'));
-				this.#storageBatteryItems = Array.from(document.querySelectorAll('.storage-battery'));
 				this.root = document.querySelector(`#${config.id}`);
 				this.charts = {
 					pie: echarts.init(document.querySelector('#pie'))
 				};
+				this.imgBuilding = {
+					src: './images/powerGeneration/eco-building.png'
+				};
+				this.imgFactory = {
+					src: './images/powerGeneration/eco-factory.png'
+				};
+				this.imgShop = {
+					src: './images/powerGeneration/eco-shop.png'
+				};
+				this.imgBuilding.next = this.imgFactory;
+				this.imgFactory.next = this.imgShop;
+				this.imgShop.next = this.imgBuilding;
 				// initialization
-				if(config.storageBattery){
-					this.#storageBatteryItems.forEach(el => {
-						let clazz = el.getAttribute('class');
-						el.setAttribute('class', clazz.replace(' d-none', ''));
-					});
-				}
-
 				this.charts.pie.setOption(graphOption);
-			}
-			getMainTitleFontSize(){
-				return parseInt(this.#data.current.panelSize.height * this.#data.sizes.fonts.mainTitle);
-			}
-			getSubTitleFontSize(){
-				return parseInt(this.#data.current.panelSize.height * this.#data.sizes.fonts.subTitle);
-			}
-			getNormalFontSize() {
-				return parseInt(this.#data.current.panelSize.height * this.#data.sizes.fonts.normal);
+				this.#data.current.facility = this.imgBuilding;
+				this.changeFacility.call(this);
 			}
 			onResize(newSize){
 				this.#data.current.panelSize = newSize;
 				// resize root div
 				this.resizeRoot();
-				// resize fonts
-				this.resizeFonts();
 				// resize graph
 				this.charts.pie.resize();
 			}
@@ -384,36 +325,15 @@
 				this.root.style.width = `${this.#data.current.panelSize.width}px`;
 				this.root.style.height = `${this.#data.current.panelSize.height}px`;
 			}
-			resizeFonts(){
-				this.#html.style.fontSize = `${parseInt(this.#data.current.panelSize.width * this.#data.sizes.fonts.percentage)}px`;
-				// main title
-				this.#fontElements
-				.filter(fontEl => {
-					return fontEl.getAttribute('class').indexOf('main-title') >= 0;
-				}).forEach(fontElement => {
-					//fontElement.style.fontSize = `${this.getMainTitleFontSize()}px`;
-				});
-				// sub title
-				this.#fontElements
-				.filter(fontEl => {
-					return fontEl.getAttribute('class').indexOf('sub-title') >= 0;
-				}).forEach(fontElement => {
-					fontElement.style.fontSize = `${this.getSubTitleFontSize()}px`;
-				});
-				// normal
-				this.#fontElements
-				.filter(fontEl => {
-					return fontEl.getAttribute('class').indexOf('font-normal') >= 0;
-				})
-				.forEach(fontEl => {
-					fontEl.style.fontSize = `${this.getNormalFontSize()}px`;
-				});
+			changeFacility(){
+				this.#images.facility.src = this.#data.current.facility.src;
+				this.#data.current.facility = this.#data.current.facility.next;
+				setTimeout(this.changeFacility.bind(this), 5000);
 			}
 		}
 
 		let panel = new ElectricityMonitoringPanel({
-			id: 'panel',
-			storageBattery: false
+			id: 'panel'
 		});
 		panel.onResize({width: 800, height: 600});
 	</script>
