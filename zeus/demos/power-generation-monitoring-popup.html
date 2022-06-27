@@ -88,6 +88,9 @@
 		#img-towers, #img-solar-panels {
 			width: var(--img-in-div-width);
 		}
+		#img-facility {
+			width: 90%;
+		}
 
 		#facility-title {
 			font-size: 1.6rem;
@@ -140,7 +143,7 @@
 								</table>
 							</div>
 							<div class="col d-flex justify-content-center align-items-center">
-								<img id="img-facility" src="./images/powerGeneration/skyline.png" class="w-100">
+								<img id="img-facility" src="./images/powerGeneration/skyline.png">
 							</div>
 							<div class="col d-flex justify-content-center align-items-start">
 								<table class="table table-sm table-bordered table-bordered w-auto text-center">
@@ -271,6 +274,7 @@
 			#data
 			#html
 			#images
+			#titles
 			#resizeByRatio
 			constructor(config){
 				this.#data = {
@@ -289,6 +293,9 @@
 				this.#images = {
 					facility: document.querySelector('#img-facility')
 				};
+				this.#titles = {
+					facility: document.querySelector('#facility-title')
+				};
 				this.#resizeByRatio = new ResizeByRatio({
 					ratios: this.#data.ratios.panel,
 					callbacks: [this.onResize.bind(this)]
@@ -298,13 +305,16 @@
 					pie: echarts.init(document.querySelector('#pie'))
 				};
 				this.imgBuilding = {
-					src: './images/powerGeneration/eco-building.png'
+					src: './images/powerGeneration/eco-building.png',
+					title: '当施設'
 				};
 				this.imgFactory = {
-					src: './images/powerGeneration/eco-factory.png'
+					src: './images/powerGeneration/eco-factory.png',
+					title: '当工場'
 				};
 				this.imgShop = {
-					src: './images/powerGeneration/eco-shop.png'
+					src: './images/powerGeneration/eco-shop.png',
+					title: '当店舗'
 				};
 				this.imgBuilding.next = this.imgFactory;
 				this.imgFactory.next = this.imgShop;
@@ -327,7 +337,10 @@
 			}
 			changeFacility(){
 				this.#images.facility.src = this.#data.current.facility.src;
+				this.#titles.facility.innerText = this.#data.current.facility.title;
+
 				this.#data.current.facility = this.#data.current.facility.next;
+
 				setTimeout(this.changeFacility.bind(this), 5000);
 			}
 		}
