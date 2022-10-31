@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache,must-revalidate">
+	<meta http-equiv="Expires" content="0">
+
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap/5/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/font-awesome/css/all.min.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/css.css">
+	<link rel="stylesheet" type="text/css" href="./css/override.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/zeus/electricUsage.css"/>
+	
+	<script>
+		let contextPath = './';
+		let js_ver = '0000';
+		// system encoding
+		var systemEncode = 'SJIS';
+		sessionStorage.setItem('systemEncode', systemEncode);
+		// system language
+		var sysLanguage = 'ja';
+		sessionStorage.setItem('sysLanguage', sysLanguage);
+		// bootstrap color picker option
+		var btpColorPickerOption = {format: 'hex'};
+		sessionStorage.setItem('btpColorPickerOption', btpColorPickerOption);
+		// 
+		let formAction = null;
+		let zeusStore = {};
+		//-> set server sync system param
+		zeusStore.serverSync = {};
+		zeusStore.serverSync.hasComponent = 'false' == 'true';
+		if(zeusStore.serverSync.hasComponent){
+			zeusStore.serverSync.serverSyncCheck = 'true';
+		}
+		//<- set server sync system param
+	</script>
+
+	<title>
+		発電監視
+	</title>
+</head>
+<body>
+	<!-- window size height table -->
+	<div class="saineji font-weight-bold d-flex flex-column" onclick="window.close();">
+		<!-- head -->
+		<div class="saineji-head d-flex justify-content-between align-items-center align-items-stretch" style="background-color: #C3D69B;">
+			<div class="saineji-head-logo d-flex align-items-center">
+				<img src="./images/saineji_logo_ecoCloud.gif" width="100%" onerror="$(this).hide();">
+			</div>
+			<div class="saineji-head-facility flex-grow-1 rounded d-flex justify-content-center align-items-center m-3" style="background-color: white;">
+				発電・電力使用状況
+			</div>
+			<div class="saineji-head-time d-flex justify-content-center align-items-center">
+				<div id="ymdwhmi" class="top" align="center"></div>
+			</div>
+		</div>
+		<!-- body -->
+		<div class="saineji-body d-flex flex-column" style="background-color: #76933C;">
+			<!-- demand -->
+			<div class="h-50">
+				<div class="dataset-title d-flex align-items-center">太陽光発電量（自家消費）</div>
+				<!-- demand data -->
+				<div class="power-generation">
+					<div class="generated-power item-box p-1">
+						<div class="box-body h-100 rounded d-flex flex-column">
+							<div class="box-title">発電電力</div>
+							<div class="box-data d-flex justify-content-center align-items-center">
+								<div class="box-data-value">
+									<span id="predictionPower" data-target="signage">7.0</span>
+								</div>
+							</div>
+							<div class="box-data-unit align-self-end">kW</div>
+						</div>
+					</div>
+
+					<div class="generated-electric-today item-box p-1">
+						<div class="box-body h-100 rounded d-flex flex-column">
+							<div class="box-title">本日の発電電力</div>
+							<div class="box-data d-flex justify-content-end align-items-end">
+								<div class="box-data-value">
+									<span id="targetPower" data-target="signage">20.2</span>
+								</div>
+								<div class="box-data-unit">kWh</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="genrated-electric-month item-box p-1">
+						<div class="box-body h-100 rounded d-flex flex-column">
+							<div class="box-title">今月の発電電力</div>
+							<div class="box-data d-flex justify-content-end align-items-end">
+								<div class="box-data-value">
+									<span id="maxDemandMonth" data-target="signage">200.5</span>
+								</div>
+								<div class="box-data-unit">kWh</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="generated-bought-rate item-box p-1">
+						<div class="box-body h-100 rounded d-flex flex-column">
+							<div class="box-title">太陽光発電/消費電力</div>
+							<div class="box-data d-flex justify-content-center align-items-center">
+								<div class="box-data-value">
+									<span id="currentPower" data-target="signage">100.0</span>
+									<span>%</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			<!-- elect -->
+			<div class="h-50">
+				<div class="dataset-title d-flex align-items-center">電力使用状況</div>
+				<!-- elect data -->
+				<div class="power-status w-100 d-flex align-items-stretch">
+					<div class="power-status-left col-8 p-0 h-100 d-flex flex-wrap align-items-center">
+						<div class="item-box w-50 h-50 p-1">
+							<div class="box-body h-100 rounded d-flex flex-column">
+								<div class="box-title">当月全体電力使用量</div>
+								<div class="box-data d-flex justify-content-end align-items-end">
+									<div class="box-data-value">
+										<span id="electricUsedMonth">&nbsp;</span>
+									</div>
+									<div class="box-data-unit">kWh</div>
+								</div>
+							</div>
+						</div>
+						<div class="item-box w-50 h-50 p-1">
+							<div class="box-body h-100 rounded d-flex flex-column">
+								<div class="box-title">当月削減電力量</div>
+								<div class="box-data d-flex justify-content-end align-items-end">
+									<div class="box-data-value">
+										<span id="electricReducedMonth">&nbsp;</span>
+									</div>
+									<div class="box-data-unit">kWh</div>
+								</div>
+							</div>
+						</div>
+						<div class="item-box w-50 h-50 p-1">
+							<div class="box-body h-100 rounded d-flex flex-column">
+								<div class="box-title">当月制御機器電力使用量</div>
+								<div class="box-data d-flex justify-content-end align-items-end">
+									<div class="box-data-value">
+										<span id="electricUsedMonthUnderControl">&nbsp;</span>
+									</div>
+									<div class="box-data-unit">kWh</div>
+								</div>
+							</div>
+						</div>
+						<div class="item-box w-50 h-50 p-1">
+							<div class="box-body h-100 rounded d-flex flex-column">
+								<div class="box-title">当日削減電力量</div>
+								<div class="box-data d-flex justify-content-end align-items-end">
+									<div class="box-data-value">
+										<span id="electricReducedMonthUnderControl">&nbsp;</span>
+									</div>
+									<div class="box-data-unit">kWh</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="power-status-right col-4 p-0">
+						<div class="item-box w-100 h-50 p-1">
+							<div class="box-body h-100 rounded d-flex flex-column">
+								<div class="box-title">当月削減率（全体）</div>
+								<div class="box-data d-flex justify-content-end align-items-end">
+									<div class="box-data-value">
+										<span id="reduceRate">&nbsp;</span>
+									</div>
+									<div class="box-data-unit text-danger">%</div>
+								</div>
+							</div>
+						</div>
+						<div class="item-box w-100 h-50 p-1">
+							<div class="box-body h-100 rounded d-flex flex-column">
+								<div class="box-title">当月削減率（制御機器）</div>
+								<div class="box-data d-flex justify-content-end align-items-end">
+									<div class="box-data-value">
+										<span id="reduceRateUnderControl">&nbsp;</span>
+									</div>
+									<div class="box-data-unit text-danger">%</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- foot -->
+		<div class="signage-footer py-4 d-flex align-items-center" style="background-color: #76933C;">
+			<div>&copy;2010 JIT Consulting</div>
+		</div>
+	</div>
+	
+	<script>
+		let req = {
+			demandStatusArr: [],
+			userId: 'demo'
+		};
+	</script>
+	<script src="./js/justgage.js"></script>
+	<script src="./js/raphael-2.1.4.min.js"></script>
+	<script src="./js/jquery/jquery-3.5.1.min.js"></script>
+	<script src="./js/axios/axios.min.js"/>"></script>
+	<script src="./js/axios/axios.interceptors.js"></script>
+	<script src="./js/zeus/electricUsage.demandStatus.js"></script>
+	<script src="./js/zeus/electricUsage.list.js"></script>
+</body>
+</html>
