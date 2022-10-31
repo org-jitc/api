@@ -101,7 +101,7 @@ body {
 
 .power-generation {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(3, minmax(0, 1fr));
 	grid-template-rows: repeat(2, 1fr);
 	grid-template-areas: 
 		'gp ged g-b-rate'
@@ -122,6 +122,7 @@ body {
 }
 .generated-power > .box-body > .box-data > .box-data-value {
 	font-size: 6rem;
+	width: 100%;
 }
 .generated-bought-rate > .box-body > .box-data > .box-data-value {
 	font-size: 5rem;

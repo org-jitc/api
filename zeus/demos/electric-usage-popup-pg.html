@@ -67,7 +67,7 @@
 							<div class="box-title">発電電力</div>
 							<div class="box-data d-flex justify-content-center align-items-center">
 								<div class="box-data-value">
-									<span id="predictionPower" data-target="signage">7.0</span>
+									<span id="generatedPower" data-target="signage">111007.0</span>
 								</div>
 							</div>
 							<div class="box-data-unit align-self-end">kW</div>
@@ -79,7 +79,7 @@
 							<div class="box-title">本日の発電電力</div>
 							<div class="box-data d-flex justify-content-end align-items-end">
 								<div class="box-data-value">
-									<span id="targetPower" data-target="signage">20.2</span>
+									<span id="generatedElectricDay" data-target="signage">20.2</span>
 								</div>
 								<div class="box-data-unit">kWh</div>
 							</div>
@@ -91,7 +91,7 @@
 							<div class="box-title">今月の発電電力</div>
 							<div class="box-data d-flex justify-content-end align-items-end">
 								<div class="box-data-value">
-									<span id="maxDemandMonth" data-target="signage">200.5</span>
+									<span id="generatedElectricMonth" data-target="signage">200.5</span>
 								</div>
 								<div class="box-data-unit">kWh</div>
 							</div>
@@ -209,5 +209,35 @@
 	<script src="./js/axios/axios.interceptors.js"></script>
 	<script src="./js/zeus/electricUsage.demandStatus.js"></script>
 	<script src="./js/zeus/electricUsage.list.js"></script>
+	<script>
+		let gp = document.querySelector('#generatedPower');
+		let ged = document.querySelector('#generatedElectricDay');
+		let gem = document.querySelector('#generatedElectricMonth');
+		let storage = {
+			dataArray: ['1000.0', '10000.0', '100000.0'],
+			index: 0,
+			set dataIndex(value) {
+				
+				if(value > 2){
+					this.index = 0;
+					return;
+				}
+				this.index = value;
+			},
+			get dataIndex(){
+				return this.index;
+			}
+		}
+
+		function changeTestValue(){
+			gp.innerText = storage.dataArray[storage.dataIndex];
+			ged.innerText = storage.dataArray[storage.dataIndex];
+			gem.innerText = storage.dataArray[storage.dataIndex];
+			storage.dataIndex = storage.dataIndex + 1;
+			setTimeout(changeTestValue, 1000);
+			console.log(storage.dataArray);
+		}
+		changeTestValue();
+	</script>
 </body>
 </html>
