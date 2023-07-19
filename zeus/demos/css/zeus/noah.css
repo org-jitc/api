@@ -1,0 +1,101 @@
+body {
+    font-size: 12px;
+}
+/* Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) {
+    body {
+        font-size: 12px;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    body {
+        font-size: 12px;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    body {
+        font-size: 12px;
+    }
+}
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    body {
+        font-size: 12px;
+    }
+}
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {
+    body {
+        font-size: 12px;
+    }
+}
+
+.overall-container {
+    width: 960px;
+}
+
+/* title: text size, weight */
+.current-datetime {
+    font-size: 1.2rem;
+    padding: .5rem;
+}
+.facility-name {
+    font-size: 1.2rem;
+    text-align: center;
+    padding: .5rem 4rem;
+}
+.noah-nav {
+    font-size: 1.2rem;
+}
+
+.overall-status .input-group-text {
+    font-size: 1.15rem;
+}
+
+.ventilation-status .input-group-text {
+    font-size: 1.15rem;
+}
+
+.realtime-chart{
+    width: 630px;
+}
+
+.plan-image-container {
+    width: 640px;
+    height: 400px;
+    border: 1px solid black;
+    display: grid;
+    grid-template-rows: 21% 58% 21%;
+}
+.hall-container {
+    display: grid;
+    grid-template-columns: 38% 24% 38%;
+}
+
+.setting-modify-container {
+    width: 600px;
+}
+.setting-container-one {
+    display: grid;
+    grid-template-columns: 38% 26% 26% 10%;
+}
+.setting-container-from-to {
+    display: grid;
+    grid-template-columns: 12% 26% 24% 4% 24% 10%;
+}
+.setting-label {
+    width: 12rem;
+}
+
+.operation-switch-button {
+    width: 10rem;
+}
+/* switch button: look */
+/* status label */
+/* status value */
