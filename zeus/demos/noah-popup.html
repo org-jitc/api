@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
 	<meta http-equiv="Pragma" content="no-cache">
 	<meta http-equiv="Cache-Control" content="no-cache,must-revalidate">
 	<meta http-equiv="Expires" content="0">
 
-	<link rel="stylesheet" type="text/css" href="./css/bootstrap/5/bootstrap.min.css"/>
-	<link rel="stylesheet" type="text/css" href="./css/datepickers/flatpickr/flatpickr.min.css"/>
-	<link rel="stylesheet" type="text/css" href="./css/font-awesome/css/all.min.css"/>
-	<link rel="stylesheet" type="text/css" href="./css/css.css">
-	<link rel="stylesheet" type="text/css" href="./css/override.css"/>
-	<link rel="stylesheet" type="text/css" href="./css/zeus/noah.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/icons/bootstrap/bootstrap-icons.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap/5/bootstrap-litera.min.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/zeus/noah-list.css"/>
 	
 	<script>
 		let contextPath = './';
@@ -41,717 +39,915 @@
 		NOAH
 	</title>
 </head>
-<body>
-	<!-- window size height table -->
-	<div class="d-flex justify-content-center font-weight-bold">
-		<div class="overall-container">
-			<div class="d-flex justify-content-between align-items-center">
-				<div id="facilityName" class="facility-name text-primary">ｎｉｋｋｏ<br>真庭店</div>
-
-				<div>
-					<ul class="nav nav-underline noah-nav">
-						<li class="nav-item">
-							<a class="nav-link active" data-bs-toggle="tab" data-bs-target="#statusContainer" href="javascript:void(0);">状態</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" data-bs-toggle="tab" data-bs-target="#operationContainer"  href="javascript:void(0);">操作</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" data-bs-toggle="tab" data-bs-target="#settingContainer"  href="javascript:void(0);">設定</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" data-bs-toggle="tab" data-bs-target="#historyContainer"  href="javascript:void(0);">履歴</a>
-						</li>
-					</ul>
+<body class="bg-primary-subtle">
+	<!-- 施設名、システム状態、換気状態、サイドメニュー -->
+	<nav class="navbar sticky-top bg-primary">
+		<div class="container-xxl d-flex justify-content-between">
+		  	<div class="navbar-brand text-center text-white fw-bold">ｎｉｋｋｏ<br>真庭店</div>
+		  	<div class="d-flex flex-wrap gap-1">
+				<div class="overall-status-container p-2 rounded-3 bg-white text-primary d-flex flex-wrap justify-content-center align-items-center">
+					<span class="badge rounded-pill text-bg-info">システム状態</span>
+					<div id="overallStatus" class="overall-status fw-bold fs-5"></div>
 				</div>
-	
-				<div id="currentDatetime" class="current-datetime"></div>
+
+				<div class="p-2 rounded-3 bg-white text-primary d-flex justify-content-center align-items-center">
+					<span class="badge rounded-pill text-bg-info">換気状態</span>
+					<div id="ventilationStatus" class="ventilation-status fw-bold fs-5"></div>
+				</div>
 			</div>
-			
-			<hr class="mt-0">
-	
-			<div class="tab-content">
-				<div id="statusContainer" class="status-container tab-pane fade show active">
-
-					<div class="d-flex justify-content-around">
-
-						<div id="statusLeft" align="center">
-							<div class="d-flex justify-content-between mb-3">
-								<div class="overall-status">
-									<div class="input-group input-group-sm w-auto">
-										<span id="overallStatus" class="input-group-text"></span>
-									</div>
-								</div>
-								<div>
-									<div class="input-group input-group-sm ventilation-status">
-										<span class="input-group-text">強</span>
-										<span class="input-group-text">中</span>
-										<span class="input-group-text">弱</span>
-										<span id="ventilationStatus" class="input-group-text">微弱</span>
-									</div>
-								</div>
-							</div>
-		
-							<div id="planImageContainer" class="plan-image-container">
-								<div id="topRoomsContainer" class="d-flex justify-content-end align-items-center">
-									<div class="input-group input-group-sm w-auto">
-										<span class="input-group-text">MCFA</span>
-										<span class="input-group-text text-bg-primary">PACA</span>
-										<span class="input-group-text">MCFB</span>
-										<span class="input-group-text text-bg-primary">PACB</span>
-										<span class="input-group-text text-bg-primary">PACC</span>
-										<span class="input-group-text">MCFC</span>
-										<span class="input-group-text">MCFD</span>
-										<span class="input-group-text text-bg-primary">PACD</span>
-									</div>
-								</div>
-								<div id="hallContainer" class="hall-container">
-									<div id="leftHallContainer" class="d-flex flex-column justify-content-between align-items-center">
-										<div>
-											<ul class="list-group">
-												<li class="list-group-item">CO2-2</li>
-												<li class="list-group-item">1025ppm</li>
-												<li class="list-group-item">CO2上昇</li>
-											</ul>
-										</div>
-										<div>
-											<ul class="list-group mb-2">
-												<li class="list-group-item">
-													<span class="badge rounded-pill text-bg-success">2</span>
-												</li>
-												<li class="list-group-item">23.4℃</li>
-												<li class="list-group-item">73.8%</li>
-											</ul>
-										</div>
-									</div>
-									<div id="middleHallContainer" class="d-flex justify-content-center align-items-center">
-										湿度<br>上昇
-									</div>
-									<div id="rightHallContainer" class="d-flex flex-column justify-content-between align-items-center">
-										<div>
-											<ul class="list-group">
-												<li class="list-group-item">CO2-1</li>
-												<li class="list-group-item">1032ppm</li>
-												<li class="list-group-item">CO2上昇</li>
-											</ul>
-										</div>
-										<div>
-											<ul class="list-group mb-2">
-												<li class="list-group-item">
-													<span class="badge rounded-pill text-bg-success">1</span>
-												</li>
-												<li class="list-group-item">23.8℃</li>
-												<li class="list-group-item">74.4%</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div id="bottomRooms"></div>
-							</div>
-						</div>
-		
-						<div id="statusRight" align="center">
-							<div id="buttons" class="mb-3">
-								<button type="button" class="btn btn-primary btn-sm">WLR</button>
-								<button type="button" class="btn btn-primary btn-sm">遠方運転中</button>
-							</div>
-							
-							<div id="indoorTemp" style="width: 10rem;">
-								<ul class="list-group mb-2">
-									<li class="list-group-item">
-										外気温湿度
-										<span class="badge rounded-pill text-bg-success">0</span>
-									</li>
-									<li class="list-group-item">20.2℃</li>
-									<li class="list-group-item">78.3%</li>
-								</ul>
-			
-								<ul class="list-group">
-									<li class="list-group-item">室内温湿度</li>
-									<li class="list-group-item">
-										<div class="d-flex justify-content-between">
-											<label>平均温度</label>
-											<div>
-												<label>23.6</label>
-												<label>℃</label>
-											</div>
-										</div>
-									</li>
-									<li class="list-group-item">
-										<div class="d-flex justify-content-between">
-											<label>設定温度</label>
-											<div>
-												<label>25</label>
-												<label>℃</label>
-											</div>
-										</div>
-									</li>
-									<li class="list-group-item"></li>
-									<li class="list-group-item">
-										<div class="d-flex justify-content-between">
-											<label>平均湿度</label>
-											<div>
-												<label>74.6</label>
-												<label>%</label>
-											</div>
-										</div>
-									</li>
-									<li class="list-group-item">
-										<div class="d-flex justify-content-between">
-											<label>警報湿度</label>
-											<div>
-												<label>70</label>
-												<label>%</label>
-											</div>
-										</div>
-									</li>
-									<li class="list-group-item"></li>
-									<li class="list-group-item">
-										<div class="d-flex justify-content-between">
-											<label>CO2警報</label>
-											<div>
-												<label>950</label>
-												<label>ppm</label>
-											</div>
-										</div>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-	
-				<div id="operationContainer" class="tab-pane fade">
-					<!--遠方・手元切り替え-->
-					<div>
-						<div class="card">
-							<div class="card-body">
-							  <h5 class="card-title">遠方/手元運転切換</h5>
-							  <p class="card-text">
-								<div class="d-flex justify-content-center">
-									<div class="d-flex flex-column">
-										<button id="switchButton" class="btn btn-primary btn-sm">遠方運転中</button>
-			
-										<div class="btn-group btn-group-sm">
-											<button id="operationButton" class="btn btn-primary">運転</button>
-											<button id="stopButton" class="btn btn-outline-primary">停止</button>
-										</div>
-									</div>
-		
-									<div class="ml-2">
-										<button class="btn btn-primary btn-sm">微弱固定</button>
-										<button class="btn btn-primary btn-sm">換気停止</button>
-									</div>
-								</div>
-							  </p>
-							</div>
-						  </div>
-					</div>
-
-					<!--換気関連-->
-					<div class="mt-3">
-						<div class="card">
-							<div class="card-body">
-								<h5 class="card-title">NOAHシステム稼働中</h5>
-								<p class="card-text">
-									<div class="vstack gap-2">
-										<div class="d-flex justify-content-center align-items-start hstack gap-2">
-											<div class="card">
-												<div class="card-header">
-												  ホール内平均気温湿度
-												</div>
-												<ul class="list-group list-group-flush">
-													  <li class="list-group-item">
-														<div class="d-flex justify-content-between hstack gap-2">
-															<label>現在値</label>
-															<label>23.9℃</label>
-															<label>40.2%</label>
-														</div>
-													</li>
-													<li class="list-group-item">
-														<div class="d-flex justify-content-between hstack gap-2">
-															<label>設定値</label>
-															<label>25.0℃</label>
-															<label>70.0%</label>
-														</div>
-													  </li>
-												</ul>
-											</div>
-			
-											<div class="card">
-												<div class="card-header">
-												  屋外温湿度
-												</div>
-												<ul class="list-group list-group-flush">
-													  <li class="list-group-item">
-														<div class="d-flex justify-content-between hstack gap-2">
-															<label>23.9℃</label>
-															<label>40.2%</label>
-														</div>
-													</li>
-												</ul>
-											</div>
-			
-											<div class="card">
-												<div class="card-header">
-												  <div class="d-flex justify-content-between hstack gap-3">
-													<label>CO2警報</label>
-													<label>950ppm</label>
-												  </div>
-												</div>
-												<ul class="list-group list-group-flush">
-													  <li class="list-group-item">
-														<div class="d-flex justify-content-between">
-															<label>CO2-1</label>
-															<label>486ppm</label>
-														</div>
-													</li>
-													  <li class="list-group-item">
-														<div class="d-flex justify-content-between">
-															<label>CO2-1</label>
-															<label>518ppm</label>
-														</div>
-													</li>
-												</ul>
-											</div>
-										</div>
-			
-										<!--自動・手動-->
-										<div class="d-flex justify-content-center hstack gap-2">
-											<div class="btn-group btn-group-sm">
-												<button class="btn btn-primary">自動</button>
-												<button class="btn btn-outline-primary">手動</button>
-											</div>
-			
-											<div class="btn-group btn-group-sm">
-												<button class="btn btn-outline-primary">強</button>
-												<button class="btn btn-outline-primary">中</button>
-												<button class="btn btn-primary">弱</button>
-												<button class="btn btn-outline-primary">微弱</button>
-											</div>
-											
-											<!--湿度・試験-->
-											<div class="btn-group btn-group-sm">
-												<button class="btn btn-outline-primary">湿度</button>
-												<button class="btn btn-primary">試験</button>
-											</div>
-										</div>
-
-										<!--換気スイッチ-->
-										<div align="center">
-											<div class="btn-group btn-group-sm">
-												<button class="btn btn-outline-primary operation-switch-button">アフタ換気</button>
-												<button class="btn btn-outline-primary operation-switch-button">24時間換気</button>
-												<button class="btn btn-primary operation-switch-button">強制換気</button>
-												<button class="btn btn-outline-primary operation-switch-button">ウォーキングアップ</button>
-											</div>
-										</div>
-									</div>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div id="settingContainer" class="tab-pane fade">
-					<div class="d-flex flex-column align-items-center">
-						<div class="w-100 d-flex justify-content-between mb-2">
-							<div class="btn-group btn-group-sm">
-								<button type="button" class="btn btn-primary">タイマリセット</button>
-								<button type="button" class="btn btn-primary">タイマ初期値</button>
-								<button type="button" class="btn btn-primary">タイマ試験値</button>
-							</div>
-							
-							<button type="button" class="btn btn-primary btn-sm">基準温度初期値</button>
-	
-							<div class="btn-group btn-group-sm">
-								<button type="button" class="btn btn-primary">湿度設定初期値</button>
-								<button type="button" class="btn btn-primary">外気湿度無効</button>
-								<button type="button" class="btn btn-primary">外気湿度弱設定</button>
-							</div>
-						</div>
-
-						<div class="w-100 mb-2">
-							<div>
-								<label>湿度優先解除</label>
-								<button type="button" class="btn btn-primary btn-sm">CO2</button>
-								<button type="button" class="btn btn-primary btn-sm">外冷</button>
-								<button type="button" class="btn btn-danger btn-sm">強制強</button>
-							</div>
-							<div class="fw-light">[赤点灯項目が、湿度優先解除中]</div>
-						</div>
-
-						<div class="setting-modify-container">
-							<ul class="list-group">
-								<li class="list-group-item">
-								  <div class="setting-container-one">
-									<label>アフタータイマー</label>
-	
-									<div class="input-group input-group-sm">
-										<div class="form-floating">
-											<input type="text" class="form-control" id="currentAfterTimer" value="3600" placeholder="現在値">
-											<label for="currentAfterTimer">現在値</label>
-										</div>
-										<span class="input-group-text">秒</span>
-									</div>
-	
-									<div class="input-group input-group-sm">
-										<div class="form-floating">
-											<input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-											<label for="floatingInputGroup1">設定値</label>
-										</div>
-										<span class="input-group-text">分</span>
-									</div>
-									
-									<div class="d-flex justify-content-center align-items-center">
-										<button type="button" class="btn btn-primary btn-sm">設定</button>
-									</div>
-								  </div>
-
-								  <div class="fw-light">【初期値60分】</div>
-								</li>
-								<li class="list-group-item">
-									<div class="setting-container-one">
-										<label>強制換気時間</label>
-
-										<div class="input-group input-group-sm">
-											<div class="form-floating">
-											<input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-											<label for="floatingInputGroup1">現在値</label>
-											</div>
-											<span class="input-group-text">秒</span>
-										</div>
-
-										<div class="input-group input-group-sm">
-											<div class="form-floating">
-												<input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-												<label for="floatingInputGroup1">設定値</label>
-											</div>
-											<span class="input-group-text">分</span>
-										</div>
-
-										<div class="d-flex justify-content-center align-items-center">
-											<button type="button" class="btn btn-primary btn-sm">設定</button>
-										</div>
-									</div>
-
-									<div class="fw-light">【初期値10分】</div>
-								</li>
-								<li class="list-group-item">
-									<div class="setting-container-one">
-										<label>ウォーキングアップ</label>
-
-										<div class="input-group input-group-sm">
-											<div class="form-floating">
-											<input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-											<label for="floatingInputGroup1">現在値</label>
-											</div>
-											<span class="input-group-text">秒</span>
-										</div>
-
-										<div class="input-group input-group-sm">
-											<div class="form-floating">
-												<input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-												<label for="floatingInputGroup1">設定値</label>
-											</div>
-											<span class="input-group-text">分</span>
-										</div>
-
-										<div class="d-flex justify-content-center align-items-center">
-											<button type="button" class="btn btn-primary btn-sm">設定</button>
-										</div>
-									</div>
-
-									<div class="fw-light">【初期値30分】</div>
-								</li>
-								<li class="list-group-item">
-									<div class="setting-container-one">
-										<label>ロギング間隔</label>
-
-										<div class="input-group input-group-sm">
-											<div class="form-floating">
-											<input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-											<label for="floatingInputGroup1">現在値</label>
-											</div>
-											<span class="input-group-text">秒</span>
-										</div>
-
-										<div class="input-group input-group-sm">
-											<div class="form-floating">
-												<input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-												<label for="floatingInputGroup1">設定値</label>
-											</div>
-											<span class="input-group-text">分</span>
-										</div>
-
-										<div class="d-flex justify-content-center align-items-center">
-											<button type="button" class="btn btn-primary btn-sm">設定</button>
-										</div>
-									</div>
-
-									<div class="fw-light">【初期値10分】</div>
-								</li>
-								<li class="list-group-item">
-									<div class="setting-container-one">
-										<label>室内強制「強」設定温度</label>
-
-										<div class="input-group input-group-sm">
-											<div class="form-floating">
-												<input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-												<label for="floatingInputGroup1">現在値</label>
-											</div>
-											<span class="input-group-text">℃</span>
-										</div>
-
-										<div class="input-group input-group-sm">
-											<div class="form-floating">
-												<input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-												<label for="floatingInputGroup1">設定値</label>
-											</div>
-											<span class="input-group-text">℃</span>
-										</div>
-
-										<div class="d-flex justify-content-center align-items-center">
-											<button type="button" class="btn btn-primary btn-sm">設定</button>
-										</div>
-									</div>
-
-									<div class="fw-light">【初期値29℃】</div>
-								</li>
-								<li class="list-group-item">
-									<div class="setting-container-one">
-										<label>外気冷房範囲<br>外気設定温度</label>
-
-										<div class="input-group input-group-sm">
-											<div class="form-floating">
-												<input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-												<label for="floatingInputGroup1">現在値</label>
-											</div>
-											<span class="input-group-text">℃</span>
-										</div>
-
-										<div class="input-group input-group-sm">
-											<div class="form-floating">
-												<input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-												<label for="floatingInputGroup1">設定値</label>
-											</div>
-											<span class="input-group-text">℃</span>
-										</div>
-
-										<div class="d-flex justify-content-center align-items-center">
-											<button type="button" class="btn btn-primary btn-sm">設定</button>
-										</div>
-									</div>
-
-									<div class="fw-light">【初期値27℃】（外冷上限温度）</div>
-								</li>
-								<li class="list-group-item">
-									<div class="setting-container-one">
-										<label>デマンド抑制用<br>外気設定温度上</label>
-
-										<div class="input-group input-group-sm">
-											<div class="form-floating">
-												<input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-												<label for="floatingInputGroup1">現在値</label>
-											</div>
-											<span class="input-group-text">℃</span>
-										</div>
-
-										<div class="input-group input-group-sm">
-											<div class="form-floating">
-												<input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-												<label for="floatingInputGroup1">設定値</label>
-											</div>
-											<span class="input-group-text">℃</span>
-										</div>
-
-										<div class="d-flex justify-content-center align-items-center">
-											<button type="button" class="btn btn-primary btn-sm">設定</button>
-										</div>
-									</div>
-
-									<div class="fw-light">【初期値31℃】</div>
-								</li>
-								<li class="list-group-item">
-									<div class="setting-container-one">
-										<label>デマンド抑制用<br>外気設定温度下</label>
-
-										<div class="input-group input-group-sm">
-											<div class="form-floating">
-												<input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-												<label for="floatingInputGroup1">現在値</label>
-											</div>
-											<span class="input-group-text">℃</span>
-										</div>
-
-										<div class="input-group input-group-sm">
-											<div class="form-floating">
-												<input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-												<label for="floatingInputGroup1">設定値</label>
-											</div>
-											<span class="input-group-text">℃</span>
-										</div>
-
-										<div class="d-flex justify-content-center align-items-center">
-											<button type="button" class="btn btn-primary btn-sm">設定</button>
-										</div>
-									</div>
-
-									<div class="fw-light">【初期値0℃】</div>
-								</li>
-								<li class="list-group-item">
-									<div class="setting-container-one">
-										<label>デマンド抑制用<br>警報湿度</label>
-
-										<div class="input-group input-group-sm">
-											<div class="form-floating">
-												<input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-												<label for="floatingInputGroup1">現在値</label>
-											</div>
-											<span class="input-group-text">%</span>
-										</div>
-
-										<div class="input-group input-group-sm">
-											<div class="form-floating">
-												<input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-												<label for="floatingInputGroup1">設定値</label>
-											</div>
-											<span class="input-group-text">%</span>
-										</div>
-
-										<div class="d-flex justify-content-center align-items-center">
-											<button type="button" class="btn btn-primary btn-sm">設定</button>
-										</div>
-									</div>
-
-									<div class="fw-light">【初期値70%】</div>
-								</li>
-								<li class="list-group-item">
-									<div class="setting-container-from-to">
-										<div>
-											<button class="btn btn-success btn-sm">非設定</button>
-										</div>
-
-										<label>強制「強」設定<br>外気温温度範囲</label>
-
-										<div class="input-group input-group-sm">
-											<div class="form-floating">
-												<input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-												<label for="floatingInputGroup1">下限</label>
-											</div>
-											<span class="input-group-text">℃</span>
-										</div>
-
-										<div class="d-flex justify-content-between align-items-center">～</div>
-
-										<div class="input-group input-group-sm">
-											<div class="form-floating">
-												<input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-												<label for="floatingInputGroup1">上限</label>
-											</div>
-											<span class="input-group-text">℃</span>
-										</div>
-
-										<div class="d-flex justify-content-center align-items-center">
-											<button type="button" class="btn btn-primary btn-sm">設定</button>
-										</div>
-									</div>
-
-									<div class="fw-light">【初期値18℃～室内設定温度】</div>
-									<div class="fw-light">[下限は15℃以上、上限は室内設定温度以下としてください]</div>
-								</li>
-								<li class="list-group-item">
-									<div class="setting-container-one">
-										<label>外気警報湿度</label>
-
-										<div class="input-group input-group-sm">
-											<div class="form-floating">
-												<input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-												<label for="floatingInputGroup1">現在値</label>
-											</div>
-											<span class="input-group-text">%</span>
-										</div>
-
-										<div class="input-group input-group-sm">
-											<div class="form-floating">
-												<input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-												<label for="floatingInputGroup1">設定値</label>
-											</div>
-											<span class="input-group-text">%</span>
-										</div>
-
-										<div class="d-flex justify-content-center align-items-center">
-											<button type="button" class="btn btn-primary btn-sm">設定</button>
-										</div>
-									</div>
-								</li>
-								<li class="list-group-item">
-									<div class="setting-container-one">
-										<label>湿度警報解除差値</label>
-
-										<div class="input-group input-group-sm">
-											<div class="form-floating">
-												<input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-												<label for="floatingInputGroup1">現在値</label>
-											</div>
-											<span class="input-group-text">%</span>
-										</div>
-
-										<div class="input-group input-group-sm">
-											<div class="form-floating">
-												<input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-												<label for="floatingInputGroup1">設定値</label>
-											</div>
-											<span class="input-group-text">%</span>
-										</div>
-
-										<div class="d-flex justify-content-center align-items-center">
-											<button type="button" class="btn btn-primary btn-sm">設定</button>
-										</div>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
-
-				</div>
-
-				<div id="historyContainer" class="tab-pane fade">
-					<div class="d-flex justify-content-end mb-2">
-						<div class="input-group w-auto">
-							<div class="form-floating" style="width: 10rem;">
-								<input type="text" id="csvDatePicker" class="form-control" id="floatingPassword" placeholder="Password">
-								<label for="floatingPassword">日付</label>
-							</div>
-						  <button type="button" id="displayDataButton" class="btn btn-primary btn-sm">データ表示</button>
-						  <button type="button" id="csvDownloadButton" class="btn btn-primary btn-sm">CSV</button>
-						</div>
-					</div>
-
-					<table class="table table-sm">
-						<thead>
-							<tr>
-								<th>日付</th>
-								<th>時間</th>
-								<th colspan="2">外気温湿度</th>
-								<th colspan="2">室内温湿度①</th>
-								<td colspan="2">室内温湿度②</th>
-								<th>CO2①濃度</th>
-								<th>CO2②濃度</th>
-								<th>運転状況</th>
-							</tr>
-						</thead>
-						<tbody id="historyBody" class="table-group-divider">
-						</tbody>
-					</table>
+			<div>
+				<div class="hstack gap-1">
+					<button class="btn btn-primary shadow" data-bs-toggle="offcanvas" data-bs-target="#settingOffCanvas">
+						<i class="bi bi-gear text-white"></i>
+						設定
+					</button>
+					<div class="vr text-white"></div>
+					<button class="btn btn-primary shadow">
+						<i class="bi bi-arrow-clockwise text-white"></i>
+						R
+					</button>
 				</div>
 			</div>
 		</div>
-	</div>
+	</nav>
+
+	<div class="container-xxl pt-3">
+
+		<div class="d-flex flex-wrap-reverse flex-lg-nowrap gap-3">
+
+			<div class="flex-grow-1 vstack gap-3">
+
+				<!-- MCファン運転状態 -->
+				<div class="row">
+					<div class="col">
 	
+						<div class="card border-primary shadow">
+							<div class="card-header">
+								<div class="d-flex justify-content-between align-items-center">
+									<label class="text-info fs-6 fw-bold">MCファン運転状態</label>
+		
+									<div class="hstack gap-2">
+										<div class="d-flex align-items-center hstack gap-1">
+											<i class="bi bi-fan text-success"></i>
+											<label>運転</label>
+										</div>
+										<div class="d-flex align-items-center hstack gap-1">
+											<i class="bi bi-fan text-secondary-emphasis"></i>
+											<label>停止</label>
+										</div>
+										<div class="d-flex align-items-center hstack gap-1">
+											<i class="bi bi-fan text-danger"></i>
+											<label>エラー停止</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card-body">
+		
+								<div class="container-fluid">
+									<div class="row g-1">
+										<div class="col-auto">
+											<div class="border border-info rounded p-2 d-flex align-items-center hstack gap-1">
+												<label>MCFA</label>
+												<label class="vr"></label>
+												<i class="bi bi-fan text-success"></i>
+											</div>
+										</div>
+										<div class="col-auto">
+											<div class="border border-info rounded p-2 d-flex align-items-center hstack gap-1">
+												<label>PACA</label>
+												<label class="vr"></label>
+												<i class="bi bi-fan text-secondary-emphasis"></i>
+											</div>
+										</div>
+										<div class="col-auto">
+											<div class="border border-info rounded p-2 d-flex align-items-center hstack gap-1">
+												<label>MCFB</label>
+												<label class="vr"></label>
+												<i class="bi bi-fan text-danger"></i>
+											</div>
+										</div>
+										<div class="col-auto">
+											<div class="border border-info rounded p-2 d-flex align-items-center hstack gap-1">
+												<label>PACB</label>
+												<label class="vr"></label>
+												<i class="bi bi-fan text-secondary-emphasis"></i>
+											</div>
+										</div>
+										<div class="col-auto">
+											<div class="border border-info rounded p-2 d-flex align-items-center hstack gap-1">
+												<label>MCFC</label>
+												<label class="vr"></label>
+												<i class="bi bi-fan text-success"></i>
+											</div>
+										</div>
+										<div class="col-auto">
+											<div class="border border-info rounded p-2 d-flex align-items-center hstack gap-1">
+												<label>PACC</label>
+												<label class="vr"></label>
+												<i class="bi bi-fan text-secondary-emphasis"></i>
+											</div>
+										</div>
+										<div class="col-auto">
+											<div class="border border-info rounded p-2 d-flex align-items-center hstack gap-1">
+												<label>MCFD</label>
+												<label class="vr"></label>
+												<i class="bi bi-fan text-success"></i>
+											</div>
+										</div>
+										<div class="col-auto">
+											<div class="border border-info rounded p-2 d-flex align-items-center hstack gap-1">
+												<label>PACD</label>
+												<label class="vr"></label>
+												<i class="bi bi-fan text-secondary-emphasis"></i>
+											</div>
+										</div>
+										<div class="col-auto">
+											<div class="border border-info rounded p-2 d-flex align-items-center hstack gap-1">
+												<label>MCFE</label>
+												<label class="vr"></label>
+												<i class="bi bi-fan text-success"></i>
+											</div>
+										</div>
+										<div class="col-auto">
+											<div class="border border-info rounded p-2 d-flex align-items-center hstack gap-1">
+												<label>PACE</label>
+												<label class="vr"></label>
+												<i class="bi bi-fan text-secondary-emphasis"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+		
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col">
+						<div class="card border-primary shadow">
+							<div class="card-header d-flex justify-content-between align-items-center">
+								<label class="text-info fs-6 fw-bold">モニタリング</label>
+
+								<div class="btn-group shadow" role="group" aria-label="Basic radio toggle button group">
+									<input type="radio" class="btn-check" name="dataDisplayType" value="chart" id="btnradio1" autocomplete="off" checked>
+									<label class="btn btn-outline-primary" for="btnradio1">
+										<i class="bi bi-graph-up"></i>
+									</label>
+								  
+									<input type="radio" class="btn-check" name="dataDisplayType" value="table" id="btnradio2" autocomplete="off">
+									<label class="btn btn-outline-primary" for="btnradio2">
+										<i class="bi bi-table"></i>
+									</label>
+								</div>
+							</div>
+							<div class="card-body">
+								<!-- Nav tabs -->
+								<ul class="nav nav-tabs d-none" id="myTab" role="tablist">
+									<li class="nav-item" role="presentation">
+										<button id="chartTabTrigger" class="nav-link" data-bs-toggle="tab" data-bs-target="#chartTab" type="button" role="tab" aria-controls="home" aria-selected="true">Home</button>
+									</li>
+									<li class="nav-item" role="presentation">
+										<button id="tableTabTrigger" class="nav-link" data-bs-toggle="tab" data-bs-target="#tableTab" type="button" role="tab" aria-controls="home" aria-selected="true">Home</button>
+									</li>
+								</ul>
+
+								<div class="tab-content">
+									<div class="tab-pane fade" id="tableTab" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+										<div class="row g-2">
+											<div class="col">
+						
+												<div class="card border-primary">
+													<div class="card-header">
+														<div class="d-flex justify-content-between gap-2">
+															<label class="text-info text-nowrap fs-6 fw-bold">温湿度</label>
+								
+															<div class="flex-grow-1 d-flex justify-content-center">
+																<div>
+																	<span class="badge text-bg-warning">湿度上昇</span>
+																</div>
+															</div>
+								
+															<div class="d-flex gap-1 text-nowrap">
+																<div class="vstack gap-1">
+																	<div class="p-2 bg-white border border-info rounded">
+																		<span class="badge rounded-pill text-bg-info">設定温度</span>
+																		<label class="fw-bold">25.0℃</label>
+																	</div>
+																	<div class="p-2 bg-white border border-info rounded">
+																		<span class="badge rounded-pill text-bg-info">平均温度</span>
+																		<label class="fw-bold">23.6℃</label>
+																	</div>
+																</div>
+																<div class="vstack gap-1">
+																	<div class="p-2 bg-white border border-info rounded">
+																		<span class="badge rounded-pill text-bg-info">警報湿度</span>
+																		<label class="fw-bold">70%</label>
+																	</div>
+																	<div class="p-2 bg-white border border-info rounded">
+																		<span class="badge rounded-pill text-bg-info">平均湿度</span>
+																		<label class="fw-bold">74.6%</label>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+								
+													<table class="table table-striped">
+														<thead>
+															<tr>
+																<th>温湿度センサー</th>
+																<th>温度【℃】</th>
+																<th>湿度【%】</th>
+																<th>電池電圧【V】</th>
+																<th>状態</th>
+															</tr>
+														</thead>
+														<tbody class="table-group-divider">
+															<tr>
+																<th>1</th>
+																<th>23.8</th>
+																<th>74.4</th>
+																<th>1.2</th>
+																<th>正常</th>
+															</tr>
+															<tr>
+																<th>2</th>
+																<th>23.8</th>
+																<th>74.4</th>
+																<th>1.2</th>
+																<th>異常</th>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+							
+											<div class="col-auto">
+												<div class="card border-primary">
+													<div class="card-header text-nowrap">
+														<div class="d-flex justify-content-between gap-2">
+															<label class="text-info fs-6 fw-bold">
+																CO2
+															</label>
+								
+															<div class="flex-grow-1 d-flex justify-content-center">
+																<div>
+																	<span class="badge text-bg-warning">CO2上昇</span>
+																</div>
+															</div>
+								
+															<div class="p-2 bg-white border border-info rounded">
+																<span class="badge rounded-pill text-bg-info">警報CO2</span>
+																<label class="fw-bold">950ppm</label>
+															</div>
+														</div>
+													</div>
+													<table class="table table-striped">
+														<thead>
+															<tr>
+																<th>CO2センサー</th>
+																<th>CO2【ppm】</th>
+															</tr>
+														</thead>
+														<tbody class="table-group-divider">
+															<tr>
+																<td>1</td>
+																<td>1032</td>
+															</tr>
+															<tr>
+																<td>2</td>
+																<td>1025</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane fade" id="chartTab" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+										<div class="row">
+											<div class="col">
+												<div class="row row-cols-1 row-cols-xxl-2">
+													<div class="col">
+														<div class="ratio ratio-16x9">
+															<div id="tempRealtimeChart" class="realtime-chart"></div>
+														</div>
+													</div>
+													<div class="col">
+														<div class="ratio ratio-16x9">
+															<div id="humidityRealtimeChart" class="realtime-chart"></div>
+														</div>
+													</div>
+													<div class="col">
+														<div class="ratio ratio-16x9">
+															<div id="co2RealtimeChart" class="realtime-chart"></div>
+														</div>
+													</div>
+													<div class="col">
+														<div class="ratio ratio-16x9">
+															<div>
+																<table class="table table-sm">
+																	<thead>
+																		<tr>
+																			<th>温湿度センサー</th>
+																			<th>状態</th>
+																			<th>電池電圧</th>
+																		</tr>
+																	</thead>
+																	<tbody class="table-group-divider">
+																		<tr>
+																			<td>1</td>
+																			<td>正常</td>
+																			<td>1.2V</td>
+																		</tr>
+																		<tr>
+																			<td>2</td>
+																			<td>異常</td>
+																			<td>1.2V</td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+	
+			</div>
+			
+			<div class="flex-md-shrink-1">
+				<div class="card border-primary shadow">
+					<div class="card-header">
+						<label class="text-info fs-6 fw-bold">操作</label>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<div class="d-flex justify-content-end hstack gap-1">
+								<button class="btn btn-primary shadow">
+									<i class="bi bi-hand-index-thumb"></i>
+									微弱固定
+								</button>
+								<button class="btn btn-primary shadow">
+									<i class="bi bi-hand-index-thumb"></i>
+									換気停止
+								</button>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="hstack gap-1 justify-content-end align-items-start">
+								<div>
+									<input type="radio" class="btn-check" name="farHand" id="far" value="far" autocomplete="off" checked>
+									<label class="btn btn-outline-primary text-nowrap shadow" for="far">
+										<i class="bi bi-ui-radios-grid"></i>
+										遠方運転
+									</label>
+								</div>
+	
+								<div>
+									<div class="border border-primary rounded p-1 vstack gap-2 shadow">
+										<div>
+											<input type="radio" class="btn-check" name="farHand" id="hand" value="hand" autocomplete="off">
+											<label class="btn btn-outline-primary w-100 text-nowrap" for="hand">
+												<i class="bi bi-ui-radios-grid"></i>
+												手元運転
+											</label>
+										</div>
+	
+										<div class="d-flex gap-2">
+											<div>
+												<input type="radio" class="btn-check" name="handOnOff" id="handOn" value="handOn" autocomplete="off">
+												<label class="btn btn-sm btn-outline-primary text-nowrap" for="handOn">
+													<i class="bi bi-ui-radios-grid"></i>
+													運転
+												</label>
+											</div>
+											<div>
+												<input type="radio" class="btn-check" name="handOnOff" id="handOff" value="handOff" autocomplete="off">
+												<label class="btn btn-sm btn-outline-primary text-nowrap" for="handOff">
+													<i class="bi bi-ui-radios-grid"></i>
+													停止
+												</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="hstack gap-1 justify-content-end align-items-start">
+								<div>
+									<input type="radio" class="btn-check" name="ventilationMode" id="ventilationModeAuto" value="auto" autocomplete="off" checked>
+									<label class="btn btn-outline-primary text-nowrap shadow" for="ventilationModeAuto">
+										<i class="bi bi-ui-radios-grid"></i>
+										自動
+									</label>
+								</div>
+	
+								<div>
+									<div class="border border-primary rounded p-1 vstack gap-2 shadow">
+										<div>
+											<input type="radio" class="btn-check" name="ventilationMode" id="ventilationModeManual" value="manual" autocomplete="off">
+											<label class="btn btn-outline-primary text-nowrap w-100" for="ventilationModeManual">
+												<i class="bi bi-ui-radios-grid"></i>
+												手動
+											</label>
+										</div>
+	
+										<div class="hstack gap-1">
+											<div>
+												<input type="radio" class="btn-check" name="manualVentilationMode" id="manualVentilationModeStrong" value="strong" autocomplete="off">
+												<label class="btn btn-sm btn-outline-primary text-nowrap" for="manualVentilationModeStrong">
+													<i class="bi bi-ui-radios-grid"></i>
+													強
+												</label>
+											</div>
+											<div>
+												<input type="radio" class="btn-check" name="manualVentilationMode" id="manualVentilationModeNormal" value="normal" autocomplete="off">
+												<label class="btn btn-sm btn-outline-primary text-nowrap" for="manualVentilationModeNormal">
+													<i class="bi bi-ui-radios-grid"></i>
+													中
+												</label>
+											</div>
+											<div>
+												<input type="radio" class="btn-check" name="manualVentilationMode" id="manualVentilationModeWeak" value="weak" autocomplete="off">
+												<label class="btn btn-sm btn-outline-primary text-nowrap" for="manualVentilationModeWeak">
+													<i class="bi bi-ui-radios-grid"></i>
+													弱
+												</label>
+											</div>
+											<div>
+												<input type="radio" class="btn-check" name="manualVentilationMode" id="manualVentilationModeWeaker" value="weaker" autocomplete="off">
+												<label class="btn btn-sm btn-outline-primary text-nowrap" for="manualVentilationModeWeaker">
+													<i class="bi bi-ui-radios-grid"></i>
+													微弱
+												</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="vstack gap-1">
+								<div>
+									<input type="checkbox" class="btn-check" name="ventilationVariableMode" id="ventilationVariableModeAfter" value="after" autocomplete="off" checked>
+									<label class="btn btn-outline-primary w-100 text-nowrap shadow" for="ventilationVariableModeAfter">
+										<i class="bi bi-ui-checks-grid"></i>
+										アフタ換気
+									</label>
+								</div>
+								<div>
+									<input type="checkbox" class="btn-check" name="ventilationVariableMode" id="ventilationVariableMode24h" value="24h" autocomplete="off">
+									<label class="btn btn-outline-primary w-100 text-nowrap shadow" for="ventilationVariableMode24h">
+										<i class="bi bi-ui-checks-grid"></i>
+										24時間換気
+									</label>
+								</div>
+								<div>
+									<input type="checkbox" class="btn-check" name="ventilationVariableMode" id="ventilationVariableModeForce" value="force" autocomplete="off">
+									<label class="btn btn-outline-primary w-100 text-nowrap shadow" for="ventilationVariableModeForce">
+										<i class="bi bi-ui-checks-grid"></i>
+										強制換気
+									</label>
+								</div>
+								<div>
+									<input type="checkbox" class="btn-check" name="ventilationVariableMode" id="ventilationVariableModeWarmingUp" value="warmingUp" autocomplete="off">
+									<label class="btn btn-outline-primary w-100 text-nowrap shadow" for="ventilationVariableModeWarmingUp">
+										<i class="bi bi-ui-checks-grid"></i>
+										ウォーミングアップ
+									</label>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div id="settingOffCanvas" class="offcanvas offcanvas-start setting-offcanvas" tabindex="-1">
+		<div class="offcanvas-header">
+			<div class="w-100 d-flex justify-content-end">
+				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+		</div>
+		<div class="offcanvas-body">
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item vstack gap-3">
+					<div class="sticky-top bg-white rounded p-2 shadow d-flex justify-content-between align-items-start hstack gap-2">
+						<label class="text-info text-nowrap fw-bold fs-6">
+							タイマー設定
+						</label>
+
+						<div class="row justify-content-end g-1">
+							<div class="col-auto">
+								<button type="button" class="btn btn-primary">
+									<i class="bi bi-hand-index-thumb"></i>
+									タイマリセット
+								</button>
+							</div>
+							<div class="col-auto">
+								<button type="button" class="btn btn-primary">
+									<i class="bi bi-hand-index-thumb"></i>
+									タイマ初期値
+								</button>
+							</div>
+							<div class="col-auto">
+								<button type="button" class="btn btn-primary">
+									<i class="bi bi-hand-index-thumb"></i>
+									タイマ試験値
+								</button>
+							</div>
+						</div>
+					</div>
+
+					<ul class="list-group">
+						<li class="list-group-item">
+							<div class="row row-cols-1 g-2">
+								<div class="d-flex justify-content-between">
+									<label>アフタータイマー</label>
+									<small>【初期値60分】</small>
+								</div>
+		
+								<div class="input-group input-group-sm border-primary">
+									<div class="form-floating">
+										<input readonly type="text" class="form-control" id="currentAfterTimer" value="3600" placeholder="現在値">
+										<label for="currentAfterTimer">現在値</label>
+									</div>
+									<div class="form-floating">
+										<input type="text" class="form-control" id="newAfterTimer" placeholder="設定値">
+										<label for="newAfterTimer">設定値</label>
+									</div>
+									<span class="input-group-text">秒</span>
+									<button type="button" class="btn btn-primary">
+										<i class="bi bi-hand-index-thumb"></i>
+										設定
+									</button>
+								</div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row row-cols-1 g-2">
+								<div class="d-flex justify-content-between">
+									<label>強制換気時間</label>
+									<small>【初期値10分】</small>
+								</div>
+		
+								<div class="input-group input-group-sm">
+									<div class="form-floating">
+										<input type="text" readonly class="form-control" id="currentForceVentilationTime" placeholder="現在値">
+										<label for="currentForceVentilationTime">現在値</label>
+									</div>
+									<div class="form-floating">
+										<input type="text" class="form-control" id="newForceVentilationTime" placeholder="設定値">
+										<label for="newForceVentilationTime">設定値</label>
+									</div>
+									<span class="input-group-text">秒</span>
+									<button type="button" class="btn btn-primary">
+										<i class="bi bi-hand-index-thumb"></i>
+										設定
+									</button>
+								</div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row row-cols-1 g-2">
+								<div class="d-flex justify-content-between">
+									<label>ウォーミングアップ</label>
+									<small>【初期値30分】</small>
+								</div>
+		
+								<div class="input-group input-group-sm">
+									<div class="form-floating">
+										<input type="text" readonly class="form-control" id="currentWarmingUp" placeholder="現在値">
+										<label for="currentWarmingUp">現在値</label>
+									</div>
+									<div class="form-floating">
+										<input type="text" class="form-control" id="newWarmingUp" placeholder="設定値">
+										<label for="newWarmingUp">設定値</label>
+									</div>
+									<span class="input-group-text">秒</span>
+									<button type="button" class="btn btn-primary">
+										<i class="bi bi-hand-index-thumb"></i>
+										設定
+									</button>
+								</div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row row-cols-1 g-2">
+								<div class="d-flex justify-content-between">
+									<label>ロギング間隔</label>
+									<small>【初期値10分】</small>
+								</div>
+		
+								<div class="input-group input-group-sm">
+									<div class="form-floating">
+										<input type="text" readonly class="form-control" id="currentLoggingSpan" placeholder="現在値">
+										<label for="currentLoggingSpan">現在値</label>
+									</div>
+									<div class="form-floating">
+										<input type="text" class="form-control" id="newLoggingSpan" placeholder="設定値">
+										<label for="newLoggingSpan">設定値</label>
+									</div>
+									<span class="input-group-text">秒</span>
+									<button type="button" class="btn btn-primary">
+										<i class="bi bi-hand-index-thumb"></i>
+										設定
+									</button>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</li>
+				<li class="list-group-item vstack gap-3">
+					<div class="sticky-top bg-white rounded p-2 shadow vstack gap-2">
+						<div class="d-flex justify-content-between align-items-start gap-2">
+							<label class="text-info text-nowrap fw-bold fs-6">
+								温度基準設定
+							</label>
+
+							<div class="row justify-content-end g-1">
+								<div class="col-auto">
+									<button type="button" class="btn btn-primary">
+										<i class="bi bi-hand-index-thumb"></i>
+										基準温度初期値
+									</button>
+								</div>
+								<div class="col-auto">
+									<button type="button" class="btn btn-primary">
+										<i class="bi bi-hand-index-thumb"></i>
+										設定初期値
+									</button>
+								</div>
+								<div class="col-auto">
+									<button type="button" class="btn btn-primary">
+										<i class="bi bi-hand-index-thumb"></i>
+										外気湿度無効
+									</button>
+								</div>
+								<div class="col-auto">
+									<button type="button" class="btn btn-primary">
+										<i class="bi bi-hand-index-thumb"></i>
+										外気湿度弱設定
+									</button>
+								</div>
+							</div>
+						</div>
+
+						<hr class="m-0">
+
+						<div class="d-flex justify-content-between align-items-start hstack gap-3">
+							<div class="text-info text-nowrap vstack gap-1">
+								<label class="fs-6 fw-bold">湿度優先解除</label>
+								<small class="fw-light">[点灯項目が、湿度優先解除中]</small>
+							</div>
+							
+							<div class="row justify-content-end g-1">
+								<div class="col-auto">
+									<input type="checkbox" class="btn-check" id="hrpCo2" autocomplete="off">
+									<label class="btn btn-outline-primary" for="hrpCo2">
+										<i class="bi bi-ui-checks-grid"></i>
+										CO2
+									</label>
+								</div>
+								<div class="col-auto">
+									<input type="checkbox" class="btn-check" id="hrpCool" autocomplete="off">
+									<label class="btn btn-outline-primary" for="hrpCool">
+										<i class="bi bi-ui-checks-grid"></i>
+										外冷
+									</label>
+								</div>
+								<div class="col-auto">
+									<input type="checkbox" class="btn-check" id="hrpForce" autocomplete="off">
+									<label class="btn btn-outline-primary" for="hrpForce">
+										<i class="bi bi-ui-checks-grid"></i>
+										強制強
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<ul class="list-group">
+						<li class="list-group-item">
+							<div class="row row-cols-1 g-2">
+								<div class="d-flex justify-content-between">
+									<label>室内強制「強」設定温度</label>
+									<small>【初期値29℃】</small>
+								</div>
+		
+								<div class="input-group input-group-sm">
+									<div class="form-floating">
+										<input type="text" readonly class="form-control" id="currentIndoorsStrongTemp" placeholder="現在値">
+										<label for="currentIndoorsStrongTemp">現在値</label>
+									</div>
+									<div class="form-floating">
+										<input type="text" class="form-control" id="newIndoorsStrongTemp" placeholder="設定値">
+										<label for="newIndoorsStrongTemp">設定値</label>
+									</div>
+									<span class="input-group-text">℃</span>
+									<button type="button" class="btn btn-primary">
+										<i class="bi bi-hand-index-thumb"></i>
+										設定
+									</button>
+								</div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row row-cols-1 g-2">
+								<div class="d-flex justify-content-between">
+									<label>外気冷房範囲外気設定温度</label>
+									<small>【初期値27℃】（外冷上限温度）</small>
+								</div>
+		
+								<div class="input-group input-group-sm">
+									<div class="form-floating">
+										<input type="text" readonly class="form-control" id="currentOuterCoolTemp" placeholder="Username">
+										<label for="currentOuterCoolTemp">現在値</label>
+									</div>
+									<div class="form-floating">
+										<input type="text" class="form-control" id="newOuterCoolTemp" placeholder="Username">
+										<label for="newOuterCoolTemp">設定値</label>
+									</div>
+									<span class="input-group-text">℃</span>
+									<button type="button" class="btn btn-primary">
+										<i class="bi bi-hand-index-thumb"></i>
+										設定
+									</button>
+								</div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row row-cols-1 g-2">
+								<div class="d-flex justify-content-between">
+									<label>デマンド抑制用外気設定温度上</label>
+									<small>【初期値31℃】</small>
+								</div>
+	
+								<div class="input-group input-group-sm">
+									<div class="form-floating">
+										<input type="text" readonly class="form-control" id="currentDemandOuterTempUp" placeholder="Username">
+										<label for="currentDemandOuterTempUp">現在値</label>
+									</div>
+									<div class="form-floating">
+										<input type="text" class="form-control" id="newDemandOuterTempUp" placeholder="Username">
+										<label for="newDemandOuterTempUp">設定値</label>
+									</div>
+									<span class="input-group-text">℃</span>
+									<button type="button" class="btn btn-primary">
+										<i class="bi bi-hand-index-thumb"></i>
+										設定
+									</button>
+								</div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row row-cols-1 g-2">
+								<div class="d-flex justify-content-between">
+									<label>デマンド抑制用外気設定温度下</label>
+									<small>【初期値0℃】</small>
+								</div>
+	
+								<div class="input-group input-group-sm">
+									<div class="form-floating">
+										<input type="text" readonly class="form-control" id="currentDemandOuterTempDown" placeholder="Username">
+										<label for="currentDemandOuterTempDown">現在値</label>
+									</div>
+									<div class="form-floating">
+										<input type="text" class="form-control" id="newDemandOuterTempDown" placeholder="Username">
+										<label for="newDemandOuterTempDown">設定値</label>
+									</div>
+									<span class="input-group-text">℃</span>
+									<button type="button" class="btn btn-primary">
+										<i class="bi bi-hand-index-thumb"></i>
+										設定
+									</button>
+								</div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row row-cols-1 g-2">
+								<div class="d-flex justify-content-between">
+									<label>デマンド抑制用警報湿度</label>
+									<small>【初期値70%】</small>
+								</div>
+	
+								<div class="input-group input-group-sm">
+									<div class="form-floating">
+										<input type="text" readonly class="form-control" id="currentDemandAlertHumidity" placeholder="Username">
+										<label for="currentDemandAlertHumidity">現在値</label>
+									</div>
+									<div class="form-floating">
+										<input type="text" class="form-control" id="newDemandAlertHumidity" placeholder="Username">
+										<label for="newDemandAlertHumidity">設定値</label>
+									</div>
+									<span class="input-group-text">%</span>
+									<button type="button" class="btn btn-primary">
+										<i class="bi bi-hand-index-thumb"></i>
+										設定
+									</button>
+								</div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row row-cols-1 g-2">
+								<div class="d-flex flex-column">
+									<div>
+										<button class="btn btn-primary btn-sm">
+											<i class="bi bi-hand-index-thumb"></i>
+											非設定
+										</button>
+										強制「強」設定外気温温度範囲
+									</div>
+									<small class="fw-light">【初期値18℃～室内設定温度】</small>
+									<small class="fw-light">[下限は15℃以上、上限は室内設定温度以下としてください]</small>
+								</div>
+	
+								<div class="input-group input-group-sm">
+									<div class="form-floating">
+										<input type="text" class="form-control" id="currentStrongOuterTempRange" placeholder="Username">
+										<label for="currentStrongOuterTempRange">下限</label>
+									</div>
+									<span class="input-group-text">～</span>
+									<div class="form-floating">
+										<input type="text" class="form-control" id="newStrongOuterTempRange" placeholder="Username">
+										<label for="newStrongOuterTempRange">上限</label>
+									</div>
+									<span class="input-group-text">℃</span>
+									<button type="button" class="btn btn-primary">
+										<i class="bi bi-hand-index-thumb"></i>
+										設定
+									</button>
+								</div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="vstack gap-2">
+								<div class="d-flex justify-content-between">
+									<label>外気警報湿度</label>
+									<small>【初期値90%】</small>
+								</div>
+	
+								<div class="input-group input-group-sm">
+									<div class="form-floating">
+										<input type="text" readonly class="form-control" id="currentOuterAlertHumidity" placeholder="Username">
+										<label for="currentOuterAlertHumidity">現在値</label>
+									</div>
+									<div class="form-floating">
+										<input type="text" class="form-control" id="newOuterAlertHumidity" placeholder="Username">
+										<label for="newOuterAlertHumidity">設定値</label>
+									</div>
+									<span class="input-group-text">%</span>
+									<button type="button" class="btn btn-primary">
+										<i class="bi bi-hand-index-thumb"></i>
+										設定
+									</button>
+								</div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row row-cols-1 g-2">
+								<div class="d-flex justify-content-between">
+									<label>湿度警報解除差値</label>
+									<small>【初期値1%】</small>
+								</div>
+	
+								<div class="input-group input-group-sm">
+									<div class="form-floating">
+										<input type="text" readonly class="form-control" id="currentHumidityAlertRelieveDifference" placeholder="Username">
+										<label for="currentHumidityAlertRelieveDifference">現在値</label>
+									</div>
+									<div class="form-floating">
+										<input type="text" class="form-control" id="newHumidityAlertRelieveDifference" placeholder="Username">
+										<label for="newHumidityAlertRelieveDifference">設定値</label>
+									</div>
+									<span class="input-group-text">%</span>
+									<button type="button" class="btn btn-primary">
+										<i class="bi bi-hand-index-thumb"></i>
+										設定
+									</button>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+
 	<script src="./js/bootstrap/5/bootstrap.bundle.min.js"></script>
-	<script src="./js/datepickers/flatpickr/flatpickr.js"></script>
-	<script src="./js/datepickers/flatpickr/ja.js"></script>
+	<script src="./js/echarts/echarts.min.js"></script>
 	<script src="./js/zeus/noah.js"></script>
 </body>
 </html>

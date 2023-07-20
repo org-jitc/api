@@ -1,23 +1,3 @@
-class DatetimeDisplayer {
-    weekNames = ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'];
-    constructor(containerId){
-        this.container = document.querySelector(`#${containerId}`);
-
-        this.refresh();
-    }
-    refresh(){
-        let now = new Date();
-        let dateString = now.toLocaleDateString('ja-JP', {year: '2-digit', month: '2-digit', day: '2-digit'});
-        let timeString = now.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
-
-        this.container.innerHTML = `${dateString} ${this.weekNames[now.getDay()]} ${timeString}`;
-
-        setTimeout(() => {
-            this.refresh();
-        }, 60000);
-    }
-}
-
 class OverallStatus {
     overallStatuses = [{
         backgroundColor: 'lightpink',
@@ -98,8 +78,6 @@ class OverallStatus {
             this.overallStatusIndex = 0;
         }
 
-        this.textElement.style.backgroundColor = newStatusObj.backgroundColor;
-        this.textElement.style.color = newStatusObj.textColor;
         this.textElement.innerHTML = newStatusObj.text;
 
         setTimeout(() => {
@@ -139,9 +117,6 @@ class VentilationStatus {
         if(this.statusIndex >= this.statuses.length){
             this.statusIndex = 0;
         }
-
-        this.textElement.style.backgroundColor = newStatusObj.backgroundColor;
-        this.textElement.style.color = newStatusObj.textColor;
         this.textElement.innerHTML = newStatusObj.text;
 
         setTimeout(() => {
@@ -150,165 +125,329 @@ class VentilationStatus {
     }
 }
 
-class CSVDownload {
-    constructor(datepickerId, displayDataButtonId, csvDownloadButtonId){
-        this.datepicker = flatpickr(`#${datepickerId}`, {
-            locale: 'ja'
-        });
-        this.displayDataButton = document.querySelector(`#${displayDataButtonId}`);
-        this.csvDownloadButton = document.querySelector(`#${csvDownloadButtonId}`);
+class OperationRadios {
+    constructor(){
+        this.farHands = Array.from(document.querySelectorAll('[name="farHand"]'));
+        this.handOnOff = Array.from(document.querySelectorAll('[name="handOnOff"]'));
 
-        this.displayDataButton.addEventListener('click', this.onDisplayButtonClick.bind(this));
-    }
-    setHistoryCreator(historyCreator){
-        this.historyCreator = historyCreator;
-    }
-    onDisplayButtonClick(){
-        let date = this.datepicker.formatDate(this.datepicker.selectedDates[0], 'y/n/j');
+        console.log(this.farHands.find(check => check.checked));
+        this.onFarHandChange(this.farHands.find(check => check.checked));
 
-        this.historyCreator.createHistory(date);
+        this.farHands.forEach(check => check.addEventListener('change', this.onFarHandChange.bind(this, check)));
+    }
+    onFarHandChange(target){
+        this.handOnOff.forEach(check => check.disabled = target.value === 'far');
     }
 }
 
-class TableBodyCreator {
-    constructor(bodyId){
-        this.tableBody = document.querySelector(`#${bodyId}`);
+class VentilationModeRadios {
+    constructor(){
+        this.modes = Array.from(document.querySelectorAll('[name="ventilationMode"]'));
+        this.manualModes = Array.from(document.querySelectorAll('[name="manualVentilationMode"]'));
+
+        this.onModeChange(this.modes.find(radio => radio.checked));
+
+        this.modes.forEach(radio => radio.addEventListener('change', this.onModeChange.bind(this, radio)));
     }
-    createHistory(date){
-        this.tableBody.innerHTML = '';
+    onModeChange(target){
+        this.manualModes.forEach(radio => radio.disabled = target.value === 'auto');
+    }
+}
 
-        let tr, td;
+class RealtimeChart {
+    constructor(config){
+        this.data = {
+            series: config.option.series.map(serie => {return {data: serie.data}})
+        };
+        this.option = config.option;
+        this.instance = echarts.init(document.querySelector(`#${config.id}`));
 
-        for(let hour = 0; hour < 24; hour++){
+        this.instance.setOption(this.option);
+    }
+    setOption(option){
+        this.instance.setOption(option);
+    }
+    resize(){
+        this.instance.resize();
+    }
+}
+class RealtimeCharts {
+    static MAX_DATA_LENGTH = 30;
+    constructor(){
+        let serieData = DatasetCreator.createEmptySerieData();
 
-            for(let minute = 0; minute < 60; minute += 10){
-                tr = document.createElement('tr');
-                
-                // date
-                td = document.createElement('td');
-                td.innerText = date;
-                tr.appendChild(td);
-                
-                // time
-                td = document.createElement('td');
-                td.innerText = `${hour < 10? '0' + hour: hour}:${minute < 10? '0' + minute: minute}`;
-                tr.appendChild(td);
-
-                // outer temp
-                td = document.createElement('td');
-                td.innerText = getRandom(16, 20, 1);
-                tr.appendChild(td);
-                
-                // outer humidity
-                td = document.createElement('td');
-                td.innerText = getRandom(50, 52, 1);
-                tr.appendChild(td);
-
-                // inner temp 1
-                td = document.createElement('td');
-                td.innerText = getRandom(23, 24, 1);
-                tr.appendChild(td);
-                
-                // inner humidity 1
-                td = document.createElement('td');
-                td.innerText = getRandom(45, 47, 1);
-                tr.appendChild(td);
-
-                // inner temp 2
-                td = document.createElement('td');
-                td.innerText = getRandom(23, 24, 1);
-                tr.appendChild(td);
-                
-                // inner humidity 2
-                td = document.createElement('td');
-                td.innerText = getRandom(45, 47, 1);
-                tr.appendChild(td);
-                
-                // co2 1
-                td = document.createElement('td');
-                td.innerText = getRandom(530, 1020, 0);
-                tr.appendChild(td);
-                
-                // co2 1
-                td = document.createElement('td');
-                td.innerText = getRandom(520, 1040, 0);
-                tr.appendChild(td);
-                
-                // operation status
-                td = document.createElement('td');
-                td.innerText = getRandom(12000, 14010, 0);
-                tr.appendChild(td);
-                
-                this.tableBody.appendChild(tr);
+        this.tempInstance = new RealtimeChart({
+            id: 'tempRealtimeChart',
+            option: {
+                title: {
+                text: '温度'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    type: 'scroll'
+                },
+                xAxis: {
+                    type: 'time'
+                },
+                yAxis: [{
+                    type: 'value',
+                    max: 100
+                }],
+                series: [{
+                    name: '設定温度',
+                    type: 'line',
+                    markLine: {
+                        data: [
+                            {
+                                "name": "設定温度：70℃",
+                                "yAxis": 70,
+                                "label": {
+                                    "formatter": "{b}",
+                                    "position": "insideEndTop"
+                                }
+                            }
+                        ]
+                    }
+                },{
+                    name: '0',
+                    type: 'line',
+                    data: [...serieData]
+                },{
+                    name: '1',
+                    type: 'line',
+                    data: [...serieData]
+                },{
+                    name: '2',
+                    type: 'line',
+                    data: [...serieData]
+                },{
+                    name: '平均温度',
+                    type: 'line',
+                    data: [...serieData]
+                }]
             }
-        }
+        });
+        this.humidityInstance = new RealtimeChart({
+            id: 'humidityRealtimeChart',
+            option: {
+                title: {
+                text: '湿度'
+                },
+                tooltip: {},
+                legend: {
+                    type: 'scroll'
+                },
+                xAxis: {
+                    type: 'time'
+                },
+                yAxis: [{
+                    type: 'value',
+                    max: 100
+                }],
+                series: [{
+                    name: '設定温度',
+                    type: 'line',
+                    markLine: {
+                        data: [
+                            {
+                                "name": "警報温度：70%",
+                                "yAxis": 70,
+                                "label": {
+                                    "formatter": "{b}",
+                                    "position": "insideEndTop"
+                                }
+                            }
+                        ]
+                    }
+                },{
+                    name: '0',
+                    type: 'line',
+                    data: [...serieData]
+                },{
+                    name: '1',
+                    type: 'line',
+                    data: [...serieData]
+                },{
+                    name: '2',
+                    type: 'line',
+                    data: [...serieData]
+                },{
+                    name: '平均湿度',
+                    type: 'line',
+                    data: [...serieData]
+                }]
+            }
+        });
+        this.co2Instance = new RealtimeChart({
+            id: 'co2RealtimeChart',
+            option: {
+                title: {
+                text: 'CO2'
+                },
+                tooltip: {},
+                legend: {
+                    type: 'scroll'
+                },
+                xAxis: {
+                    type: 'time'
+                },
+                yAxis: [{
+                    type: 'value'
+                }],
+                series: [{
+                    name: '1',
+                    type: 'line',
+                    data: [...serieData],
+                    markLine: {
+                        data: [
+                            {
+                                "name": "警報CO2：70ppm",
+                                "yAxis": 70,
+                                "label": {
+                                    "formatter": "{b}",
+                                    "position": "insideEndTop"
+                                }
+                            }
+                        ]
+                    }
+                },{
+                    name: '2',
+                    type: 'line',
+                    data: [...serieData]
+                }]
+            }
+        });
+
+        this.ticktock();
+    }
+    /*
+        温度：室外、室内[1,2...]、平均、設定
+        湿度：室外、室内[1,2...]、平均、設定
+        CO2: 室内[1,2...]、警報
+    */
+    ticktock(){
+        let now = new Date();
+
+        this.tempInstance.data.series.forEach(serie => {
+
+            if(!serie.data){
+                return;
+            }
+            serie.data.push(DatasetCreator.createDataset(now));
+
+            if(serie.data.length > RealtimeCharts.MAX_DATA_LENGTH){
+                serie.data.shift();
+            }
+        });
+        this.tempInstance.setOption({
+            series: this.tempInstance.data.series
+        });
+
+        this.humidityInstance.data.series.forEach(serie => {
+
+            if(!serie.data){
+                return;
+            }
+            serie.data.push(DatasetCreator.createDataset(now));
+
+            if(serie.data.length > RealtimeCharts.MAX_DATA_LENGTH){
+                serie.data.shift();
+            }
+        });
+        this.humidityInstance.setOption({
+            series: this.humidityInstance.data.series
+        });
+
+        this.co2Instance.data.series.forEach(serie => {
+
+            if(!serie.data){
+                return;
+            }
+            serie.data.push(DatasetCreator.createDataset(now));
+
+            if(serie.data.length > RealtimeCharts.MAX_DATA_LENGTH){
+                serie.data.shift();
+            }
+        });
+        this.co2Instance.setOption({
+            series: this.co2Instance.data.series
+        });
+
+        setTimeout(this.ticktock.bind(this), 10000);
+    }
+    resize(){
+        this.tempInstance.resize();
+        this.humidityInstance.resize();
+        this.co2Instance.resize();
     }
 }
 
-class OperationButtons {
-    switch_status = {far: 'far', hand: 'hand'};
-    click_status = {click: 'btn-primary', unclick: 'btn-outline-primary'};
-    current_states = {switch: this.switch_status.far};
-    constructor(switchId, operationId, stopId){
-        this.switch = document.querySelector(`#${switchId}`);
-        this.operation = document.querySelector(`#${operationId}`);
-        this.stop = document.querySelector(`#${stopId}`);
+class DatasetCreator {
+    static createDataset(now){
+        let timestamp = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
 
-        this.switch.addEventListener('click', this.onSwitchClick.bind(this));
-        this.operation.addEventListener('click', this.onOperationClick.bind(this));
-        this.stop.addEventListener('click', this.onStopClick.bind(this));
+        return {
+            name: now.toLocaleTimeString(),
+            value: [timestamp, Math.round(Math.random() * 100)]
+        };
     }
-    onSwitchClick(){
+    static createEmptySerieData(){
+        let now = new Date();
+        let before = new Date(now - 5 * 60 * 1000);
 
-        if(this.current_states.switch === this.switch_status.far){
-            this.switch.innerText = '手元運転中';
-            this.current_states.switch = this.switch_status.hand;
-            return;
+        let data = [];
+
+        for(let i = 0; i < RealtimeCharts.MAX_DATA_LENGTH; i++){
+            data.push({
+                name: before.toLocaleTimeString(),
+                value: [before.toLocaleDateString() + ' ' + before.toLocaleTimeString()]
+            });
+            before = new Date(before + 10 * 1000);
         }
-        this.switch.innerText = '遠方運転中';
-        this.current_states.switch = this.switch_status.far;
-    }
-    onOperationClick(){
-        let cssClass = this.operation.getAttribute('class');
-
-        if(this.isClicked(cssClass)){
-            return;
-        }
-        cssClass = cssClass.replace(this.click_status.unclick, this.click_status.click);
-        this.operation.setAttribute('class', cssClass);
-        
-        cssClass = this.stop.getAttribute('class');
-        cssClass = cssClass.replace(this.click_status.click, this.click_status.unclick);
-        this.stop.setAttribute('class', cssClass);
-    }
-    onStopClick(){
-        let cssClass = this.stop.getAttribute('class');
-
-        if(this.isClicked(cssClass)){
-            return;
-        }
-        cssClass = cssClass.replace(this.click_status.unclick, this.click_status.click);
-        this.stop.setAttribute('class', cssClass);
-
-        cssClass = this.operation.getAttribute('class');
-        cssClass = cssClass.replace(this.click_status.click, this.click_status.unclick);
-        this.operation.setAttribute('class', cssClass);
-    }
-    isClicked(cssClass){
-        return cssClass.indexOf(this.click_status.click) >= 0;
+        return data;
     }
 }
 
-function getRandom(min, max, fixedDiget) {
-    return (Math.random() * (max - min) + min).toFixed(fixedDiget);
-  }
+class DataDisplayTabs{
+    constructor(){
+        this.radios = Array.from(document.querySelectorAll('[name="dataDisplayType"]'));
+        this.chartTabTriggerEl = document.querySelector('#chartTabTrigger');
+        this.chartTabTrigger = new bootstrap.Tab(this.chartTabTriggerEl);
+        this.tableTabTrigger = new bootstrap.Tab(document.querySelector('#tableTabTrigger'));
 
-new DatetimeDisplayer('currentDatetime');
+        this.radios.forEach(radio => radio.addEventListener('change', this.onChange.bind(this, radio)));
+
+        console.log(document.querySelector('button[data-bs-toggle="tab"]'));
+        this.chartTabTriggerEl.addEventListener('shown.bs.tab', event => {
+            console.log(1);
+            realtimeCharts.resize();
+        });
+
+        // trigger selected at the first time
+        this.onChange(this.radios.find(radio => radio.checked));
+    }
+    showByTriggerId(triggerId){
+        let trigger;
+
+        if(triggerId === 'chartTab'){
+            trigger = this.chartTabTrigger;
+        }else{
+            trigger = this.tableTabTrigger;
+        }
+        trigger.show();
+    }
+    onChange(target){
+        this.showByTriggerId(`${target.value}Tab`);
+    }
+}
+
+window.addEventListener('resize', () => realtimeCharts.resize());
+
 new OverallStatus('overallStatus');
 new VentilationStatus('ventilationStatus');
-let csvDownload = new CSVDownload('csvDatePicker', 'displayDataButton', 'csvDownloadButton');
-let historyCreator = new TableBodyCreator('historyBody');
-
-csvDownload.setHistoryCreator(historyCreator);
-
-new OperationButtons('switchButton', 'operationButton', 'stopButton');
+new OperationRadios();
+new VentilationModeRadios();
+let realtimeCharts = new RealtimeCharts();
+new DataDisplayTabs();
