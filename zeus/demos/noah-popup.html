@@ -62,7 +62,7 @@
 						設定
 					</button>
 					<div class="vr text-white"></div>
-					<button class="btn btn-primary shadow">
+					<button data-id="reset" class="operation-btn btn btn-primary shadow">
 						<i class="bi bi-arrow-clockwise text-white"></i>
 						R
 					</button>
@@ -392,11 +392,11 @@
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item">
 							<div class="d-flex justify-content-end hstack gap-1">
-								<button class="btn btn-primary shadow">
+								<button data-id="fixedWeaken" class="operation-btn btn btn-primary shadow">
 									<i class="bi bi-hand-index-thumb"></i>
 									微弱固定
 								</button>
-								<button class="btn btn-primary shadow">
+								<button data-id="ventilationStop" class="operation-btn btn btn-primary shadow">
 									<i class="bi bi-hand-index-thumb"></i>
 									換気停止
 								</button>
@@ -589,7 +589,7 @@
 										<label for="newAfterTimer">設定値</label>
 									</div>
 									<span class="input-group-text">秒</span>
-									<button type="button" class="btn btn-primary">
+									<button type="button" id="afterTimerSettingButton" class="btn btn-primary">
 										<i class="bi bi-hand-index-thumb"></i>
 										設定
 									</button>
@@ -943,6 +943,57 @@
 					</ul>
 				</li>
 			</ul>
+		</div>
+	</div>
+
+	<div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3">
+		<div data-id="reset" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="toast-header">
+				<strong class="me-auto">リセット</strong>
+				<small></small>
+				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+		  	</div>
+		  	<div class="toast-body">
+		  	</div>
+		</div>
+		<div data-id="fixedWeaken" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="toast-header">
+				<strong class="me-auto">微弱固定</strong>
+				<small></small>
+				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+		  	</div>
+		  	<div class="toast-body">
+		  	</div>
+		</div>
+		<div data-id="ventilationStop" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="toast-header">
+				<strong class="me-auto">微弱固定</strong>
+				<small></small>
+				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+		  	</div>
+		  	<div class="toast-body">
+		  	</div>
+		</div>
+		<div data-id="settingToast" class="toast text-bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="toast-header">
+				<strong class="me-auto"></strong>
+				<small></small>
+				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+		  	</div>
+		  	<div class="toast-body">
+				値が変更されました。
+		  	</div>
+		</div>
+
+		<div data-id="operationToast" class="toast text-bg-danger" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="toast-header">
+				<strong class="me-auto"></strong>
+				<small></small>
+				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+			<div class="toast-body">
+				操作できませんでした。
+			</div>
 		</div>
 	</div>
 

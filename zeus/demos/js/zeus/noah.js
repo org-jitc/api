@@ -130,7 +130,6 @@ class OperationRadios {
         this.farHands = Array.from(document.querySelectorAll('[name="farHand"]'));
         this.handOnOff = Array.from(document.querySelectorAll('[name="handOnOff"]'));
 
-        console.log(this.farHands.find(check => check.checked));
         this.onFarHandChange(this.farHands.find(check => check.checked));
 
         this.farHands.forEach(check => check.addEventListener('change', this.onFarHandChange.bind(this, check)));
@@ -421,7 +420,6 @@ class DataDisplayTabs{
 
         console.log(document.querySelector('button[data-bs-toggle="tab"]'));
         this.chartTabTriggerEl.addEventListener('shown.bs.tab', event => {
-            console.log(1);
             realtimeCharts.resize();
         });
 
@@ -443,11 +441,135 @@ class DataDisplayTabs{
     }
 }
 
+class Toasts {
+    static base_css = 'toast';
+    constructor(){
+        this.toastEls = Array.from(document.querySelectorAll('.toast'));
+        this.toasts = this.toastEls.map(el => {
+            return {id: el.getAttribute('data-id'), instance: new bootstrap.Toast(el)};
+        });
+    }
+    findElement(toastId){
+        return this.toastEls.find(el => el.getAttribute('data-id') === toastId);;
+    }
+    show(toastId){
+        this.toasts.find(obj => obj.id === toastId).instance.show();
+    }
+    showSuccess(toastId, msg){
+        console.log(toastId);
+        let el = this.findElement(toastId);
+        el.setAttribute('class', `${Toasts.base_css} text-bg-success`);
+
+        let body = el.querySelector('.toast-body');
+        body.innerText = msg;
+
+        this.show(toastId);
+    }
+    showError(toastId, msg){
+        let el = this.findElement(toastId);
+        el.setAttribute('class', `${Toasts.base_css} text-bg-danger`);
+
+        let body = el.querySelector('.toast-body');
+        body.innerText = msg;
+
+        this.show(toastId);
+    }
+}
+
+class SettingButtons {
+    constructor(){
+        this.afterTimer = document.querySelector('#afterTimerSettingButton');
+
+        this.afterTimer.addEventListener('click', this.onClick);
+    }
+    onClick(){
+        toasts.settingToast.show();
+    }
+}
+
+class OperationButtons {
+    constructor(){
+        this.btns = Array.from(document.querySelectorAll('.operation-btn'));
+        this.btns.forEach(btn => btn.addEventListener('click', this.onClick));
+    }
+    onClick(){
+        let id = this.getAttribute('data-id');
+        toasts.showSuccess(id, 'ok');
+
+        setTimeout(() => {
+            toasts.showError(id, 'ng');
+        }, 3000);
+    }
+}
+
 window.addEventListener('resize', () => realtimeCharts.resize());
+
+const noahStore = {
+    status: {
+        header: {
+            system: null,
+            ventilation: null
+        },
+        fan: {
+
+        },
+        btn: {
+            distance: {
+                status: null,
+                subStatus: null
+            },
+            ventilation: {
+                status: null,
+                subStatus: null
+            },
+            modes: null,
+            humidityFirstRelease: null
+        }
+    },
+    data: {
+        setting: {
+            temp: null,
+            humi: null,
+            co2: null,
+            timer: {
+                afterTimer: null,
+                forceVentilationTime: null,
+                warmingUp: null,
+                logginSpan: null
+            },
+            env: {
+                indoorForceStrongTemp: null,
+                outdoorOutCoolRangeTemp: null,
+                demandControlOuterTempUp: null,
+                demandControlOuterTempDown: null,
+                demandControlAlertHumi: null,
+                forceStrongOuterTempRangeFrom: null,
+                forceStrongOuterTempRangeTo: null,
+                outerAlertHumidity: null,
+                humiAlertReleaseGap: null
+            }
+        },
+        avg: {
+            temp: null,
+            humi: null
+        },
+        // last updated
+        realtime: {
+            temp: [],
+            humi: [],
+            co2: [],
+            sensorStatus: [],
+            sensorVoltage: []
+        }
+    }
+};
 
 new OverallStatus('overallStatus');
 new VentilationStatus('ventilationStatus');
-new OperationRadios();
 new VentilationModeRadios();
 let realtimeCharts = new RealtimeCharts();
 new DataDisplayTabs();
+let toasts = new Toasts();
+new OperationRadios();
+new SettingButtons();
+new OperationButtons();
