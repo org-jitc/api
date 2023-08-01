@@ -502,6 +502,54 @@ class OperationButtons {
     }
 }
 
+class VentilationVariableModeSwitch {
+    static STATUS_LABEL = {
+        on: '切',
+        off: '&nbsp;'
+    };
+    constructor(name, labelForId){
+        this.name = name;
+        this.switch = document.querySelector(`[name="${name}"]`);
+        this.label = document.querySelector(`[for="${labelForId}"]`);
+
+        this.switch.addEventListener('change', this.onSwitchChange.bind(this));
+    }
+    onSwitchChange(){
+
+        if(this.switch.checked){
+            this.label.innerHTML = VentilationVariableModeSwitch.STATUS_LABEL.on;
+            return;
+        }
+        this.label.innerHTML = VentilationVariableModeSwitch.STATUS_LABEL.off;
+    }
+    enable(){
+        this.switch.disabled = false;
+    }
+    disable(){
+        this.switch.disabled = true;
+    }
+}
+class VentilationVariableModeChecks {
+    constructor(){
+        this.modeChecks = Array.from(document.querySelectorAll('[name="ventilationVariableMode"]'));
+        this.switchChecks = [
+            new VentilationVariableModeSwitch('afterVentilationSwitch', 'afterVentilationSwitch'),
+            new VentilationVariableModeSwitch('forceVentilationSwitch', 'forceVentilationSwitch'),
+            new VentilationVariableModeSwitch('warmingUpSwitch', 'warmingUpSwitch')
+        ];
+
+        this.modeChecks.forEach(mc => mc.addEventListener('change', this.onModeCheckChange.bind(this, mc)));
+    }
+    onModeCheckChange(modeCheck){
+        let switchName = modeCheck.getAttribute('data-switch-name');
+        let modeSwitch = this.switchChecks.find(ms => ms.name === switchName);
+
+        if(modeSwitch){
+            modeCheck.checked? modeSwitch.enable(): modeSwitch.disable();
+        }
+    }
+}
+
 window.addEventListener('resize', () => realtimeCharts.resize());
 
 const noahStore = {
@@ -573,3 +621,4 @@ let toasts = new Toasts();
 new OperationRadios();
 new SettingButtons();
 new OperationButtons();
+new VentilationVariableModeChecks();

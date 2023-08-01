@@ -498,33 +498,59 @@
 						</li>
 						<li class="list-group-item">
 							<div class="vstack gap-1">
-								<div>
-									<input type="checkbox" class="btn-check" name="ventilationVariableMode" id="ventilationVariableModeAfter" value="after" autocomplete="off" checked>
-									<label class="btn btn-outline-primary w-100 text-nowrap shadow" for="ventilationVariableModeAfter">
-										<i class="bi bi-ui-checks-grid"></i>
-										アフタ換気
-									</label>
+								<div class="row g-1">
+									<div class="col-9">
+										<input type="checkbox" class="btn-check" name="ventilationVariableMode" id="ventilationVariableModeAfter" value="after" data-switch-name="afterVentilationSwitch" autocomplete="off" checked>
+										<label class="btn btn-outline-primary w-100 text-nowrap shadow" for="ventilationVariableModeAfter">
+											<i class="bi bi-ui-checks-grid"></i>
+											アフタ換気
+										</label>
+									</div>
+									<div class="col-3">
+										<input type="checkbox" class="btn-check" name="afterVentilationSwitch" id="afterVentilationSwitch" value="1" autocomplete="off" checked>
+										<label class="btn btn-outline-primary w-100 text-nowrap shadow" for="afterVentilationSwitch">
+											切
+										</label>
+									</div>
 								</div>
-								<div>
-									<input type="checkbox" class="btn-check" name="ventilationVariableMode" id="ventilationVariableMode24h" value="24h" autocomplete="off">
-									<label class="btn btn-outline-primary w-100 text-nowrap shadow" for="ventilationVariableMode24h">
-										<i class="bi bi-ui-checks-grid"></i>
-										24時間換気
-									</label>
+								<div class="row g-1">
+									<div class="col-9">
+										<input type="checkbox" class="btn-check" name="ventilationVariableMode" id="ventilationVariableMode24h" value="24h" autocomplete="off">
+										<label class="btn btn-outline-primary w-100 text-nowrap shadow" for="ventilationVariableMode24h">
+											<i class="bi bi-ui-checks-grid"></i>
+											24時間換気
+										</label>
+									</div>
 								</div>
-								<div>
-									<input type="checkbox" class="btn-check" name="ventilationVariableMode" id="ventilationVariableModeForce" value="force" autocomplete="off">
-									<label class="btn btn-outline-primary w-100 text-nowrap shadow" for="ventilationVariableModeForce">
-										<i class="bi bi-ui-checks-grid"></i>
-										強制換気
-									</label>
+								<div class="row g-1">
+									<div class="col-9">
+										<input type="checkbox" class="btn-check" name="ventilationVariableMode" id="ventilationVariableModeForce" value="force" data-switch-name="forceVentilationSwitch" autocomplete="off">
+										<label class="btn btn-outline-primary w-100 text-nowrap shadow" for="ventilationVariableModeForce">
+											<i class="bi bi-ui-checks-grid"></i>
+											強制換気
+										</label>
+									</div>
+									<div class="col-3">
+										<input type="checkbox" class="btn-check" name="forceVentilationSwitch" id="forceVentilationSwitch" value="1" autocomplete="off" disabled>
+										<label class="btn btn-outline-primary w-100 text-nowrap shadow" for="forceVentilationSwitch">
+											&nbsp;
+										</label>
+									</div>
 								</div>
-								<div>
-									<input type="checkbox" class="btn-check" name="ventilationVariableMode" id="ventilationVariableModeWarmingUp" value="warmingUp" autocomplete="off">
-									<label class="btn btn-outline-primary w-100 text-nowrap shadow" for="ventilationVariableModeWarmingUp">
-										<i class="bi bi-ui-checks-grid"></i>
-										ウォーミングアップ
-									</label>
+								<div class="row g-1">
+									<div class="col-9">
+										<input type="checkbox" class="btn-check" name="ventilationVariableMode" id="ventilationVariableModeWarmingUp" value="warmingUp" autocomplete="off" data-switch-name="warmingUpSwitch">
+										<label class="btn btn-outline-primary w-100 text-nowrap shadow" for="ventilationVariableModeWarmingUp">
+											<i class="bi bi-ui-checks-grid"></i>
+											ウォーミングアップ
+										</label>
+									</div>
+									<div class="col-3">
+										<input type="checkbox" class="btn-check" name="warmingUpSwitch" id="warmingUpSwitch" value="1" autocomplete="off" checked disabled>
+										<label class="btn btn-outline-primary w-100 text-nowrap shadow" for="warmingUpSwitch">
+											切
+										</label>
+									</div>
 								</div>
 							</div>
 						</li>
@@ -864,10 +890,13 @@
 							<div class="row row-cols-1 g-2">
 								<div class="d-flex flex-column">
 									<div>
-										<button class="btn btn-primary btn-sm">
-											<i class="bi bi-hand-index-thumb"></i>
-											非設定
-										</button>
+										<div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
+											<input type="radio" class="btn-check" name="forceStrongouterTempRangeBtn" id="forceStrongouterTempRangeBtn1" autocomplete="off" checked>
+											<label class="btn btn-outline-primary" for="forceStrongouterTempRangeBtn1">設定</label>
+										  
+											<input type="radio" class="btn-check" name="forceStrongouterTempRangeBtn" id="forceStrongouterTempRangeBtn2" autocomplete="off">
+											<label class="btn btn-outline-primary" for="forceStrongouterTempRangeBtn2">非設定</label>
+										  </div>
 										強制「強」設定外気温温度範囲
 									</div>
 									<small class="fw-light">【初期値18℃～室内設定温度】</small>
