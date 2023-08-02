@@ -532,13 +532,13 @@ class VentilationVariableModeSwitch {
 class VentilationVariableModeChecks {
     constructor(){
         this.modeChecks = Array.from(document.querySelectorAll('[name="ventilationVariableMode"]'));
-        this.switchChecks = [
+        /*this.switchChecks = [
             new VentilationVariableModeSwitch('afterVentilationSwitch', 'afterVentilationSwitch'),
             new VentilationVariableModeSwitch('forceVentilationSwitch', 'forceVentilationSwitch'),
             new VentilationVariableModeSwitch('warmingUpSwitch', 'warmingUpSwitch')
-        ];
+        ];*/
 
-        this.modeChecks.forEach(mc => mc.addEventListener('change', this.onModeCheckChange.bind(this, mc)));
+        //this.modeChecks.forEach(mc => mc.addEventListener('change', this.onModeCheckChange.bind(this, mc)));
     }
     onModeCheckChange(modeCheck){
         let switchName = modeCheck.getAttribute('data-switch-name');
