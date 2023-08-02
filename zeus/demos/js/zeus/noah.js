@@ -504,7 +504,7 @@ class OperationButtons {
 
 class VentilationVariableModeSwitch {
     static STATUS_LABEL = {
-        on: '切',
+        on: '停止',
         off: '&nbsp;'
     };
     constructor(name, labelForId){
