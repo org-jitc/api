@@ -19,7 +19,12 @@ get /rest/mieruka/echarts/realtime/demand
     result: 'ok',
     data: {
         // デマンドセンサーラベル名
-        demandLabel:,
+        labels: {
+            contract:,
+            limit:,
+            target:,
+            demand:,
+        },
         // 時限タイプ（前30分か後ろ30分か）
         halfHourType: ['first'|'last'],
         // リアルタイム電力
