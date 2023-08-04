@@ -8,7 +8,7 @@ get /rest/mieruka/echarts/realtime/demand
 ```
 {
     demandId:,
-    halfHourType:,
+    lastHalfHourType:,
     lastTimeMilli:,
     lastValue:
 }
