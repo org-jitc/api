@@ -8,7 +8,8 @@ get /rest/mieruka/echarts/realtime/demand
 ```
 {
     demandId:,
-    lastHalfHourType:,
+    // 時限タイプ（前30分か後ろ30分か）
+    lastHalfHourType: ['first'|'last'],
     lastTimeMilli:,
     lastValue:
 }
@@ -25,6 +26,13 @@ get /rest/mieruka/echarts/realtime/demand
             target:,
             demand:,
         },
+        // 各線の色
+        colors: {
+            contract:,
+            limit:,
+            target:,
+            demand:,
+        },
         // 時限タイプ（前30分か後ろ30分か）
         halfHourType: ['first'|'last'],
         // リアルタイム電力
@@ -34,8 +42,6 @@ get /rest/mieruka/echarts/realtime/demand
             // y軸の最大値
             max:
         },
-        // 最後の電力
-        lastValue:
         // 以下は最初のアクセスあるいは時限(halfHourType)が変わる場合に
         // x軸の開始時刻と終了時刻
         xAxis: {
