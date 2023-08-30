@@ -8,7 +8,7 @@
 	<meta http-equiv="Expires" content="0">
 
 	<link rel="stylesheet" type="text/css" href="./css/icons/bootstrap/bootstrap-icons.css"/>
-	<link rel="stylesheet" type="text/css" href="./css/bootstrap/5/bootstrap-litera.min.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap/5/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/zeus/noah-list.css"/>
 	
 	<script>
@@ -39,12 +39,14 @@
 		NOAH
 	</title>
 </head>
-<body class="bg-primary-subtle">
+<body class="">
 	<!-- 施設名、システム状態、換気状態、サイドメニュー -->
 	<nav class="navbar sticky-top bg-primary">
 		<div class="container-xxl d-flex justify-content-between">
+			<!--brand-->
 		  	<div class="navbar-brand text-center text-white fw-bold">ｎｉｋｋｏ<br>真庭店</div>
-		  	<div class="d-flex flex-wrap gap-1">
+		  	<!--system status-->
+			<div class="d-flex flex-wrap gap-1">
 				<div class="overall-status-container p-2 rounded-3 bg-white text-primary d-flex flex-wrap justify-content-center align-items-center">
 					<span class="badge rounded-pill text-bg-info">システム状態</span>
 					<div id="overallStatus" class="overall-status fw-bold fs-5"></div>
@@ -55,15 +57,16 @@
 					<div id="ventilationStatus" class="ventilation-status fw-bold fs-5"></div>
 				</div>
 			</div>
+			<!--buttons-->
 			<div>
 				<div class="hstack gap-1">
-					<button class="btn btn-primary shadow" data-bs-toggle="offcanvas" data-bs-target="#settingOffCanvas">
-						<i class="bi bi-gear text-white"></i>
+					<button class="btn btn-sm btn-outline-primary bg-white text-primary" data-bs-toggle="offcanvas" data-bs-target="#settingOffCanvas">
+						<i class="bi bi-gear"></i>
 						設定
 					</button>
 					<div class="vr text-white"></div>
-					<button data-id="reset" class="operation-btn btn btn-primary shadow">
-						<i class="bi bi-arrow-clockwise text-white"></i>
+					<button data-id="reset" class="operation-btn btn btn-sm btn-outline-primary bg-white text-primary">
+						<i class="bi bi-arrow-clockwise"></i>
 						R
 					</button>
 				</div>
@@ -81,104 +84,104 @@
 				<div class="row">
 					<div class="col">
 	
-						<div class="card border-primary shadow">
-							<div class="card-header">
+						<div class="card border-primary">
+							<div class="card-body">
 								<div class="d-flex justify-content-between align-items-center">
-									<label class="text-info fs-6 fw-bold">MCファン運転状態</label>
+									<label class="text-primary fs-6 fw-bold">MCファン運転状態</label>
 		
 									<div class="hstack gap-2">
 										<div class="d-flex align-items-center hstack gap-1">
-											<i class="bi bi-fan text-success"></i>
+											<i class="bi bi-record-fill text-success"></i>
 											<label>運転</label>
 										</div>
 										<div class="d-flex align-items-center hstack gap-1">
-											<i class="bi bi-fan text-secondary-emphasis"></i>
+											<i class="bi bi-record-fill text-dark"></i>
 											<label>停止</label>
 										</div>
 										<div class="d-flex align-items-center hstack gap-1">
-											<i class="bi bi-fan text-danger"></i>
+											<i class="bi bi-record-fill text-danger"></i>
 											<label>エラー停止</label>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="card-body">
-		
-								<div class="container-fluid">
-									<div class="row g-1">
-										<div class="col-auto">
-											<div class="border border-info rounded p-2 d-flex align-items-center hstack gap-1">
-												<label>MCFA</label>
-												<label class="vr"></label>
-												<i class="bi bi-fan text-success"></i>
+
+								<hr class="border border-primary my-3">
+
+								<div class="d-flex gap-1">
+									<div class="mcfan-container card border border-2 border-success">
+										<div class="card-body p-1">
+											<div class="d-flex justify-content-center align-items-center">
+												<label class="text-success">MCFA</label>
 											</div>
 										</div>
-										<div class="col-auto">
-											<div class="border border-info rounded p-2 d-flex align-items-center hstack gap-1">
-												<label>PACA</label>
-												<label class="vr"></label>
-												<i class="bi bi-fan text-secondary-emphasis"></i>
+									</div>
+									<div class="mcfan-container card border border-2 border-danger">
+										<div class="card-body p-1">
+											<div class="d-flex justify-content-center align-items-center">
+												<label class="text-danger">MCFB</label>
 											</div>
 										</div>
-										<div class="col-auto">
-											<div class="border border-info rounded p-2 d-flex align-items-center hstack gap-1">
-												<label>MCFB</label>
-												<label class="vr"></label>
-												<i class="bi bi-fan text-danger"></i>
+									</div>
+									<div class="mcfan-container card border border-2 border-dark">
+										<div class="card-body p-1">
+											<div class="d-flex justify-content-center align-items-center">
+												<label class="text-dark">MCFC</label>
 											</div>
 										</div>
-										<div class="col-auto">
-											<div class="border border-info rounded p-2 d-flex align-items-center hstack gap-1">
-												<label>PACB</label>
-												<label class="vr"></label>
-												<i class="bi bi-fan text-secondary-emphasis"></i>
-											</div>
-										</div>
-										<div class="col-auto">
-											<div class="border border-info rounded p-2 d-flex align-items-center hstack gap-1">
-												<label>MCFC</label>
-												<label class="vr"></label>
-												<i class="bi bi-fan text-success"></i>
-											</div>
-										</div>
-										<div class="col-auto">
-											<div class="border border-info rounded p-2 d-flex align-items-center hstack gap-1">
-												<label>PACC</label>
-												<label class="vr"></label>
-												<i class="bi bi-fan text-secondary-emphasis"></i>
-											</div>
-										</div>
-										<div class="col-auto">
-											<div class="border border-info rounded p-2 d-flex align-items-center hstack gap-1">
+									</div>
+									<div class="mcfan-container card text-bg-success">
+										<div class="card-body p-1">
+											<div class="d-flex justify-content-center align-items-center">
 												<label>MCFD</label>
-												<label class="vr"></label>
-												<i class="bi bi-fan text-success"></i>
 											</div>
 										</div>
-										<div class="col-auto">
-											<div class="border border-info rounded p-2 d-flex align-items-center hstack gap-1">
-												<label>PACD</label>
-												<label class="vr"></label>
-												<i class="bi bi-fan text-secondary-emphasis"></i>
-											</div>
-										</div>
-										<div class="col-auto">
-											<div class="border border-info rounded p-2 d-flex align-items-center hstack gap-1">
+									</div>
+									<div class="mcfan-container card text-bg-success">
+										<div class="card-body p-1">
+											<div class="d-flex justify-content-center align-items-center">
 												<label>MCFE</label>
-												<label class="vr"></label>
-												<i class="bi bi-fan text-success"></i>
-											</div>
-										</div>
-										<div class="col-auto">
-											<div class="border border-info rounded p-2 d-flex align-items-center hstack gap-1">
-												<label>PACE</label>
-												<label class="vr"></label>
-												<i class="bi bi-fan text-secondary-emphasis"></i>
 											</div>
 										</div>
 									</div>
 								</div>
-		
+
+								<div class="d-flex gap-1 mt-3">
+									<div class="mcfan-container card text-bg-success">
+										<div class="card-body p-1">
+											<div class="d-flex justify-content-center align-items-center">
+												<label>PACA</label>
+											</div>
+										</div>
+									</div>
+									<div class="mcfan-container card text-bg-danger">
+										<div class="card-body p-1">
+											<div class="d-flex justify-content-center align-items-center">
+												<label>PACB</label>
+											</div>
+										</div>
+									</div>
+									<div class="mcfan-container card text-bg-secondary">
+										<div class="card-body p-1">
+											<div class="d-flex justify-content-center align-items-center">
+												<label>PACC</label>
+											</div>
+										</div>
+									</div>
+									<div class="mcfan-container card text-bg-success">
+										<div class="card-body p-1">
+											<div class="d-flex justify-content-center align-items-center">
+												<label>PACD</label>
+											</div>
+										</div>
+									</div>
+									<div class="mcfan-container card text-bg-success">
+										<div class="card-body p-1">
+											<div class="d-flex justify-content-center align-items-center">
+												<label>PACE</label>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -186,23 +189,53 @@
 
 				<div class="row">
 					<div class="col">
-						<div class="card border-primary shadow">
-							<div class="card-header d-flex justify-content-between align-items-center">
-								<label class="text-info fs-6 fw-bold">モニタリング</label>
-
-								<div class="btn-group shadow" role="group" aria-label="Basic radio toggle button group">
-									<input type="radio" class="btn-check" name="dataDisplayType" value="chart" id="btnradio1" autocomplete="off" checked>
-									<label class="btn btn-outline-primary" for="btnradio1">
-										<i class="bi bi-graph-up"></i>
-									</label>
-								  
-									<input type="radio" class="btn-check" name="dataDisplayType" value="table" id="btnradio2" autocomplete="off">
-									<label class="btn btn-outline-primary" for="btnradio2">
-										<i class="bi bi-table"></i>
-									</label>
-								</div>
-							</div>
+						<div class="card border-primary">
 							<div class="card-body">
+								<div class="d-flex justify-content-between align-items-center gap-2">
+									<label class="text-primary fs-6 fw-bold text-nowrap">モニタリング</label>
+
+									<!--temp, humidity, co2 setting-->
+									<div class="flex-grow-1">
+										<div class="input-group input-group-sm p-0 border border-primary border-2 rounded">
+											<div class="form-floating">
+												<input readonly type="text" class="form-control" id="settingTemp" value="25" placeholder="設定温度">
+												<label for="settingTemp">設定温度</label>
+											</div>
+											<span class="input-group-text">℃</span>
+											<div class="form-floating">
+												<input type="text" class="form-control" id="settingHumi" value="70" placeholder="警報湿度">
+												<label for="settingHumi">警報湿度</label>
+											</div>
+											<span class="input-group-text">%</span>
+											<div class="form-floating">
+												<input type="text" class="form-control" id="settingCo2" value="950" placeholder="警報CO2">
+												<label for="settingCo2">警報CO2</label>
+											</div>
+											<span class="input-group-text">ppm</span>
+											<button type="button" id="afterTimerSettingButton" class="btn btn-sm btn-outline-primary border border-0">
+												<i class="bi bi-mouse3"></i>
+												設定
+											</button>
+										</div>
+									</div>
+	
+									<div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
+										<input type="radio" class="btn-check" name="dataDisplayType" value="chart" id="btnradio1" autocomplete="off" checked>
+										<label class="btn btn-sm btn-outline-primary text-nowrap" for="btnradio1">
+											<i class="bi bi-mouse3"></i>
+											<i class="bi bi-graph-up"></i>
+										</label>
+									  
+										<input type="radio" class="btn-check" name="dataDisplayType" value="table" id="btnradio2" autocomplete="off">
+										<label class="btn btn-sm btn-outline-primary text-nowrap" for="btnradio2">
+											<i class="bi bi-mouse3"></i>
+											<i class="bi bi-table"></i>
+										</label>
+									</div>
+								</div>
+
+								<hr class="border border-primary my-3">
+
 								<!-- Nav tabs -->
 								<ul class="nav nav-tabs d-none" id="myTab" role="tablist">
 									<li class="nav-item" role="presentation">
@@ -221,7 +254,7 @@
 												<div class="card border-primary">
 													<div class="card-header">
 														<div class="d-flex justify-content-between gap-2">
-															<label class="text-info text-nowrap fs-6 fw-bold">温湿度</label>
+															<label class="text-primary text-nowrap fs-6 fw-bold">温湿度</label>
 								
 															<div class="flex-grow-1 d-flex justify-content-center">
 																<div>
@@ -232,19 +265,11 @@
 															<div class="d-flex gap-1 text-nowrap">
 																<div class="vstack gap-1">
 																	<div class="p-2 bg-white border border-info rounded">
-																		<span class="badge rounded-pill text-bg-info">設定温度</span>
-																		<label class="fw-bold">25.0℃</label>
-																	</div>
-																	<div class="p-2 bg-white border border-info rounded">
 																		<span class="badge rounded-pill text-bg-info">平均温度</span>
 																		<label class="fw-bold">23.6℃</label>
 																	</div>
 																</div>
 																<div class="vstack gap-1">
-																	<div class="p-2 bg-white border border-info rounded">
-																		<span class="badge rounded-pill text-bg-info">警報湿度</span>
-																		<label class="fw-bold">70%</label>
-																	</div>
 																	<div class="p-2 bg-white border border-info rounded">
 																		<span class="badge rounded-pill text-bg-info">平均湿度</span>
 																		<label class="fw-bold">74.6%</label>
@@ -288,7 +313,7 @@
 												<div class="card border-primary">
 													<div class="card-header text-nowrap">
 														<div class="d-flex justify-content-between gap-2">
-															<label class="text-info fs-6 fw-bold">
+															<label class="text-primary fs-6 fw-bold">
 																CO2
 															</label>
 								
@@ -296,11 +321,6 @@
 																<div>
 																	<span class="badge text-bg-warning">CO2上昇</span>
 																</div>
-															</div>
-								
-															<div class="p-2 bg-white border border-info rounded">
-																<span class="badge rounded-pill text-bg-info">警報CO2</span>
-																<label class="fw-bold">950ppm</label>
 															</div>
 														</div>
 													</div>
@@ -385,19 +405,19 @@
 			</div>
 			
 			<div class="flex-md-shrink-1">
-				<div class="card border-primary shadow">
-					<div class="card-header">
-						<label class="text-info fs-6 fw-bold">操作</label>
+				<div class="card border-primary">
+					<div class="card-body">
+						<label class="text-primary fw-bold">操作</label>
 					</div>
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item">
 							<div class="d-flex justify-content-end hstack gap-1">
-								<button data-id="fixedWeaken" class="operation-btn btn btn-primary shadow">
-									<i class="bi bi-hand-index-thumb"></i>
+								<button data-id="fixedWeaken" class="operation-btn btn btn-sm btn-outline-primary">
+									<i class="bi bi-mouse3"></i>
 									微弱固定
 								</button>
-								<button data-id="ventilationStop" class="operation-btn btn btn-primary shadow">
-									<i class="bi bi-hand-index-thumb"></i>
+								<button data-id="ventilationStop" class="operation-btn btn btn-sm btn-outline-primary">
+									<i class="bi bi-mouse3"></i>
 									換気停止
 								</button>
 							</div>
@@ -406,18 +426,18 @@
 							<div class="hstack gap-1 justify-content-end align-items-start">
 								<div>
 									<input type="radio" class="btn-check" name="farHand" id="far" value="far" autocomplete="off" checked>
-									<label class="btn btn-outline-primary text-nowrap shadow" for="far">
-										<i class="bi bi-ui-radios-grid"></i>
+									<label class="btn btn-sm btn-outline-primary text-nowrap" for="far">
+										<i class="bi bi-mouse3"></i>
 										遠方運転
 									</label>
 								</div>
 	
 								<div>
-									<div class="border border-primary rounded p-1 vstack gap-2 shadow">
+									<div class="border border-primary rounded p-1 vstack gap-2">
 										<div>
 											<input type="radio" class="btn-check" name="farHand" id="hand" value="hand" autocomplete="off">
-											<label class="btn btn-outline-primary w-100 text-nowrap" for="hand">
-												<i class="bi bi-ui-radios-grid"></i>
+											<label class="btn btn-sm btn-outline-primary w-100 text-nowrap" for="hand">
+												<i class="bi bi-mouse3"></i>
 												手元運転
 											</label>
 										</div>
@@ -426,14 +446,14 @@
 											<div>
 												<input type="radio" class="btn-check" name="handOnOff" id="handOn" value="handOn" autocomplete="off">
 												<label class="btn btn-sm btn-outline-primary text-nowrap" for="handOn">
-													<i class="bi bi-ui-radios-grid"></i>
+													<i class="bi bi-mouse3"></i>
 													運転
 												</label>
 											</div>
 											<div>
 												<input type="radio" class="btn-check" name="handOnOff" id="handOff" value="handOff" autocomplete="off">
 												<label class="btn btn-sm btn-outline-primary text-nowrap" for="handOff">
-													<i class="bi bi-ui-radios-grid"></i>
+													<i class="bi bi-mouse3"></i>
 													停止
 												</label>
 											</div>
@@ -446,18 +466,18 @@
 							<div class="hstack gap-1 justify-content-end align-items-start">
 								<div>
 									<input type="radio" class="btn-check" name="ventilationMode" id="ventilationModeAuto" value="auto" autocomplete="off" checked>
-									<label class="btn btn-outline-primary text-nowrap shadow" for="ventilationModeAuto">
-										<i class="bi bi-ui-radios-grid"></i>
+									<label class="btn btn-sm btn-outline-primary text-nowrap" for="ventilationModeAuto">
+										<i class="bi bi-mouse3"></i>
 										自動
 									</label>
 								</div>
 	
 								<div>
-									<div class="border border-primary rounded p-1 vstack gap-2 shadow">
+									<div class="border border-primary rounded p-1 vstack gap-2">
 										<div>
 											<input type="radio" class="btn-check" name="ventilationMode" id="ventilationModeManual" value="manual" autocomplete="off">
-											<label class="btn btn-outline-primary text-nowrap w-100" for="ventilationModeManual">
-												<i class="bi bi-ui-radios-grid"></i>
+											<label class="btn btn-sm btn-outline-primary text-nowrap w-100" for="ventilationModeManual">
+												<i class="bi bi-mouse3"></i>
 												手動
 											</label>
 										</div>
@@ -466,28 +486,28 @@
 											<div>
 												<input type="radio" class="btn-check" name="manualVentilationMode" id="manualVentilationModeStrong" value="strong" autocomplete="off">
 												<label class="btn btn-sm btn-outline-primary text-nowrap" for="manualVentilationModeStrong">
-													<i class="bi bi-ui-radios-grid"></i>
+													<i class="bi bi-mouse3"></i>
 													強
 												</label>
 											</div>
 											<div>
 												<input type="radio" class="btn-check" name="manualVentilationMode" id="manualVentilationModeNormal" value="normal" autocomplete="off">
 												<label class="btn btn-sm btn-outline-primary text-nowrap" for="manualVentilationModeNormal">
-													<i class="bi bi-ui-radios-grid"></i>
+													<i class="bi bi-mouse3"></i>
 													中
 												</label>
 											</div>
 											<div>
 												<input type="radio" class="btn-check" name="manualVentilationMode" id="manualVentilationModeWeak" value="weak" autocomplete="off">
 												<label class="btn btn-sm btn-outline-primary text-nowrap" for="manualVentilationModeWeak">
-													<i class="bi bi-ui-radios-grid"></i>
+													<i class="bi bi-mouse3"></i>
 													弱
 												</label>
 											</div>
 											<div>
 												<input type="radio" class="btn-check" name="manualVentilationMode" id="manualVentilationModeWeaker" value="weaker" autocomplete="off">
 												<label class="btn btn-sm btn-outline-primary text-nowrap" for="manualVentilationModeWeaker">
-													<i class="bi bi-ui-radios-grid"></i>
+													<i class="bi bi-mouse3"></i>
 													微弱
 												</label>
 											</div>
@@ -498,25 +518,27 @@
 						</li>
 						<li class="list-group-item">
 							<div class="vstack gap-1">
-								<div class="row g-1">
+								<div class="row align-items-center g-1">
 									<div class="col-9">
 										<input type="checkbox" class="btn-check" name="ventilationVariableMode" id="ventilationVariableModeAfter" value="after" data-switch-name="afterVentilationSwitch" autocomplete="off">
-										<label class="btn btn-outline-primary w-100 text-nowrap shadow" for="ventilationVariableModeAfter">
-											<i class="bi bi-ui-checks-grid"></i>
+										<label class="btn btn-sm btn-outline-primary w-100 text-nowrap" for="ventilationVariableModeAfter">
+											<i class="bi bi-mouse3"></i>
 											アフタ換気
 										</label>
 									</div>
 									<div class="col-3">
-										<button class="btn btn-primary">
+										<input type="checkbox" class="btn-check" name="ventilationVariableModeAfterStop" id="ventilationVariableModeAfterStop" value="after" data-switch-name="afterVentilationSwitch" autocomplete="off">
+										<label class="btn btn-sm btn-outline-primary w-100 text-nowrap" for="ventilationVariableModeAfterStop">
+											<i class="bi bi-mouse3"></i>
 											停止
-										</button>
+										</label>
 									</div>
 								</div>
 								<div class="row g-1">
 									<div class="col-9">
 										<input type="checkbox" class="btn-check" name="ventilationVariableMode" id="ventilationVariableMode24h" value="24h" autocomplete="off">
-										<label class="btn btn-outline-primary w-100 text-nowrap shadow" for="ventilationVariableMode24h">
-											<i class="bi bi-ui-checks-grid"></i>
+										<label class="btn btn-sm btn-outline-primary w-100 text-nowrap" for="ventilationVariableMode24h">
+											<i class="bi bi-mouse3"></i>
 											24時間換気
 										</label>
 									</div>
@@ -524,29 +546,33 @@
 								<div class="row g-1">
 									<div class="col-9">
 										<input type="checkbox" class="btn-check" name="ventilationVariableMode" id="ventilationVariableModeForce" value="force" data-switch-name="forceVentilationSwitch" autocomplete="off">
-										<label class="btn btn-outline-primary w-100 text-nowrap shadow" for="ventilationVariableModeForce">
-											<i class="bi bi-ui-checks-grid"></i>
+										<label class="btn btn-sm btn-outline-primary w-100 text-nowrap" for="ventilationVariableModeForce">
+											<i class="bi bi-mouse3"></i>
 											強制換気
 										</label>
 									</div>
 									<div class="col-3">
-										<button class="btn btn-primary">
+										<input type="checkbox" class="btn-check" name="ventilationVariableModeForceStop" id="ventilationVariableModeForceStop" value="after" data-switch-name="afterVentilationSwitch" autocomplete="off">
+										<label class="btn btn-sm btn-outline-primary w-100 text-nowrap" for="ventilationVariableModeForceStop">
+											<i class="bi bi-mouse3"></i>
 											停止
-										</button>
+										</label>
 									</div>
 								</div>
 								<div class="row g-1">
 									<div class="col-9">
 										<input type="checkbox" class="btn-check" name="ventilationVariableMode" id="ventilationVariableModeWarmingUp" value="warmingUp" autocomplete="off" data-switch-name="warmingUpSwitch">
-										<label class="btn btn-outline-primary w-100 text-nowrap shadow" for="ventilationVariableModeWarmingUp">
-											<i class="bi bi-ui-checks-grid"></i>
+										<label class="btn btn-sm btn-outline-primary w-100 text-nowrap" for="ventilationVariableModeWarmingUp">
+											<i class="bi bi-mouse3"></i>
 											ウォーミングアップ
 										</label>
 									</div>
 									<div class="col-3">
-										<button class="btn btn-primary">
+										<input type="checkbox" class="btn-check" name="ventilationVariableModeWarmingUpStop" id="ventilationVariableModeWarmingUpStop" value="after" data-switch-name="afterVentilationSwitch" autocomplete="off">
+										<label class="btn btn-sm btn-outline-primary w-100 text-nowrap" for="ventilationVariableModeWarmingUpStop">
+											<i class="bi bi-mouse3"></i>
 											停止
-										</button>
+										</label>
 									</div>
 								</div>
 							</div>
@@ -567,27 +593,27 @@
 		<div class="offcanvas-body">
 			<ul class="list-group list-group-flush">
 				<li class="list-group-item vstack gap-3">
-					<div class="sticky-top bg-white rounded p-2 shadow d-flex justify-content-between align-items-start hstack gap-2">
-						<label class="text-info text-nowrap fw-bold fs-6">
+					<div class="sticky-top bg-white rounded p-2 d-flex justify-content-between align-items-start hstack gap-2">
+						<label class="text-primary text-nowrap fw-bold fs-6">
 							タイマー設定
 						</label>
 
 						<div class="row justify-content-end g-1">
 							<div class="col-auto">
-								<button type="button" class="btn btn-primary">
-									<i class="bi bi-hand-index-thumb"></i>
+								<button type="button" class="btn btn-sm btn-outline-primary">
+									<i class="bi bi-mouse3"></i>
 									タイマリセット
 								</button>
 							</div>
 							<div class="col-auto">
-								<button type="button" class="btn btn-primary">
-									<i class="bi bi-hand-index-thumb"></i>
+								<button type="button" class="btn btn-sm btn-outline-primary">
+									<i class="bi bi-mouse3"></i>
 									タイマ初期値
 								</button>
 							</div>
 							<div class="col-auto">
-								<button type="button" class="btn btn-primary">
-									<i class="bi bi-hand-index-thumb"></i>
+								<button type="button" class="btn btn-sm btn-outline-primary">
+									<i class="bi bi-mouse3"></i>
 									タイマ試験値
 								</button>
 							</div>
@@ -602,9 +628,9 @@
 									<small>【初期値60分】</small>
 								</div>
 		
-								<div class="input-group input-group-sm border-primary">
+								<div class="input-group input-group-sm p-0 border border-primary rounded">
 									<div class="form-floating">
-										<input readonly type="text" class="form-control" id="currentAfterTimer" value="3600" placeholder="現在値">
+										<input readonly type="text" class="form-control-plaintext" id="currentAfterTimer" value="3600" placeholder="現在値">
 										<label for="currentAfterTimer">現在値</label>
 									</div>
 									<div class="form-floating">
@@ -612,8 +638,8 @@
 										<label for="newAfterTimer">設定値</label>
 									</div>
 									<span class="input-group-text">秒</span>
-									<button type="button" id="afterTimerSettingButton" class="btn btn-primary">
-										<i class="bi bi-hand-index-thumb"></i>
+									<button type="button" id="afterTimerSettingButton" class="btn btn-sm btn-outline-primary border border-0">
+										<i class="bi bi-mouse3"></i>
 										設定
 									</button>
 								</div>
@@ -636,8 +662,8 @@
 										<label for="newForceVentilationTime">設定値</label>
 									</div>
 									<span class="input-group-text">秒</span>
-									<button type="button" class="btn btn-primary">
-										<i class="bi bi-hand-index-thumb"></i>
+									<button type="button" class="btn btn-outline-primary">
+										<i class="bi bi-mouse3"></i>
 										設定
 									</button>
 								</div>
@@ -660,8 +686,8 @@
 										<label for="newWarmingUp">設定値</label>
 									</div>
 									<span class="input-group-text">秒</span>
-									<button type="button" class="btn btn-primary">
-										<i class="bi bi-hand-index-thumb"></i>
+									<button type="button" class="btn btn-outline-primary">
+										<i class="bi bi-mouse3"></i>
 										設定
 									</button>
 								</div>
@@ -684,8 +710,8 @@
 										<label for="newLoggingSpan">設定値</label>
 									</div>
 									<span class="input-group-text">秒</span>
-									<button type="button" class="btn btn-primary">
-										<i class="bi bi-hand-index-thumb"></i>
+									<button type="button" class="btn btn-outline-primary">
+										<i class="bi bi-mouse3"></i>
 										設定
 									</button>
 								</div>
@@ -694,34 +720,34 @@
 					</ul>
 				</li>
 				<li class="list-group-item vstack gap-3">
-					<div class="sticky-top bg-white rounded p-2 shadow vstack gap-2">
+					<div class="sticky-top bg-white rounded p-2 vstack gap-2">
 						<div class="d-flex justify-content-between align-items-start gap-2">
-							<label class="text-info text-nowrap fw-bold fs-6">
+							<label class="text-primary text-nowrap fw-bold fs-6">
 								温度基準設定
 							</label>
 
 							<div class="row justify-content-end g-1">
 								<div class="col-auto">
-									<button type="button" class="btn btn-primary">
-										<i class="bi bi-hand-index-thumb"></i>
+									<button type="button" class="btn btn-outline-primary">
+										<i class="bi bi-mouse3"></i>
 										基準温度初期値
 									</button>
 								</div>
 								<div class="col-auto">
-									<button type="button" class="btn btn-primary">
-										<i class="bi bi-hand-index-thumb"></i>
+									<button type="button" class="btn btn-outline-primary">
+										<i class="bi bi-mouse3"></i>
 										設定初期値
 									</button>
 								</div>
 								<div class="col-auto">
-									<button type="button" class="btn btn-primary">
-										<i class="bi bi-hand-index-thumb"></i>
+									<button type="button" class="btn btn-outline-primary">
+										<i class="bi bi-mouse3"></i>
 										外気湿度無効
 									</button>
 								</div>
 								<div class="col-auto">
-									<button type="button" class="btn btn-primary">
-										<i class="bi bi-hand-index-thumb"></i>
+									<button type="button" class="btn btn-outline-primary">
+										<i class="bi bi-mouse3"></i>
 										外気湿度弱設定
 									</button>
 								</div>
@@ -731,7 +757,7 @@
 						<hr class="m-0">
 
 						<div class="d-flex justify-content-between align-items-start hstack gap-3">
-							<div class="text-info text-nowrap vstack gap-1">
+							<div class="text-primary text-nowrap vstack gap-1">
 								<label class="fs-6 fw-bold">湿度優先解除</label>
 								<small class="fw-light">[点灯項目が、湿度優先解除中]</small>
 							</div>
@@ -739,22 +765,22 @@
 							<div class="row justify-content-end g-1">
 								<div class="col-auto">
 									<input type="checkbox" class="btn-check" id="hrpCo2" autocomplete="off">
-									<label class="btn btn-outline-primary" for="hrpCo2">
-										<i class="bi bi-ui-checks-grid"></i>
+									<label class="btn btn-sm btn-outline-primary" for="hrpCo2">
+										<i class="bi bi-mouse3"></i>
 										CO2
 									</label>
 								</div>
 								<div class="col-auto">
 									<input type="checkbox" class="btn-check" id="hrpCool" autocomplete="off">
-									<label class="btn btn-outline-primary" for="hrpCool">
-										<i class="bi bi-ui-checks-grid"></i>
+									<label class="btn btn-sm btn-outline-primary" for="hrpCool">
+										<i class="bi bi-mouse3"></i>
 										外冷
 									</label>
 								</div>
 								<div class="col-auto">
 									<input type="checkbox" class="btn-check" id="hrpForce" autocomplete="off">
-									<label class="btn btn-outline-primary" for="hrpForce">
-										<i class="bi bi-ui-checks-grid"></i>
+									<label class="btn btn-sm btn-outline-primary" for="hrpForce">
+										<i class="bi bi-mouse3"></i>
 										強制強
 									</label>
 								</div>
@@ -780,8 +806,8 @@
 										<label for="newIndoorsStrongTemp">設定値</label>
 									</div>
 									<span class="input-group-text">℃</span>
-									<button type="button" class="btn btn-primary">
-										<i class="bi bi-hand-index-thumb"></i>
+									<button type="button" class="btn btn-outline-primary">
+										<i class="bi bi-mouse3"></i>
 										設定
 									</button>
 								</div>
@@ -804,8 +830,8 @@
 										<label for="newOuterCoolTemp">設定値</label>
 									</div>
 									<span class="input-group-text">℃</span>
-									<button type="button" class="btn btn-primary">
-										<i class="bi bi-hand-index-thumb"></i>
+									<button type="button" class="btn btn-outline-primary">
+										<i class="bi bi-mouse3"></i>
 										設定
 									</button>
 								</div>
@@ -828,8 +854,8 @@
 										<label for="newDemandOuterTempUp">設定値</label>
 									</div>
 									<span class="input-group-text">℃</span>
-									<button type="button" class="btn btn-primary">
-										<i class="bi bi-hand-index-thumb"></i>
+									<button type="button" class="btn btn-outline-primary">
+										<i class="bi bi-mouse3"></i>
 										設定
 									</button>
 								</div>
@@ -852,8 +878,8 @@
 										<label for="newDemandOuterTempDown">設定値</label>
 									</div>
 									<span class="input-group-text">℃</span>
-									<button type="button" class="btn btn-primary">
-										<i class="bi bi-hand-index-thumb"></i>
+									<button type="button" class="btn btn-outline-primary">
+										<i class="bi bi-mouse3"></i>
 										設定
 									</button>
 								</div>
@@ -876,8 +902,8 @@
 										<label for="newDemandAlertHumidity">設定値</label>
 									</div>
 									<span class="input-group-text">%</span>
-									<button type="button" class="btn btn-primary">
-										<i class="bi bi-hand-index-thumb"></i>
+									<button type="button" class="btn btn-outline-primary">
+										<i class="bi bi-mouse3"></i>
 										設定
 									</button>
 								</div>
@@ -889,10 +915,10 @@
 									<div>
 										<div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
 											<input type="radio" class="btn-check" name="forceStrongouterTempRangeBtn" id="forceStrongouterTempRangeBtn1" autocomplete="off" checked>
-											<label class="btn btn-outline-primary" for="forceStrongouterTempRangeBtn1">設定</label>
+											<label class="btn btn-sm btn-outline-primary" for="forceStrongouterTempRangeBtn1">設定</label>
 										  
 											<input type="radio" class="btn-check" name="forceStrongouterTempRangeBtn" id="forceStrongouterTempRangeBtn2" autocomplete="off">
-											<label class="btn btn-outline-primary" for="forceStrongouterTempRangeBtn2">非設定</label>
+											<label class="btn btn-sm btn-outline-primary" for="forceStrongouterTempRangeBtn2">非設定</label>
 										  </div>
 										強制「強」設定外気温温度範囲
 									</div>
@@ -911,8 +937,8 @@
 										<label for="newStrongOuterTempRange">上限</label>
 									</div>
 									<span class="input-group-text">℃</span>
-									<button type="button" class="btn btn-primary">
-										<i class="bi bi-hand-index-thumb"></i>
+									<button type="button" class="btn btn-outline-primary">
+										<i class="bi bi-mouse3"></i>
 										設定
 									</button>
 								</div>
@@ -935,8 +961,8 @@
 										<label for="newOuterAlertHumidity">設定値</label>
 									</div>
 									<span class="input-group-text">%</span>
-									<button type="button" class="btn btn-primary">
-										<i class="bi bi-hand-index-thumb"></i>
+									<button type="button" class="btn btn-outline-primary">
+										<i class="bi bi-mouse3"></i>
 										設定
 									</button>
 								</div>
@@ -959,8 +985,8 @@
 										<label for="newHumidityAlertRelieveDifference">設定値</label>
 									</div>
 									<span class="input-group-text">%</span>
-									<button type="button" class="btn btn-primary">
-										<i class="bi bi-hand-index-thumb"></i>
+									<button type="button" class="btn btn-outline-primary">
+										<i class="bi bi-mouse3"></i>
 										設定
 									</button>
 								</div>
@@ -1025,6 +1051,74 @@
 
 	<script src="./js/bootstrap/5/bootstrap.bundle.min.js"></script>
 	<script src="./js/echarts/echarts.min.js"></script>
+	<script src="./js/axios/axios.min.js"></script>
+	<script src="./js/axios/axios.interceptors.js"></script>
+	<script src="./js/apis/NoahApi.js"></script>
 	<script src="./js/zeus/noah.js"></script>
+	<script>
+		/*
+		axios.get('')
+		.then()
+		.catch()
+		*/
+		let xml = `<?xml version="1.0" encoding="UTF-8"?>
+		<response>
+			<machine_status_list>
+				<machine>
+					<machine_id>NF0001</machine_id>
+					<machine_name>MCF-A</machine_name>
+					<status>1</status>
+					<is_abnormal>1</is_abnormal>
+				</machine>
+				<machine>
+					<machine_id>NF0002</machine_id>
+					<machine_name>MCF-B</machine_name>
+					<status>1</status>
+					<is_abnormal>1</is_abnormal>
+				</machine>
+				<machine>
+					<machine_id>NF0003</machine_id>
+					<machine_name>MCF-C</machine_name>
+					<status>1</status>
+					<is_abnormal>1</is_abnormal>
+				</machine>
+				<machine>
+					<machine_id>NF0004</machine_id>
+					<machine_name>MCF-D</machine_name>
+					<status>1</status>
+					<is_abnormal>0</is_abnormal>
+				</machine>
+				<machine>
+					<machine_id>NA0001</machine_id>
+					<machine_name>PAC-A</machine_name>
+					<status>0</status>
+				</machine>
+				<machine>
+					<machine_id>NA0002</machine_id>
+					<machine_name>PAC-B</machine_name>
+					<status>0</status>
+				</machine>
+				<machine>
+					<machine_id>NA0003</machine_id>
+					<machine_name>PAC-C</machine_name>
+					<status>0</status>
+				</machine>
+				<machine>
+					<machine_id>NA0004</machine_id>
+					<machine_name>PAC-D</machine_name>
+					<status>0</status>
+				</machine>
+			</machine_status_list>
+		</response>
+		`;
+		returnMachineStatusServlet(
+			function(resp){
+				console.log(resp);
+			},
+			function(error){
+				console.error(error);
+			}
+		);
+	</script>
 </body>
 </html>

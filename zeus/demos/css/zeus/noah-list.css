@@ -9,16 +9,13 @@
     text-align: center;
 }
 
-.mcfan-name {
-    min-width: 4rem;
-}
-.onoff-icon-container {
-    width: 4rem;
-}
-
 .setting-offcanvas {
     min-width: 40vw;
     max-width: 100vw;
+}
+
+.mcfan-container {
+    width: 6rem;
 }
 
 /* switch button: look */
