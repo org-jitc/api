@@ -237,23 +237,41 @@
 								</div>
 
 								<!--temp, humidity, co2 setting-->
-								<div class="input-group input-group-sm p-0 border border-primary rounded">
-									<div class="form-floating">
-										<input readonly type="text" class="form-control" id="settingTemp" value="25" placeholder="設定温度">
-										<label for="settingTemp">設定温度</label>
+								<div class="input-group input-group-sm flex-nowrap p-0 border border-primary rounded">
+									<div>
+										<div class="form-floating">
+											<input readonly type="text" class="form-control" id="currentSettingTemp" value="25" placeholder="設定温度">
+											<label for="currentSettingTemp">現在設定温度</label>
+										</div>
+										<div class="form-floating">
+											<input type="text" class="form-control" id="settingTemp" value="25" placeholder="設定温度">
+											<label for="settingTemp">設定温度</label>
+										</div>
 									</div>
 									<span class="input-group-text">℃</span>
-									<div class="form-floating">
-										<input type="text" class="form-control" id="settingHumi" value="70" placeholder="警報湿度">
-										<label for="settingHumi">警報湿度</label>
+									<div>
+										<div class="form-floating">
+											<input type="text" id="currentSettingHumidity" class="form-control"  value="70" placeholder="警報湿度" readonly>
+											<label for="currentSettingHumidity">現在警報湿度</label>
+										</div>
+										<div class="form-floating">
+											<input type="text" class="form-control" id="settingHumi" value="70" placeholder="警報湿度">
+											<label for="settingHumi">警報湿度</label>
+										</div>
 									</div>
 									<span class="input-group-text">%</span>
-									<div class="form-floating">
-										<input type="text" class="form-control" id="settingCo2" value="950" placeholder="警報CO2">
-										<label for="settingCo2">警報濃度</label>
+									<div>
+										<div class="form-floating">
+											<input type="text" class="form-control" id="currentCo2AlertLevel" value="950" placeholder="警報CO2">
+											<label for="currentCo2AlertLevel">現在警報濃度</label>
+										</div>
+										<div class="form-floating">
+											<input type="text" class="form-control" id="co2AlertLevel" value="950" placeholder="警報CO2">
+											<label for="co2AlertLevel">警報濃度</label>
+										</div>
 									</div>
 									<span class="input-group-text">ppm</span>
-									<button type="button" id="afterTimerSettingButton" class="btn btn-sm btn-outline-primary border border-0">
+									<button type="button" id="afterTimerSettingButton" class="btn btn-sm btn-outline-primary border-0 border-start border-primary text-nowrap">
 										<i class="bi bi-mouse3"></i>
 										設定
 									</button>
