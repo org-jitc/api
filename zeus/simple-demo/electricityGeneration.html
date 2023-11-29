@@ -4,35 +4,55 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Bootstrap demo</title>
+    <title>zeus</title>
 
-    <link rel="stylesheet" type="text/css" href="./css/bootstrap/5/bootstrap-materia.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/powerMonitoring.css">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap/5/bootstrap-default.min.css">
+    <link id="bootstrapIcon" rel="stylesheet" type="text/css" href="./css/bootstrap-icons/1/font/bootstrap-icons.min.css">
   </head>
   <body>
     <nav class="navbar navbar-expand-lg sticky-top bg-primary" data-bs-theme="dark">
         <div class="container-sm">
-            <a class="navbar-brand" href="#">ECOZEUS</a>
+            <a class="navbar-brand" href="#">
+                <img src="./images/ecozeus_headlogo.gif" class="p-1 rounded bg-white">
+            </a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="./top.html">トップ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./control.html">制御レベル</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./powerUsage.html">電力使用状況</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">発電監視</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./noah.html">換気制御</a>
-                    </li>
-                </ul>
+                <div class="flex-grow-1 d-flex justify-content-center align-items-center gap-2">
+                    <a class="btn btn-sm btn-primary d-flex flex-column justify-content-center align-items-center" href="./top.html" role="button">
+                        <i class="bi bi-display fs-5"></i>
+                        <label class="fs-6" role="button">トップ</label>
+                    </a>
+                    
+                    <a class="btn btn-sm btn-primary d-flex flex-column justify-content-center align-items-center" href="./control.html">
+                        <i class="bi bi-cpu fs-5"></i>
+                        <label class="fs-6" role="button">制御レベル</label>
+                    </a>
+                    
+                    <a class="btn btn-sm btn-primary d-flex flex-column justify-content-center align-items-center" href="./powerUsage.html" role="button">
+                        <i class="bi bi-lightning fs-5"></i>
+                        <label class="fs-6" role="button">電力使用状況</label>
+                    </a>
+                    
+                    <div class="d-flex flex-column justify-content-center align-items-center text-white p-2 border-bottom border-white">
+                        <i class="bi bi-sun fs-4"></i>
+                        <label class="fs-5">発電監視</label>
+                    </div>
+
+                    <a class="btn btn-sm btn-primary d-flex flex-column justify-content-center align-items-center" href="./noah.html">
+                        <i class="bi bi-fan fs-5"></i>
+                        <label class="fs-6" role="button">換気制御</label>
+                    </a>
+
+                    <a class="btn btn-sm btn-primary d-flex flex-column justify-content-center align-items-center" href="./electricSensor.html">
+                        <i class="bi bi-bar-chart-line fs-5"></i>
+                        <label class="fs-6" role="button">個別計測</label>
+                    </a>
+                </div>
 
                 <div class="d-flex gap-2 text-white">
                     demo | <a class="nav-link" href="#">ログアウト</a>
@@ -41,8 +61,195 @@
         </div>
     </nav>
 
-    <div class="container-lg">発電監視</div>
+    <div class="container-lg">
+        <div id="panel" class="d-flex flex-column p-3">
+            <div id="panel-body" class="d-flex">
+                <div id="panel-body-images">
+                    <img class="img-arrow img-arrow-left">
+                    <img class="img-arrow img-arrow-right">
+                    
+                    <div class="w-100 h-100 nine-square d-flex flex-column">
+                        <div class="col d-flex">
+                            <div class="col d-flex justify-content-center align-items-start pt-3">
+                                <img class="img-towers" src="./images/powerMonitoring/towers.png">
+                            </div>
+                            <div class="col d-flex justify-content-center align-items-end">
+                                <label class="facility-title mb-3">当施設</label>
+                            </div>
+                            <div class="col d-flex justify-content-center align-items-start pt-3">
+                                <img class="img-solar-panels" src="./images/powerMonitoring/solar-panels.png">
+                            </div>
+                        </div>
+                        <div class="col d-flex">
+                            <div class="col d-flex justify-content-center align-items-start">
+                                <table class="table table-sm table-bordered table-bordered w-auto text-center">
+                                    <tbody>
+                                        <tr>
+                                            <td class="bg-success bg-opacity-25">買電電力</td>
+                                            <td><label id="purchasedPower" class="data-element">-</label>kW</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bg-success bg-opacity-25">供給率</td>
+                                            <td><label id="purchasedPowerSupplyRate" class="data-element">-</label>%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col d-flex justify-content-center align-items-center">
+                                <img class="img-facility" src="./images/powerMonitoring/eco-building.png">
+                            </div>
+                            <div class="col d-flex justify-content-center align-items-start">
+                                <table class="table table-sm table-bordered table-bordered w-auto text-center">
+                                    <tbody>
+                                        <tr>
+                                            <td class="bg-success bg-opacity-25">発電電力（瞬時）</td>
+                                            <td><label id="powerGenerationInstantaneous" class="data-element">-</label>kW</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bg-success bg-opacity-25">当時限の発電電力量</td>
+                                            <td><label id="powerGeneration30" class="data-element">-</label>kWh</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bg-success bg-opacity-25">供給率</td>
+                                            <td><label id="powerGenerationSupplyRate" class="data-element">-</label>%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col d-flex justify-content-center">
+                            <div class="col-4">
+                                <div align="center">本日</div>
+                                <div class="ratio ratio-1x1">
+                                    <div id="pie-day"></div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div align="center">今月</div>
+                                <div class="ratio ratio-1x1">
+                                    <div id="pie-month"></div>
+                                </div>
+                            </div>
+                            <div class="ps-2 d-flex flex-column justify-content-center">
+                                <div class="d-flex">
+                                    <div class="me-2 rounded-2" style="width: 2rem; background-color: #5470C6;"></div>
+                                    買電電力
+                                </div>
+                                <div class="d-flex mt-2">
+                                    <div class="me-2 rounded-2" style="width: 2rem; background-color: #91CC75;"></div>
+                                    発電電力
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div id="panel-body-list" class="p-1 d-flex justify-content-center">
+                    <div class="w-100 d-flex flex-column justify-content-between text-center p-2">
+                        <div>
+                            <div align="center">【使用電力量】</div>
+                            <div class="d-flex mt-2">
+                                <div class="col m-0 p-0">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">当日</li>
+                                        <li class="list-group-item"><label id="usedDay" class="data-element">-</label>kWh</li>
+                                    </ul>
+                                </div>
+                                <div class="col m-0 p-0">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">当月</li>
+                                        <li class="list-group-item"><label id="usedMonth" class="data-element">-</label>kWh</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div>
+                            <div align="center">【買電・売電電力量】</div>
+                            <div class="d-flex mt-2">
+                                <div class="col m-0 p-0">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">当日（買電）</li>
+                                        <li class="list-group-item"><label id="purchasedDay" class="data-element">-</label>kWh</li>
+                                        <li class="list-group-item">当日（売電）</li>
+                                        <li class="list-group-item"><label id="salesDay" class="data-element">-</label>kWh</li>
+                                    </ul>
+                                </div>
+                                <div class="col m-0 p-0">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">当月（買電）</li>
+                                        <li class="list-group-item"><label id="purchasedMonth" class="data-element">-</label>kWh</li>
+                                        <li class="list-group-item">当月（売電）</li>
+                                        <li class="list-group-item"><label id="salesMonth" class="data-element">-</label>kWh</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div>
+                            <div align="center">【発電量】</div>
+                            <div class="d-flex mt-2">
+                                <div class="col m-0 p-0">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">当日</li>
+                                        <li class="list-group-item">
+                                            <label id="generatedDay" class="data-element">-</label>kWh
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col m-0 p-0">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">当月</li>
+                                        <li class="list-group-item">
+                                            <label id="generatedMonth" class="data-element">-</label>kWh
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div>
+                            <div align="center">【再エネ率】</div>
+                            <div class="d-flex mt-2">
+                                <div class="col m-0 p-0">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">当日</li>
+                                        <li class="list-group-item">
+                                            <label id="reEneRateDay" class="data-element">-</label>%
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col m-0 p-0">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">当月</li>
+                                        <li class="list-group-item">
+                                            <label id="reEneRateMonth" class="data-element">-</label>%
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <script>
+        var contextPath = '';
+    </script>
     <script src="./js/bootstrap/5/bootstrap.bundle.min.js"></script>
+    <script src="./js/echarts/5/echarts.simple.min.js"></script>
+    <script src="./js/axios/axios.min.js"></script>
+    <script src="./js/axios/axios.interceptors.js"></script>
+    <script src="./js/jQuery/jquery-3.5.1.min.js"></script>
+    <script src="./js/Common.js"></script>
+    <script src="./js/components/ResizeByRatio.js"></script>
+    <script src="./js/apis/RestApi.js"></script>
+    <script src="./js/apis/PowerMonitoringApiPaths.js"></script>
+    <script src="./js/powerMonitoringPopup.js"></script>
+    <script>
+
+    </script>
   </body>
 </html>

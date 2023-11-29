@@ -4,35 +4,54 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Bootstrap demo</title>
+    <title>zeus</title>
 
-    <link rel="stylesheet" type="text/css" href="./css/bootstrap/5/bootstrap-materia.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap/5/bootstrap-default.min.css">
+    <link id="bootstrapIcon" rel="stylesheet" type="text/css" href="./css/bootstrap-icons/1/font/bootstrap-icons.min.css">
   </head>
   <body>
     <nav class="navbar navbar-expand-lg sticky-top bg-primary" data-bs-theme="dark">
         <div class="container-lg">
-            <a class="navbar-brand" href="#">ECOZEUS</a>
+            <a class="navbar-brand" href="#">
+                <img src="./images/ecozeus_headlogo.gif" class="p-1 rounded bg-white">
+            </a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="./top.html">トップ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./control.html">制御レベル</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./powerUsage.html">電力使用状況</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./electricityGeneration.html">発電監視</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">換気制御</a>
-                    </li>
-                </ul>
+                <div class="flex-grow-1 d-flex justify-content-center align-items-center gap-2">
+                    <a class="btn btn-sm btn-primary d-flex flex-column justify-content-center align-items-center" href="./top.html" role="button">
+                        <i class="bi bi-display fs-5"></i>
+                        <label class="fs-6" role="button">トップ</label>
+                    </a>
+                    
+                    <a class="btn btn-sm btn-primary d-flex flex-column justify-content-center align-items-center" href="./control.html">
+                        <i class="bi bi-cpu fs-5"></i>
+                        <label class="fs-6" role="button">制御レベル</label>
+                    </a>
+                    
+                    <a class="btn btn-sm btn-primary d-flex flex-column justify-content-center align-items-center" href="./powerUsage.html" role="button">
+                        <i class="bi bi-lightning fs-5"></i>
+                        <label class="fs-6" role="button">電力使用状況</label>
+                    </a>
+                    
+                    <a class="btn btn-sm btn-primary d-flex flex-column justify-content-center align-items-center" href="./electricityGeneration.html">
+                        <i class="bi bi-sun fs-5"></i>
+                        <label class="fs-6" role="button">発電監視</label>
+                    </a>
+                    
+                    <div class="d-flex flex-column justify-content-center align-items-center text-white p-2 border-bottom border-white">
+                        <i class="bi bi-fan fs-4"></i>
+                        <label class="fs-5">換気制御</label>
+                    </div>
+                    
+                    <a class="btn btn-sm btn-primary d-flex flex-column justify-content-center align-items-center" href="./electricSensor.html">
+                        <i class="bi bi-bar-chart-line fs-5"></i>
+                        <label class="fs-6" role="button">個別計測</label>
+                    </a>
+                </div>
 
                 <div class="d-flex gap-2 text-white">
                     demo | <a class="nav-link" href="#">ログアウト</a>
