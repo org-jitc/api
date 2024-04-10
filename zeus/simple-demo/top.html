@@ -9,13 +9,16 @@
     <link id="bootstrap" rel="stylesheet" type="text/css" href="./css/bootstrap/5/bootstrap-default.min.css">
     <link id="bootstrapIcon" rel="stylesheet" type="text/css" href="./css/bootstrap-icons/1/font/bootstrap-icons.min.css">
     <style>
+        body{
+            background-color: var(--bs-body-bg);
+        }
         .inverter-control-items-box {
             min-height: 164px;
         }
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg sticky-top bg-primary">
+    <nav class="navbar navbar-expand-lg sticky-top shadow">
         <div class="container-sm">
             <a class="navbar-brand" href="#">
                 <img src="./images/ecozeus_headlogo.gif" class="p-1 rounded bg-white">
@@ -25,33 +28,33 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="flex-grow-1 d-flex justify-content-center align-items-center gap-2">
-                    <div class="d-flex flex-column justify-content-center align-items-center text-white p-2 border-bottom border-white">
-                        <i class="bi bi-display fs-4"></i>
+                    <div class="d-flex flex-column justify-content-center align-items-center p-2 border-bottom border-primary text-primary">
+                        <i class="bi bi-display fs-3"></i>
                         <label class="fs-5">トップ</label>
                     </div>
 
-                    <a class="btn btn-sm btn-primary d-flex flex-column justify-content-center align-items-center" href="./control.html">
-                        <i class="bi bi-cpu fs-5"></i>
+                    <a class="btn btn-sm btn-default d-flex flex-column justify-content-center align-items-center text-primary" href="./control.html">
+                        <i class="bi bi-cpu fs-4"></i>
                         <label class="fs-6" role="button">制御レベル</label>
                     </a>
                     
-                    <a class="btn btn-sm btn-primary d-flex flex-column justify-content-center align-items-center" href="./powerUsage.html" role="button">
-                        <i class="bi bi-lightning fs-5"></i>
+                    <a class="btn btn-sm btn-default d-flex flex-column justify-content-center align-items-center text-primary" href="./powerUsage.html" role="button">
+                        <i class="bi bi-lightning fs-4"></i>
                         <label class="fs-6" role="button">電力使用状況</label>
                     </a>
 
-                    <a class="btn btn-sm btn-primary d-flex flex-column justify-content-center align-items-center" href="./electricityGeneration.html" role="button">
-                        <i class="bi bi-sun fs-5"></i>
+                    <a class="btn btn-sm btn-default d-flex flex-column justify-content-center align-items-center text-primary" href="./electricityGeneration.html" role="button">
+                        <i class="bi bi-sun fs-4"></i>
                         <label class="fs-6" role="button">発電監視</label>
                     </a>
 
-                    <a class="btn btn-sm btn-primary d-flex flex-column justify-content-center align-items-center" href="./noah.html">
-                        <i class="bi bi-fan fs-5"></i>
+                    <a class="btn btn-sm btn-default d-flex flex-column justify-content-center align-items-center text-primary" href="./noah.html">
+                        <i class="bi bi-fan fs-4"></i>
                         <label class="fs-6" role="button">換気制御</label>
                     </a>
 
-                    <a class="btn btn-sm btn-primary d-flex flex-column justify-content-center align-items-center" href="./electricSensor.html">
-                        <i class="bi bi-bar-chart-line fs-5"></i>
+                    <a class="btn btn-sm btn-default d-flex flex-column justify-content-center align-items-center text-primary" href="./electricSensor.html">
+                        <i class="bi bi-bar-chart-line fs-4"></i>
                         <label class="fs-6" role="button">個別計測</label>
                     </a>
 
@@ -69,7 +72,7 @@
                     </select>
                 </div>
 
-                <div class="d-flex gap-2 text-white">
+                <div class="d-flex gap-2 text-info">
                     demo | <a class="nav-link" href="#">ログアウト</a>
                 </div>
             </div>
@@ -79,16 +82,16 @@
     <div class="container-lg">
         <nav>
             <div class="nav nav-tabs nav-fill my-3" id="top-nav-tab" role="tablist">
-                <button type="button" role="tab" id="nav-demand-pg-tab" class="nav-link fs-5 fw-bold active" data-bs-toggle="tab" data-bs-target="#nav-demand-pg">
+                <button type="button" role="tab" id="nav-demand-pg-tab" class="nav-link fw-bold active" data-bs-toggle="tab" data-bs-target="#nav-demand-pg">
                     デマンド・発電状況
                 </button>
-                <button type="button" role="tab" id="nav-ac-tab" class="nav-link fs-5 fw-bold" data-bs-toggle="tab" data-bs-target="#nav-ac">
+                <button type="button" role="tab" id="nav-ac-tab" class="nav-link fw-bold" data-bs-toggle="tab" data-bs-target="#nav-ac">
                     空調制御
                 </button>
-                <button type="button" role="tab" id="nav-ventilation-tab" class="nav-link fs-5 fw-bold" data-bs-toggle="tab" data-bs-target="#nav-ventilation">
+                <button type="button" role="tab" id="nav-ventilation-tab" class="nav-link fw-bold" data-bs-toggle="tab" data-bs-target="#nav-ventilation">
                     換気制御
                 </button>
-                <button type="button" role="tab" id="nav-inverter-tab" class="nav-link fs-5 fw-bold" data-bs-toggle="tab" data-bs-target="#nav-inverter">
+                <button type="button" role="tab" id="nav-inverter-tab" class="nav-link fw-bold" data-bs-toggle="tab" data-bs-target="#nav-inverter">
                     インバーター制御
                 </button>
             </div>
