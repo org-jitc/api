@@ -112,7 +112,9 @@ class GroupTrees {
         }
         this.rendering(this.data.trees);
 
-        this.data.trees.forEach(dataNode => this.expandTree(dataNode, dataNode.expanded));
+        if(this.data.expandable){
+            this.data.trees.forEach(dataNode => this.expandTree(dataNode, dataNode.expanded));
+        }
     }
 
     /**
