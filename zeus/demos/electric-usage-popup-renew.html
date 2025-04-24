@@ -43,7 +43,7 @@
 	<style>
 		:root {
 			--signage-box-width: min(100vh * 4 / 3, 100vw);
-			--brand-logo-width: var(--signage-box-width) * .25;
+			--brand-logo-width: min(var(--signage-box-width) * .25, 300px);
 
 			--facility-title-font-size: 1.8rem;
 			--masuring-time-font-size: 1.2rem;
@@ -91,9 +91,11 @@
 			grid-template-columns: 1fr 1fr 1fr;
 		}
 		.signage-box > .signage-header > .brand-logo {
-			width: var(--brand-logo-width);
 			display: grid;
 			align-items: center;
+		}
+		.signage-box > .signage-header > .brand-logo > .logo {
+			width: var(--brand-logo-width);
 		}
 		.signage-box > .signage-header > .facility {
 			color: #4F6228;
@@ -211,7 +213,7 @@
 		<div class="signage-box font-weight-bold">
 			<div class="signage-header p-2">
 				<div class="brand-logo">
-					<img src="./images/saineji_logo_ecoCloud.gif" class="w-100">	
+					<img src="./images/saineji_logo_ecoCloud.gif" class="logo">	
 				</div>
 				<div class="facility d-flex flex-column justify-content-center align-items-center">
 					<div>デモ環境</div>
