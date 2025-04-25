@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache,must-revalidate">
+	<meta http-equiv="Expires" content="0">
+
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap/5/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/font-awesome/css/all.min.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/css.css">
+	<link rel="stylesheet" type="text/css" href="./css/override.css"/>
+	
+	<script>
+		let contextPath = './';
+		let js_ver = '0000';
+		// system encoding
+		var systemEncode = 'SJIS';
+		sessionStorage.setItem('systemEncode', systemEncode);
+		// system language
+		var sysLanguage = 'ja';
+		sessionStorage.setItem('sysLanguage', sysLanguage);
+		// bootstrap color picker option
+		var btpColorPickerOption = {format: 'hex'};
+		sessionStorage.setItem('btpColorPickerOption', btpColorPickerOption);
+		// 
+		let formAction = null;
+		let zeusStore = {};
+		//-> set server sync system param
+		zeusStore.serverSync = {};
+		zeusStore.serverSync.hasComponent = 'false' == 'true';
+		if(zeusStore.serverSync.hasComponent){
+			zeusStore.serverSync.serverSyncCheck = 'true';
+		}
+		//<- set server sync system param
+	</script>
+
+	<title>
+		発電監視
+	</title>
+</head>
+<body>
+	<style>
+		:root {
+			--aspect-ratio: 16/9;
+
+			--signage-box-width: min(100vh * var(--aspect-ratio), 100vw);
+			--brand-logo-width: min(var(--signage-box-width) * .25, 300px);
+
+			--facility-title-font-size: 1.8rem;
+			--masuring-time-font-size: 1.2rem;
+			--category-title-font-size: 1.8rem;
+			--data-title-font-size: 1.4rem;
+			--data-value-font-size: 2.8rem;
+			--data-unit-font-size: 1.4rem;
+			--copyright-font-size: 1.4rem;
+
+			--demand-data-column-size: 4;
+			--demand-data-row-size: 2;
+			--usage-data-column-size: 4;
+			--usage-data-row-size: 2;
+		}
+
+		html {
+			font-size: 12px;
+		}
+
+		body {
+			margin: 0;
+			padding: 0;
+			font-family: "Meiryo UI";
+			color: black;
+			width: 100vw;
+			height: 100vh;
+			display: grid;
+			justify-content: center;
+			overflow: hidden;
+		}
+		
+		.signage-box {
+			width: var(--signage-box-width);
+			aspect-ratio: var(--aspect-ratio);
+			display: grid;
+			grid-template-columns: 1fr;
+			grid-template-rows: auto 1fr auto;
+		}
+		.signage-box > .signage-header {
+			background-color: #C3D69B;
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr;
+		}
+		.signage-box > .signage-header > .brand-logo {
+			display: grid;
+			align-items: center;
+		}
+		.signage-box > .signage-header > .brand-logo > .logo {
+			width: var(--brand-logo-width);
+		}
+		.signage-box > .signage-header > .facility {
+			color: #4F6228;
+			font-size: var(--facility-title-font-size);
+		}
+		.signage-box
+		.signage-header
+		.measuring-time {
+			color: #C0504D;
+			font-size: var(--masuring-time-font-size);
+		}
+		.signage-box
+		.signage-header
+		.measuring-time
+		.measuring-time-divider {
+			border: 1px solid #C0504D;
+			align-self: stretch;
+		}
+
+		.signage-box > .signage-body {
+			background-color: #76933C;
+			display: grid;
+			grid-template-columns: 1fr;
+			grid-template-rows: repeat(2, 1fr);
+			gap: .5rem;
+		}
+		.signage-box > .signage-body > .signage-category {
+			display: grid;
+			grid-template-columns: 1fr;
+			grid-template-rows: auto 1fr;
+			gap: 1rem;
+		}
+		.signage-box > .signage-body > .signage-category > .demand-status {
+			display: grid;
+			grid-template-columns: repeat(var(--demand-data-column-size), 1fr);
+			grid-template-rows: repeat(var(--demand-data-row-size), 1fr);
+			gap: .5rem;
+		}
+
+		.signage-box > .signage-body > .signage-category > .usage-data {
+			display: grid;
+			grid-template-columns: repeat(var(--usage-data-column-size), 1fr);
+			grid-template-rows: repeat(var(--usage-data-row-size), 1fr);
+			grid-auto-flow: row;
+			gap: .5rem;
+		}
+
+		.signage-box > .signage-footer {
+			color: white;
+			font-size: var(--copyright-font-size);
+			background-color: #76933C;
+		}
+
+		.signage-category > .title {
+			color: white;
+			font-size: var(--category-title-font-size);
+		}
+
+		.data-box {
+			background-color: white;
+			display: grid;
+			grid-template-rows: auto 1fr;
+		}
+		.multi-data-box {
+			background-color: white;
+			display: grid;
+			grid-template-rows: repeat(2, 1fr);
+		}
+		.data-box,.multi-data-box
+		.title {
+			font-size: var(--data-title-font-size);
+			text-align: center;
+		}
+		.data-box
+		.data {
+			display: grid;
+			grid-template-columns: 1fr auto;
+			gap: .5rem;
+		}
+		.data-box .data .value {
+			font-size: var(--data-value-font-size);
+		}
+		.data-box
+		.data
+		.unit {
+			font-size: var(--data-unit-font-size);
+		}
+
+		.multi-data-box > .sub-data-box {
+			display: grid;
+			grid-template-columns: 1fr auto;
+		}
+		.multi-data-box .title {
+			display: grid;
+			justify-content: start;
+			align-content: center;
+		}
+		.multi-data-box .value {
+			font-size: var(--data-title-font-size);
+			display: grid;
+			align-content: center;
+		}
+
+		.demand-guage {
+			background-color: white;
+			grid-column: 4;
+			grid-row: 1/3;
+		}
+		.demand-guage > .chart {
+			aspect-ratio: 1/1;
+		}
+	</style>
+	<!-- window size height table -->
+	<div class="signage-box font-weight-bold">
+		<div class="signage-header p-2">
+			<div class="brand-logo">
+				<img src="./images/saineji_logo_ecoCloud.gif" class="logo">	
+			</div>
+			<div class="facility d-flex flex-column justify-content-center align-items-center">
+				<div>デモ環境</div>
+				<div>電力使用状況</div>
+			</div>
+			<div class="measuring-time d-flex flex-column justify-content-center align-items-center">
+				<div id="ymdwhmi" class="top" align="center"></div>
+				<div class="measuring-time-divider"></div>
+				<div class="bottom" align="center">
+					デマンド計量の時刻まで、後<label id="remainMinute"></label>分です。
+				</div>
+			</div>
+		</div>
+
+		<div class="signage-body p-2">
+
+			<div class="signage-category">
+				<div class="title">デマンド状況</div>
+				<div class="demand-status">
+
+					<div class="data-box rounded p-2">
+						<div class="title">現在電力</div>
+
+						<div class="data">
+							<div class="value d-flex justify-content-end align-items-end">
+								76
+							</div>
+							<div class="unit d-flex align-items-end">kW</div>
+						</div>
+					</div>
+					<div class="data-box rounded p-2">
+						<div class="title">目標電力</div>
+
+						<div class="data">
+							<div class="value d-flex justify-content-end align-items-end">
+								1300
+							</div>
+							<div class="unit d-flex align-items-end">kW</div>
+						</div>
+					</div>
+					<div class="data-box rounded p-2">
+						<div class="title">当月最大デマンド</div>
+
+						<div class="data">
+							<div class="value d-flex justify-content-end align-items-end">
+								1047
+							</div>
+							<div class="unit d-flex align-items-end">kW</div>
+						</div>
+					</div>
+					<div class="data-box rounded p-2">
+						<div class="title">第一工場　温湿度</div>
+
+						<div class="data">
+							<div class="value d-flex justify-content-end align-items-end">
+								〇〇℃/〇〇%
+							</div>
+							<div class="unit d-flex align-items-end"></div>
+						</div>
+					</div>
+					<div class="data-box rounded p-2">
+						<div class="title">第二工場　温湿度</div>
+
+						<div class="data">
+							<div class="value d-flex justify-content-end align-items-end">
+								150℃/100%
+							</div>
+							<div class="unit d-flex align-items-end"></div>
+						</div>
+					</div>
+
+					<div class="demand-guage rounded p-2">
+						<div id="demandStatus" class="w-100 h-100"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="signage-category">
+				<div class="title">高調波</div>
+				<div class="usage-data">
+					<div class="data-box rounded p-2">
+						<div class="title">第一工場　歪み率</div>
+
+						<div class="data">
+							<div class="value d-flex justify-content-end align-items-end">
+								〇〇.〇
+							</div>
+							<div class="unit d-flex align-items-end">%</div>
+						</div>
+					</div>
+					<div class="data-box rounded p-2">
+						<div class="title">第一工場　第5次含有率</div>
+
+						<div class="data">
+							<div class="value d-flex justify-content-end align-items-end">
+								〇〇.〇
+							</div>
+							<div class="unit d-flex align-items-end">%</div>
+						</div>
+					</div>
+					<div class="data-box rounded p-2">
+						<div class="title">第一工場　第7次含有率</div>
+
+						<div class="data">
+							<div class="value d-flex justify-content-end align-items-end">
+								〇〇.〇
+							</div>
+							<div class="unit d-flex align-items-end">%</div>
+						</div>
+					</div>
+					<div class="data-box rounded p-2">
+						<div class="title">第一工場　第11次含有率</div>
+
+						<div class="data">
+							<div class="value d-flex justify-content-end align-items-end">
+								〇〇.〇
+							</div>
+							<div class="unit d-flex align-items-end">%</div>
+						</div>
+					</div>
+					<div class="data-box rounded p-2">
+						<div class="title">第二工場　歪み率</div>
+
+						<div class="data">
+							<div class="value d-flex justify-content-end align-items-end">
+								〇〇.〇
+							</div>
+							<div class="unit d-flex align-items-end">%</div>
+						</div>
+					</div>
+					<div class="data-box rounded p-2">
+						<div class="title">第二工場　第5次含有率</div>
+
+						<div class="data">
+							<div class="value d-flex justify-content-end align-items-end">
+								〇〇.〇
+							</div>
+							<div class="unit d-flex align-items-end">%</div>
+						</div>
+					</div>
+					<div class="data-box rounded p-2">
+						<div class="title">第二工場　第7次含有率</div>
+
+						<div class="data">
+							<div class="value d-flex justify-content-end align-items-end">
+								〇〇.〇
+							</div>
+							<div class="unit d-flex align-items-end">%</div>
+						</div>
+					</div>
+					<div class="data-box rounded p-2">
+						<div class="title">第二工場　第11次含有率</div>
+
+						<div class="data">
+							<div class="value d-flex justify-content-end align-items-end">
+								〇〇.〇
+							</div>
+							<div class="unit d-flex align-items-end">%</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		
+		<div class="signage-footer p-2">
+			&copy;2010 JIT Consulting
+		</div>
+	</div>
+	
+	<script>
+		let req = {
+			demandStatusArr: [],
+			userId: 'demo'
+		};
+	</script>
+	<script src="./js/echarts/echarts.min.js"></script>
+	<script src="./js/jquery/jquery-3.5.1.min.js"></script>
+	<script src="./js/axios/axios.min.js"></script>
+	<script src="./js/axios/axios.interceptors.js"></script>
+	<script src="./js/zeus/electricUsage.demandStatus.js"></script>
+	<script src="./js/zeus/electricUsage.list.js"></script>
+	<script>
+		let baseOption = {
+			series: [{
+				type: 'gauge',
+				startAngle: 180,
+				endAngle: 0,
+				center: ['50%', '80%'],
+				radius: '120%',
+				axisLine: {
+					lineStyle: {
+						width: 40
+					}
+				},
+				progress: {
+					show: true,
+					width: 40,
+					itemStyle: {
+						color: 'green'
+					}
+				},
+				pointer: {
+					icon: 'path://M12.8,0.7l12,40.1H0.7L12.8,0.7z',
+					length: '12%',
+					width: 20,
+					offsetCenter: [0, '-60%'],
+					itemStyle: {
+						color: 'gray'
+					}
+				},
+				axisTick: {
+					show: false
+				},
+				splitLine: {
+					show: false
+				},
+				axisLabel: {
+					show: false
+				},
+				title: {
+					offsetCenter: [0, '10%'],
+					fontSize: 20
+				},
+				detail: {
+					fontSize: 30,
+					offsetCenter: [0, '-20%'],
+					valueAnimation: true,
+					color: 'black',
+					formatter: function(value){
+	
+						if(value > 85){
+							return '危険';
+						}
+						if(value > 65){
+							return '注意';
+						}
+						if(value >= 0){
+							return '余裕';
+						}
+						return '-';
+					}
+				},
+				data: [
+					{
+						value: 85
+					}
+				]
+			}]
+		};
+		let colorStyle = {
+			color: 'green'
+		};
+
+		let chartInstance = echarts.init(document.querySelector('#demandStatus'));
+		chartInstance.setOption(baseOption);
+		chartInstance.setOption({
+			series: [{
+				progress: {
+					itemStyle: colorStyle
+				},
+				pointer: {
+					itemStyle: colorStyle
+				},
+				data: [{
+					value: 65
+				}]
+			}]
+		});
+
+		window.addEventListener('resize', () => chartInstance.resize());
+	</script>
+</body>
+</html>

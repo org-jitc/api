@@ -245,32 +245,34 @@ function ElectricUsage(){
 	//******************** init
 	onResize();
 	
-	g = new JustGage({
-	    id: "demandStatus",
-	    value: -1,
-	    min: 0,
-	    max: 100,
-	    hideMinMax: true,
-	    pointer: true,
-	    relativeGaugeSize: true,
-	    titleFontFamily: "Meiryo UI",
-	    valueFontFamily: "Meiryo UI",
-	    textRenderer: customValue,
-	    title: "デマンド状況",
-	    customSectors: [{
-	        color : "#008040",
-	        lo : 0,
-	        hi : 65
-	      },{
-	        color : "#d9d900",
-	        lo : 65,
-	        hi : 85
-	      },{
-	        color : "#ae0000",
-	        lo : 85,
-	        hi : 100
-	      }]
-	  });
+	if(typeof JustGage !== 'undefined'){
+		g = new JustGage({
+			id: "demandStatus",
+			value: -1,
+			min: 0,
+			max: 100,
+			hideMinMax: true,
+			pointer: true,
+			relativeGaugeSize: true,
+			titleFontFamily: "Meiryo UI",
+			valueFontFamily: "Meiryo UI",
+			textRenderer: customValue,
+			title: "デマンド状況",
+			customSectors: [{
+				color : "#008040",
+				lo : 0,
+				hi : 65
+			  },{
+				color : "#d9d900",
+				lo : 65,
+				hi : 85
+			  },{
+				color : "#ae0000",
+				lo : 85,
+				hi : 100
+			  }]
+		  });
+	}
 	// 図の更新
 	//getNewElectricData();
 	// 時間の更新
