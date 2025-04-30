@@ -26,58 +26,60 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <div class="flex-grow-1 d-flex justify-content-center align-items-center gap-2">
-                    <div class="d-flex flex-column justify-content-center align-items-center p-2 border-bottom border-primary text-primary">
-                        <i class="bi bi-display fs-3"></i>
-                        <label class="fs-5">トップ</label>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" align="right">
+                <div class="flex-grow-1">
+                    <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap">
+                        <div class="d-flex flex-column justify-content-center align-items-center p-2 border-bottom border-primary text-primary">
+                            <i class="bi bi-display fs-3"></i>
+                            <label class="fs-5">トップ</label>
+                        </div>
+    
+                        <a class="btn btn-sm btn-default d-flex flex-column justify-content-center align-items-center text-primary" href="./ControlLevel.html">
+                            <i class="bi bi-cpu fs-4"></i>
+                            <label class="fs-6" role="button">制御レベル</label>
+                        </a>
+                        
+                        <a class="btn btn-sm btn-default d-flex flex-column justify-content-center align-items-center text-primary" href="./ElectricityUsage.html" role="button">
+                            <i class="bi bi-lightning fs-4"></i>
+                            <label class="fs-6" role="button">電力使用状況</label>
+                        </a>
+    
+                        <a class="btn btn-sm btn-default d-flex flex-column justify-content-center align-items-center text-primary" href="./ElectricityGeneration.html" role="button">
+                            <i class="bi bi-sun fs-4"></i>
+                            <label class="fs-6" role="button">発電監視</label>
+                        </a>
+    
+                        <a class="btn btn-sm btn-default d-flex flex-column justify-content-center align-items-center text-primary" href="./VentilationControl.html">
+                            <i class="bi bi-fan fs-4"></i>
+                            <label class="fs-6" role="button">換気制御</label>
+                        </a>
+    
+                        <a class="btn btn-sm btn-default d-flex flex-column justify-content-center align-items-center text-primary" href="./IndividualMeasurement.html">
+                            <i class="bi bi-bar-chart-line fs-4"></i>
+                            <label class="fs-6" role="button">個別計測</label>
+                        </a>
+    
+                        <select id="theme" name="theme" title="theme" class="form-select d-none">
+                            <option value="default">default</option>
+                            <option value="cerulean">cerulean</option>
+                            <option value="cosmo">cosmo</option>
+                            <option value="litera">litera</option>
+                            <option value="lumen">lumen</option>
+                            <option value="materia">materia</option>
+                            <option value="pulse">pulse</option>
+                            <option value="sandstone">sandstone</option>
+                            <option value="spacelab">spacelab</option>
+                            <option value="zephyr">zephyr</option>
+                        </select>
                     </div>
-
-                    <a class="btn btn-sm btn-default d-flex flex-column justify-content-center align-items-center text-primary" href="./control.html">
-                        <i class="bi bi-cpu fs-4"></i>
-                        <label class="fs-6" role="button">制御レベル</label>
-                    </a>
-                    
-                    <a class="btn btn-sm btn-default d-flex flex-column justify-content-center align-items-center text-primary" href="./powerUsage.html" role="button">
-                        <i class="bi bi-lightning fs-4"></i>
-                        <label class="fs-6" role="button">電力使用状況</label>
-                    </a>
-
-                    <a class="btn btn-sm btn-default d-flex flex-column justify-content-center align-items-center text-primary" href="./electricityGeneration.html" role="button">
-                        <i class="bi bi-sun fs-4"></i>
-                        <label class="fs-6" role="button">発電監視</label>
-                    </a>
-
-                    <a class="btn btn-sm btn-default d-flex flex-column justify-content-center align-items-center text-primary" href="./noah.html">
-                        <i class="bi bi-fan fs-4"></i>
-                        <label class="fs-6" role="button">換気制御</label>
-                    </a>
-
-                    <a class="btn btn-sm btn-default d-flex flex-column justify-content-center align-items-center text-primary" href="./electricSensor.html">
-                        <i class="bi bi-bar-chart-line fs-4"></i>
-                        <label class="fs-6" role="button">個別計測</label>
-                    </a>
-
-                    <a class="btn btn-sm btn-default d-flex flex-column justify-content-center align-items-center text-primary" href="./facilityStructure.html">
-                        <i class="bi bi-display fs-4"></i>
-                        <label class="fs-6" role="button">施設構造</label>
-                    </a>
-
-                    <select id="theme" name="theme" title="theme" class="form-select d-none">
-                        <option value="default">default</option>
-                        <option value="cerulean">cerulean</option>
-                        <option value="cosmo">cosmo</option>
-                        <option value="litera">litera</option>
-                        <option value="lumen">lumen</option>
-                        <option value="materia">materia</option>
-                        <option value="pulse">pulse</option>
-                        <option value="sandstone">sandstone</option>
-                        <option value="spacelab">spacelab</option>
-                        <option value="zephyr">zephyr</option>
-                    </select>
+                    <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap">
+                        <a class="btn btn-sm btn-default d-flex flex-column justify-content-center align-items-center text-primary" href="./Hierarchy.html">
+                            <label class="fs-6" role="button">階層管理</label>
+                        </a>
+                    </div>
                 </div>
 
-                <div class="d-flex gap-2 text-info">
+                <div class="d-flex justify-content-center flex-wrap gap-2 text-info">
                     demo | <a class="nav-link" href="#">ログアウト</a>
                 </div>
             </div>
@@ -106,7 +108,7 @@
             <!--デマンド・発電状況-->
             <div class="tab-pane fade show active" id="nav-demand-pg" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                 <!-- デマンド状況フレーム -->
-                <div class="container mt-3 pb-3 fs-6 fw-bold border-bottom border-primary-subtle">
+                <div class="container mt-3 pb-3 fs-6">
         
                     <div class="row g-3">
                         <div class="col-8">
@@ -165,7 +167,7 @@
                 <!-- 発電状況フレーム -->
                 <div class="container mt-3">
                     <div class="row g-3">
-                        <div class="col-8 text-center fs-6 fw-bold">
+                        <div class="col-8 text-center fs-6">
         
                             <div class="row row-cols-2 align-items-stretch g-3">
 

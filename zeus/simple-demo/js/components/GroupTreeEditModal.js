@@ -4,14 +4,15 @@ class GroupTreeElement {
             display: true
         };
         this.root = root;
-        this.id = this.root.getAttribute('data-element-id');
-        this.name = this.root.getAttribute('data-element-name');
+        this.id = this.root.getAttribute('data-leaf-id');
+        this.name = this.root.getAttribute('data-leaf-name');
+        this.menu = this.root.getAttribute('data-menu');
 
         if(this.id !== 'empty'){
             this.element = this.root.querySelector('[type="checkbox"]');
-        }else{
-            this.data.display = false;
+            return;
         }
+        this.data.display = false;
     }
 
     get checked(){
@@ -57,23 +58,24 @@ class GroupTreeNodeEditModal {
         this.nodeIcon = document.querySelector('#nodeIcon');
         this.nodeIconDisplay = document.querySelector('#nodeIconDisplay');
 
-        this.emptyElement = new GroupTreeElement(this.root.querySelector('[data-element-type="elementContainer"][data-element-id="empty"]'));
-        // Array of GroupTreeElement
-        this.elements = Array.from(this.root.querySelectorAll('[data-element-type="elementContainer"]'))
-        .filter(el => el.getAttribute('data-element-id') !== 'empty')
+        this.emptyElement = new GroupTreeElement(this.root.querySelector('[data-element-type="elementContainer"][data-leaf-id="empty"]'));
+        // energySensor, simpleOperation leafs' container array
+        this.leafContainers = Array.from(this.root.querySelectorAll('[data-element-type="elementContainer"]'))
+        .filter(el => el.getAttribute('data-leaf-id') !== 'empty')
         .map(el => new GroupTreeElement(el));
 
-        this.elementsIcon = this.root.querySelector('#elementsIcon');
-        this.elementsIconDisplay = this.root.querySelector('#elementsIconDisplay');
-
-        this.icons = new Icons();
+        this.energySensorIcon = this.root.querySelector('#energySensorIcon');
+        this.energySensorIconDisplay = this.root.querySelector('#energySensorIconDisplay');
+        this.simpleOperationIcon = this.root.querySelector('#simpleOperationIcon');
+        this.simpleOperationIconDisplay = this.root.querySelector('#simpleOperationIconDisplay');
 
         this.btnConfirm = this.root.querySelector('#confirm');
 
         this.modal._element.addEventListener('shown.bs.modal', this.onModalShown.bind(this));
         this.nodeIcon.addEventListener('keyup', this.onIconInput.bind(this, this.nodeIcon, this.nodeIconDisplay));
         this.nodeIcon.addEventListener('change', this.onIconInput.bind(this, this.nodeIcon, this.nodeIconDisplay));
-        this.elementsIcon.addEventListener('keyup', this.onIconInput.bind(this, this.elementsIcon, this.elementsIconDisplay));
+        this.energySensorIcon.addEventListener('keyup', this.onIconInput.bind(this, this.energySensorIcon, this.energySensorIconDisplay));
+        this.simpleOperationIcon.addEventListener('keyup', this.onIconInput.bind(this, this.simpleOperationIcon, this.simpleOperationIconDisplay));
         this.btnConfirm.addEventListener('click', this.onBtnConfirmClick.bind(this));
     }
 
@@ -82,52 +84,55 @@ class GroupTreeNodeEditModal {
     }
     onBtnConfirmClick(){
 
-        if(this.form.reportValidity()){
-
-            if(this.data.targetNodeData == null){
-                this.data.targetNodeData = {};
-            }
-            this.data.targetNodeData.name = this.name.value.trim();
-
-            if(this.nodeIcon.value.trim() !== ''){
-                this.data.targetNodeData.icon = this.nodeIcon.value.trim();
-            }else{
-                delete this.data.targetNodeData.icon;
-            }
-            if(this.data.targetNodeData.level == null){
-                this.data.targetNodeData.level = this.data.groupTrees.calculateChildLevel(this.data.targetNodeData.id??this.data.targetNodeId);
-            }
-            let elements = this.elements.filter(element => element.display && element.checked);
-
-            if(elements.length > 0){
-                let elementLevel = parseInt(this.data.targetNodeData.level) + 1;
-
-                this.data.targetNodeData.elements = elements.map(element => {
-                    let elementNodeData = {
-                        id: element.id,
-                        name: element.name
-                    };
-                    elementNodeData.level = elementLevel;
-                    if(this.elementsIcon.value.trim() !== ''){
-                        elementNodeData.icon = this.elementsIcon.value.trim();
-                    }
-                    return elementNodeData;
-                })
-            }else{
-                delete this.data.targetNodeData.elements;
-            }
-            if(this.data.mode === 'add'){
-                this.data.groupTrees.addNodeData(this.data.targetNodeId, this.data.targetNodeData);
-            }else{
-                this.data.groupTrees.reset();
-            }
-            this.modal.hide();
+        if(!this.form.reportValidity()){
+            return;
         }
+        if(this.data.targetNodeData == null){
+            this.data.targetNodeData = {};
+        }
+        this.data.targetNodeData.name = this.name.value.trim();
+
+        if(this.nodeIcon.value.trim() !== ''){
+            this.data.targetNodeData.icon = this.nodeIcon.value.trim();
+        }else{
+            delete this.data.targetNodeData.icon;
+        }
+        if(this.data.targetNodeData.level == null){
+            this.data.targetNodeData.level = this.data.groupTrees.calculateChildLevel(this.data.targetNodeData.id??this.data.targetNodeId);
+        }
+        let elements = this.leafContainers.filter(element => element.display && element.checked);
+
+        if(elements.length > 0){
+            let elementLevel = parseInt(this.data.targetNodeData.level) + 1;
+
+            this.data.targetNodeData.leafs = elements.map(element => {
+                let nodeData = {
+                    id: element.id,
+                    name: element.name,
+                    menu: element.menu
+                };
+                nodeData.level = elementLevel;
+
+                if(element.menu === 'energySensor' && this.energySensorIcon.value.trim() !== ''){
+                    nodeData.icon = this.energySensorIcon.value.trim();
+                }else if(element.menu == 'simpleOperation' && this.simpleOperationIcon.value.trim() !== ''){
+                    nodeData.icon = this.simpleOperationIcon.value.trim();
+                }
+                return nodeData;
+            })
+        }else{
+            delete this.data.targetNodeData.leafs;
+        }
+        console.log(this.data.targetNodeData);
+        if(this.data.mode === 'add'){
+            this.data.groupTrees.addNodeData(this.data.targetNodeId, this.data.targetNodeData);
+        }else{
+            this.data.groupTrees.reset();
+        }
+        this.modal.hide();
     }
     onModalShown(){
         this.name.focus();
-        this.icons.iconFilter.value = '';
-        this.icons.onIconFilterKeyUp();
     }
 
     show(){
@@ -138,10 +143,7 @@ class GroupTreeNodeEditModal {
         this.nodeIconDisplay.setAttribute('class', '');
     }
     /**
-     * elements: ツリーに追加されたelementは非表示にする
-     * targetTreeId: どのノードに追加するか
-     * 
-     * @param node 新しいノードが追加される親ノード
+     * @param nodeId 新しいノードが追加される親ノードid
      * @param groupTrees GroupTrees ツリー構造データ全部
      **/
     add(nodeId, groupTrees){
@@ -154,21 +156,24 @@ class GroupTreeNodeEditModal {
 
         this.clearNodeIcon();
 
-        this.elements.forEach(element => {
+        this.leafContainers.forEach(element => {
             element.checked = false;
 
             let el = groupTrees.root.querySelector(`.list-group-item[data-node-id="${element.id}"]`);
 
             element.display = el == null;
         });
-        this.emptyElement.display = this.elements.every(element => element.display === false);
+        this.emptyElement.display = this.leafContainers.every(element => element.display === false);
 
-        this.elementsIcon.value = '';
-        this.elementsIconDisplay.setAttribute('class', '');
+        this.energySensorIconDisplay.value = '';
+        this.energySensorIconDisplay.setAttribute('class', '');
+        this.simpleOperationIconDisplay.value = '';
+        this.simpleOperationIconDisplay.setAttribute('class', '');
 
         this.modal.show();
     }
     edit(nodeData, groupTrees){
+        console.log(nodeData, groupTrees);
         this.data.mode = 'edit';
         this.data.targetNodeId = null;
         this.data.groupTrees = groupTrees;
@@ -182,14 +187,13 @@ class GroupTreeNodeEditModal {
         }else{
             this.clearNodeIcon();
         }
-
-        this.elements.forEach(element => {
+        this.leafContainers.forEach(element => {
             element.checked = nodeData.elements?.find(elNode => elNode.id === element.id) != null;
 
             let el = groupTrees.root.querySelector(`.list-group-item[data-node-id="${element.id}"]`);
             element.display = el == null || element.checked;
         });
-        this.emptyElement.display = this.elements.every(element => element.display === false);
+        this.emptyElement.display = this.leafContainers.every(element => element.display === false);
 
         if(nodeData.elementsIcon != null){
             this.elementsIcon.value = nodeData.elementsIcon;

@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>zeus</title>
+
+    <link id="bootstrap" rel="stylesheet" type="text/css" href="./css/bootstrap/5/bootstrap-default.min.css">
+    <link id="bootstrapIcon" rel="stylesheet" type="text/css" href="./css/bootstrap-icons/1/font/bootstrap-icons.min.css">
+    <style>
+        :root {
+            --tree-space: 1.5rem;
+        }
+        body{
+            background-color: var(--bs-body-bg);
+        }
+        .inverter-control-items-box {
+            min-height: 164px;
+        }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg sticky-top shadow bg-light">
+        <div class="container-sm">
+            <a class="navbar-brand" href="#">
+                <img src="./images/ecozeus_headlogo.gif" class="p-1 rounded bg-white">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="flex-grow-1">
+                    <div class="d-flex flex-wrap justify-content-center align-items-center gap-2">
+                        <a class="btn btn-sm btn-default d-flex flex-column justify-content-center align-items-center text-primary" href="./Top.html">
+                            <i class="bi bi-display fs-4"></i>
+                            <label class="fs-6">トップ</label>
+                        </a>
+    
+                        <a class="btn btn-sm btn-default d-flex flex-column justify-content-center align-items-center text-primary" href="./ControlLevel.html">
+                            <i class="bi bi-cpu fs-4"></i>
+                            <label class="fs-6" role="button">制御レベル</label>
+                        </a>
+                        
+                        <a class="btn btn-sm btn-default d-flex flex-column justify-content-center align-items-center text-primary" href="./ElectricityUsage.html" role="button">
+                            <i class="bi bi-lightning fs-4"></i>
+                            <label class="fs-6" role="button">電力使用状況</label>
+                        </a>
+    
+                        <a class="btn btn-sm btn-default d-flex flex-column justify-content-center align-items-center text-primary" href="./ElectricityGeneration.html" role="button">
+                            <i class="bi bi-sun fs-4"></i>
+                            <label class="fs-6" role="button">発電監視</label>
+                        </a>
+    
+                        <a class="btn btn-sm btn-default d-flex flex-column justify-content-center align-items-center text-primary" href="./VentilationControl.html">
+                            <i class="bi bi-fan fs-4"></i>
+                            <label class="fs-6" role="button">換気制御</label>
+                        </a>
+    
+                        <a class="btn btn-sm btn-default d-flex flex-column justify-content-center align-items-center text-primary" href="./IndividualMeasurement.html">
+                            <i class="bi bi-bar-chart-line fs-4"></i>
+                            <label class="fs-6" role="button">個別計測</label>
+                        </a>
+    
+                        <select id="theme" name="theme" title="theme" class="form-select d-none">
+                            <option value="default">default</option>
+                            <option value="cerulean">cerulean</option>
+                            <option value="cosmo">cosmo</option>
+                            <option value="litera">litera</option>
+                            <option value="lumen">lumen</option>
+                            <option value="materia">materia</option>
+                            <option value="pulse">pulse</option>
+                            <option value="sandstone">sandstone</option>
+                            <option value="spacelab">spacelab</option>
+                            <option value="zephyr">zephyr</option>
+                        </select>
+                    </div>
+                    <div class="d-flex flex-wrap justify-content-center align-items-center gap-2">
+                        <div class="d-flex flex-column justify-content-center align-items-center p-2 border-bottom border-primary text-primary">
+                            <label class="fs-5">階層定義</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2 text-info">
+                    demo | <a class="nav-link" href="#">ログアウト</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-lg py-3">
+
+        <ul id="groupTrees" class="list-group">
+            <li class="list-group-item" data-element-type="node" data-node-id="root">
+                <div class="d-flex justify-content-end">
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-outline-primary" data-btn-type="add" data-node-id="root">
+                            <i class="bi bi-plus-lg"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-primary" data-btn-type="del" data-node-id="root">
+                            <i class="bi bi-dash-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+
+    <div id="GroupTreeNodeEdit" class="modal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="d-flex flex-column gap-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="name" required>
+                            <label for="name">名称</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="nodeIcon">
+                            <label for="nodeIcon">アイコン<i id="nodeIconDisplay" class=""></i></label>
+                        </div>
+                        <div>
+                            <div>
+                                <label class="form-label">エネルギーセンサー</label>
+                            </div>
+                            <div class="d-none" data-element-type="elementContainer" data-leaf-id="empty">割り当て可能な接点がありません。</div>
+                            <div class="form-check form-check-inline" data-element-type="elementContainer" data-leaf-id="E0001" data-leaf-name="センサー1" data-menu="energySensor">
+                                <input class="form-check-input" type="checkbox" id="leafs1" name="leafs" value="E0001">
+                                <label class="form-check-label" for="leafs1">センサー1</label>
+                            </div>
+                            <div class="form-check form-check-inline" data-element-type="elementContainer" data-leaf-id="E0002"  data-leaf-name="センサー2" data-menu="energySensor">
+                                <input class="form-check-input" type="checkbox" id="leafs2" name="leafs" value="E0002">
+                                <label class="form-check-label" for="leafs2">センサー2</label>
+                            </div>
+                            <div class="form-check form-check-inline" data-element-type="elementContainer" data-leaf-id="E0003"  data-leaf-name="センサー3" data-menu="energySensor">
+                                <input class="form-check-input" type="checkbox" id="leafs3" name="leafs" value="E0003">
+                                <label class="form-check-label" for="leafs3">センサー3</label>
+                            </div>
+                        </div>
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="energySensorIcon">
+                            <label for="energySensorIcon">エネルギーセンサーアイコン<i id="energySensorIconDisplay" class=""></i></label>
+                        </div>
+                        <div>
+                            <div>
+                                <label class="form-label">空調冷凍制御接点</label>
+                            </div>
+                            <div class="d-none" data-element-type="elementContainer" data-leaf-id="empty">割り当て可能な空調冷凍制御接点がありません。</div>
+                            <div class="form-check form-check-inline" data-element-type="elementContainer" data-leaf-id="N0001" data-leaf-name="接点1" data-menu="simpleOperation">
+                                <input class="form-check-input" type="checkbox" id="leafs4" name="leafs" value="N0001">
+                                <label class="form-check-label" for="leafs4">接点1</label>
+                            </div>
+                            <div class="form-check form-check-inline" data-element-type="elementContainer" data-leaf-id="N0002"  data-leaf-name="接点2" data-menu="simpleOperation">
+                                <input class="form-check-input" type="checkbox" id="leafs5" name="leafs" value="N0002">
+                                <label class="form-check-label" for="leafs5">接点2</label>
+                            </div>
+                            <div class="form-check form-check-inline" data-element-type="elementContainer" data-leaf-id="N0003"  data-leaf-name="接点3" data-menu="simpleOperation">
+                                <input class="form-check-input" type="checkbox" id="leafs6" name="leafs" value="N0003">
+                                <label class="form-check-label" for="leafs6">接点3</label>
+                            </div>
+                        </div>
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="simpleOperationIcon">
+                            <label for="simpleOperationIcon">空調冷凍制御接点アイコン<i id="simpleOperationIconDisplay" class=""></i></label>
+                        </div>
+                        <div>
+                            <div>
+                                アイコンの設定は<a href="https://icons.getbootstrap.com" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Bootstrap Icons</a>（クリック）を参照してください。
+                            </div>
+                            <div>
+                                例えば<i class="bi bi-0-circle"></i>に設定する場合は<code>&lt;i class="bi bi-0-circle"&gt;&lt;/i&gt;</code>の「class」属性の値「bi bi-0-circle」をテキストボックスに設定してください。
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="confirm" class="btn btn-primary">確定</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <script src="./js/bootstrap/5/bootstrap.bundle.min.js"></script>
+    <script src="./js/echarts/5/echarts.js"></script>
+    <script src="./js/jQuery/jquery-3.5.1.min.js"></script>
+    <script src="./js/axios/axios.min.js"></script>
+    <script src="./js/axios/axios.interceptors.js"></script>
+    <script src="./js/apis/RestApi.js"></script>
+    <script src="./js/components/GroupTreeEditModal.js"></script>
+    <script src="./js/components/GroupTrees.js"></script>
+    <script src="./js/Common.js"></script>
+    <script>
+        const groupTrees = new GroupTrees({
+            id: 'groupTrees',
+            editable: true,
+            expandable: false,
+            datas: []
+        });
+    </script>
+  </body>
+</html>

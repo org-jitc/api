@@ -83,6 +83,7 @@ class GroupTrees {
     }
 
     rendering(datas){
+        console.log(datas);
         let item;
 
         for(let data of datas){
@@ -99,8 +100,8 @@ class GroupTrees {
             if(data.nodes != null){
                 this.rendering(data.nodes);
             }
-            if(data.elements != null){
-                this.rendering(data.elements);
+            if(data.leafs != null){
+                this.rendering(data.leafs);
             }
         }
     }
