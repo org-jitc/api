@@ -30,38 +30,121 @@
       <li draggable="true">Item 2</li>
       <li draggable="true">Item 3</li>
       <li draggable="true">Item 4</li>
+	  <li draggable="true">Item 1</li>
+      <li draggable="true">Item 2</li>
+      <li draggable="true">Item 3</li>
+      <li draggable="true">Item 4</li>
+      <li draggable="true">Item 1</li>
+      <li draggable="true">Item 2</li>
+      <li draggable="true">Item 3</li>
+      <li draggable="true">Item 4</li>
+	  <li draggable="true">Item 1</li>
+      <li draggable="true">Item 2</li>
+      <li draggable="true">Item 3</li>
+      <li draggable="true">Item 4</li>
+      <li draggable="true">Item 1</li>
+      <li draggable="true">Item 2</li>
+      <li draggable="true">Item 3</li>
+      <li draggable="true">Item 4</li>
+	  <li draggable="true">Item 1</li>
+      <li draggable="true">Item 2</li>
+      <li draggable="true">Item 3</li>
+      <li draggable="true">Item 4</li>
+      <li draggable="true">Item 1</li>
+      <li draggable="true">Item 2</li>
+      <li draggable="true">Item 3</li>
+      <li draggable="true">Item 4</li>
+	  <li draggable="true">Item 1</li>
+      <li draggable="true">Item 2</li>
+      <li draggable="true">Item 3</li>
+      <li draggable="true">Item 4</li>
     </ul>
 
+	<div id="log"></div>
+
     <script>
+    function getY(el){
+        let rect = el.getBoundingClientRect();
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        return rect.top + scrollTop;
+    }
+
+	var log = document.querySelector('#log');
+	var initialPositions = [];
+    var draggedItem, draggables;
+
     document.addEventListener('DOMContentLoaded', function() {
-      let ul = document.querySelector('#sortable-list');
-        const listItems = document.querySelectorAll('#sortable-list li');
+		let ul = document.querySelector('#sortable-list');
+        draggables = [...ul.children].map(el => ({el, y: getY(el)}));
+        console.log(draggables);
+
+		const listItems = document.querySelectorAll('#sortable-list li');
         let draggedItem = null;
      
         listItems.forEach(item => {
-            item.addEventListener('dragstart', function(e) {
-                draggedItem = this; // 记录被拖动的元素
-                setTimeout(() => { // 在拖动开始后稍微延迟添加类，以避免闪烁效果
-                    this.classList.add('dragging');
-                }, 0);
+            item.addEventListener('dragstart', e => {
+                draggedItem = draggables.find(obj => obj.el === item);
             });
      
-            item.addEventListener('dragend', function() {
-                this.classList.remove('dragging'); // 拖动结束时移除类
-                draggedItem = null; // 重置被拖动的元素为null
+            item.addEventListener('dragend', e => {
+                draggedItem = null;
             });
+
+			item.addEventListener('touchstart', e => {
+                draggedItem = draggables.find(obj => obj.el === item);
+			});
         });
-     
+		
         ul.addEventListener('dragover', function(e) {
-            e.preventDefault(); // 阻止默认行为以允许放置
+			e.preventDefault(); // 阻止默认行为以允许放置
         });
-     
+		
         ul.addEventListener('drop', function(e) {
-            e.preventDefault(); // 阻止默认行为以允许放置
-            if (draggedItem && draggedItem !== e.target) { // 确保不是同一元素并且有元素被拖动
-                draggedItem.insertAdjacentElement('afterend', e.target); // 将被拖动的元素插入到放置位置之后
+			e.preventDefault(); // 阻止默认行为以允许放置
+
+            if(draggedItem == null){
+                return;
             }
+            if(draggedItem.el === e.target){
+                return;
+            }
+            let targetObj = draggables.find(obj => obj.el === e.target);
+
+            if(targetObj == null){
+                return;
+            }
+            if(draggedItem.y < targetObj.y){
+                draggedItem.y = targetObj.y + 1;
+            }else{
+                draggedItem.y = targetObj.y - 1;
+            }
+            draggables.sort((a,b) => a.y - b.y);
+            ul.innerHTML = '';
+            draggables.forEach(obj => ul.appendChild(obj.el));
         });
+		ul.addEventListener('touchend', e => {
+            e.preventDefault(); // 阻止默认行为以允许放置
+
+            if(draggedItem == null){
+                return;
+            }
+            if(draggedItem.el === e.target){
+                return;
+            }
+            let targetObj = draggables.find(obj => obj.el === e.target);
+
+            if(targetObj == null){
+                return;
+            }
+            if(draggedItem.y < targetObj.y){
+                draggedItem.y = targetObj.y + 1;
+            }else{
+                draggedItem.y = targetObj.y - 1;
+            }
+            draggables.sort((a,b) => a.y - b.y);
+            ul.innerHTML = '';
+            draggables.forEach(obj => ul.appendChild(obj.el));
+		});
     });
     </script>
 </body>
