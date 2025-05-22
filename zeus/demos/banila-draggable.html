@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache,must-revalidate">
+	<meta http-equiv="Expires" content="0">
+
+	<style>
+		#sortable-list li {
+			cursor: move; /* 表示元素可拖动 */
+			margin: 5px;
+			padding: 10px;
+			background-color: #f0f0f0;
+			border: 1px solid #ccc;
+		}
+		
+		.dragging {
+			opacity: 0.5; /* 拖动时的透明度 */
+		}
+	</style>
+
+	<title>
+		デモ&nbsp;-&nbsp;テンプレート
+	</title>
+</head>
+<body>
+	<ul id="sortable-list">
+      <li draggable="true">Item 1</li>
+      <li draggable="true">Item 2</li>
+      <li draggable="true">Item 3</li>
+      <li draggable="true">Item 4</li>
+    </ul>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      let ul = document.querySelector('#sortable-list');
+        const listItems = document.querySelectorAll('#sortable-list li');
+        let draggedItem = null;
+     
+        listItems.forEach(item => {
+            item.addEventListener('dragstart', function(e) {
+                draggedItem = this; // 记录被拖动的元素
+                setTimeout(() => { // 在拖动开始后稍微延迟添加类，以避免闪烁效果
+                    this.classList.add('dragging');
+                }, 0);
+            });
+     
+            item.addEventListener('dragend', function() {
+                this.classList.remove('dragging'); // 拖动结束时移除类
+                draggedItem = null; // 重置被拖动的元素为null
+            });
+        });
+     
+        ul.addEventListener('dragover', function(e) {
+            e.preventDefault(); // 阻止默认行为以允许放置
+        });
+     
+        ul.addEventListener('drop', function(e) {
+            e.preventDefault(); // 阻止默认行为以允许放置
+            if (draggedItem && draggedItem !== e.target) { // 确保不是同一元素并且有元素被拖动
+                draggedItem.insertAdjacentElement('afterend', e.target); // 将被拖动的元素插入到放置位置之后
+            }
+        });
+    });
+    </script>
+</body>
+</html>

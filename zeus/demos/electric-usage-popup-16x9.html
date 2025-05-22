@@ -58,7 +58,7 @@
 			--demand-data-column-size: 4;
 			--demand-data-row-size: 2;
 			--usage-data-column-size: 4;
-			--usage-data-row-size: 2;
+			--usage-data-row-size: 1;
 		}
 
 		html {
@@ -118,7 +118,7 @@
 			background-color: #76933C;
 			display: grid;
 			grid-template-columns: 1fr;
-			grid-template-rows: repeat(2, 1fr);
+			grid-template-rows: repeat(4, 1fr);
 			gap: .5rem;
 		}
 		.signage-box > .signage-body > .signage-category {
@@ -228,7 +228,7 @@
 
 		<div class="signage-body p-2">
 
-			<div class="signage-category">
+			<div class="signage-category" style="grid-row: span 2;">
 				<div class="title">デマンド状況</div>
 				<div class="demand-status">
 
@@ -263,11 +263,13 @@
 						</div>
 					</div>
 					<div class="data-box rounded p-2">
-						<div class="title">第一工場　温湿度</div>
+						<div class="title">
+							第一工場 温湿度
+						</div>
 
 						<div class="data">
 							<div class="value d-flex justify-content-end align-items-end">
-								〇〇℃/〇〇%
+								1℃/1%
 							</div>
 							<div class="unit d-flex align-items-end"></div>
 						</div>
@@ -290,10 +292,10 @@
 			</div>
 
 			<div class="signage-category">
-				<div class="title">高調波</div>
+				<div class="title">第一電気室 高調波</div>
 				<div class="usage-data">
 					<div class="data-box rounded p-2">
-						<div class="title">第一工場　歪み率</div>
+						<div class="title">歪み率</div>
 
 						<div class="data">
 							<div class="value d-flex justify-content-end align-items-end">
@@ -303,7 +305,7 @@
 						</div>
 					</div>
 					<div class="data-box rounded p-2">
-						<div class="title">第一工場　第5次含有率</div>
+						<div class="title">第5次高調波電流</div>
 
 						<div class="data">
 							<div class="value d-flex justify-content-end align-items-end">
@@ -313,7 +315,7 @@
 						</div>
 					</div>
 					<div class="data-box rounded p-2">
-						<div class="title">第一工場　第7次含有率</div>
+						<div class="title">第7次高調波電流</div>
 
 						<div class="data">
 							<div class="value d-flex justify-content-end align-items-end">
@@ -323,7 +325,23 @@
 						</div>
 					</div>
 					<div class="data-box rounded p-2">
-						<div class="title">第一工場　第11次含有率</div>
+						<div class="title">第11次高調波電流</div>
+
+						<div class="data">
+							<div class="value d-flex justify-content-end align-items-end">
+								〇〇.〇
+							</div>
+							<div class="unit d-flex align-items-end">%</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="signage-category">
+				<div class="title">第三電気室 高調波</div>
+				<div class="usage-data">
+					<div class="data-box rounded p-2">
+						<div class="title">歪み率</div>
 
 						<div class="data">
 							<div class="value d-flex justify-content-end align-items-end">
@@ -333,7 +351,7 @@
 						</div>
 					</div>
 					<div class="data-box rounded p-2">
-						<div class="title">第二工場　歪み率</div>
+						<div class="title">第5次高調波電流</div>
 
 						<div class="data">
 							<div class="value d-flex justify-content-end align-items-end">
@@ -343,7 +361,7 @@
 						</div>
 					</div>
 					<div class="data-box rounded p-2">
-						<div class="title">第二工場　第5次含有率</div>
+						<div class="title">第7次高調波電流</div>
 
 						<div class="data">
 							<div class="value d-flex justify-content-end align-items-end">
@@ -353,17 +371,7 @@
 						</div>
 					</div>
 					<div class="data-box rounded p-2">
-						<div class="title">第二工場　第7次含有率</div>
-
-						<div class="data">
-							<div class="value d-flex justify-content-end align-items-end">
-								〇〇.〇
-							</div>
-							<div class="unit d-flex align-items-end">%</div>
-						</div>
-					</div>
-					<div class="data-box rounded p-2">
-						<div class="title">第二工場　第11次含有率</div>
+						<div class="title">第11次高調波電流</div>
 
 						<div class="data">
 							<div class="value d-flex justify-content-end align-items-end">

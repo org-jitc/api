@@ -53,10 +53,10 @@
 			--data-unit-font-size: 1.4rem;
 			--copyright-font-size: 1.4rem;
 
-			--demand-data-column-size: 2;
+			--demand-data-column-size: 4;
 			--demand-data-row-size: 2;
 			--usage-data-column-size: 4;
-			--usage-data-row-size: 2;
+			--usage-data-row-size: 1;
 		}
 
 		html {
@@ -68,8 +68,6 @@
 			padding: 0;
 			font-family: "Meiryo UI";
 			color: black;
-			margin: 0;
-			padding: 0;
 			width: 100vw;
 			height: 100vh;
 			display: flex;
@@ -119,7 +117,7 @@
 			background-color: #76933C;
 			display: grid;
 			grid-template-columns: 1fr;
-			grid-template-rows: repeat(2, 1fr);
+			grid-template-rows: repeat(4, 1fr);
 			gap: .5rem;
 		}
 		.signage-box > .signage-body > .signage-category {
@@ -130,15 +128,14 @@
 		}
 		.signage-box > .signage-body > .signage-category > .demand-status {
 			display: grid;
-			grid-template-columns: 2fr 1fr;
-			gap: .5rem;
-		}
-		.signage-box > .signage-body > .signage-category > .demand-status > .demand-status-data {
-			display: grid;
 			grid-template-columns: repeat(var(--demand-data-column-size), 1fr);
 			grid-template-rows: repeat(var(--demand-data-row-size), 1fr);
 			grid-auto-flow: row;
 			gap: .5rem;
+		}
+		.signage-box > .signage-body > .signage-category > .demand-status > .demand-guage {
+			grid-column: 4/5;
+			grid-row: 1/3;
 		}
 
 		.signage-box > .signage-body > .signage-category > .usage-data {
@@ -231,49 +228,55 @@
 	
 			<div class="signage-body p-2">
 	
-				<div class="signage-category">
+				<div class="signage-category" style="grid-row: span 2;">
 					<div class="title">デマンド状況</div>
 					<div class="demand-status">
 
-						<div class="demand-status-data">
-							<div class="data-box rounded p-2">
-								<div class="title">現在電力</div>
-	
-								<div class="data">
-									<div class="value d-flex justify-content-end align-items-end">
-										76
-									</div>
-									<div class="unit d-flex align-items-end">kW</div>
+						<div class="data-box rounded p-2">
+							<div class="title">現在電力</div>
+
+							<div class="data">
+								<div class="value d-flex justify-content-end align-items-end">
+									76
+								</div>
+								<div class="unit d-flex align-items-end">kW</div>
+							</div>
+						</div>
+						<div class="data-box rounded p-2">
+							<div class="title">目標電力</div>
+
+							<div class="data">
+								<div class="value d-flex justify-content-end align-items-end">
+									1300
+								</div>
+								<div class="unit d-flex align-items-end">kW</div>
+							</div>
+						</div>
+						<div class="data-box rounded p-2">
+							<div class="title">当月最大デマンド</div>
+
+							<div class="data">
+								<div class="value d-flex justify-content-end align-items-end">
+									1047
+								</div>
+								<div class="unit d-flex align-items-end">kW</div>
+							</div>
+						</div>
+						<div class="data-box rounded p-2">
+							<div class="title">第一工場　温湿度</div>
+
+							<div class="data">
+								<div class="value d-flex justify-content-end align-items-end">
+									1℃/1%
 								</div>
 							</div>
-							<div class="data-box rounded p-2">
-								<div class="title">目標電力</div>
-	
-								<div class="data">
-									<div class="value d-flex justify-content-end align-items-end">
-										1300
-									</div>
-									<div class="unit d-flex align-items-end">kW</div>
-								</div>
-							</div>
-							<div class="data-box rounded p-2">
-								<div class="title">当月最大デマンド</div>
-	
-								<div class="data">
-									<div class="value d-flex justify-content-end align-items-end">
-										1047
-									</div>
-									<div class="unit d-flex align-items-end">kW</div>
-								</div>
-							</div>
-							<div class="multi-data-box rounded p-2">
-								<div class="sub-data-box">
-									<div class="title">第一工場　温湿度</div>
-									<div class="value">〇〇℃/〇〇%</div>
-								</div>
-								<div class="sub-data-box">
-									<div class="title">第二工場　温湿度</div>
-									<div class="value">152℃/100%</div>
+						</div>
+						<div class="data-box rounded p-2">
+							<div class="title">第二工場　温湿度</div>
+
+							<div class="data">
+								<div class="value d-flex justify-content-end align-items-end">
+									150℃/100%
 								</div>
 							</div>
 						</div>
@@ -285,10 +288,10 @@
 				</div>
 	
 				<div class="signage-category">
-					<div class="title">高調波</div>
+					<div class="title">第一電気室 高調波</div>
 					<div class="usage-data">
 						<div class="data-box rounded p-2">
-							<div class="title">第一工場　歪み率</div>
+							<div class="title">歪み率</div>
 
 							<div class="data">
 								<div class="value d-flex justify-content-end align-items-end">
@@ -298,7 +301,7 @@
 							</div>
 						</div>
 						<div class="data-box rounded p-2">
-							<div class="title">第一工場　第5次含有率</div>
+							<div class="title">第5次高調波電流</div>
 
 							<div class="data">
 								<div class="value d-flex justify-content-end align-items-end">
@@ -308,7 +311,9 @@
 							</div>
 						</div>
 						<div class="data-box rounded p-2">
-							<div class="title">第一工場　第7次含有率</div>
+							<div class="title">
+								第7次高調波電流
+							</div>
 
 							<div class="data">
 								<div class="value d-flex justify-content-end align-items-end">
@@ -318,7 +323,23 @@
 							</div>
 						</div>
 						<div class="data-box rounded p-2">
-							<div class="title">第一工場　第11次含有率</div>
+							<div class="title">第11次高調波電流</div>
+
+							<div class="data">
+								<div class="value d-flex justify-content-end align-items-end">
+									〇〇.〇
+								</div>
+								<div class="unit d-flex align-items-end">%</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="signage-category">
+					<div class="title">第三電気室 高調波</div>
+					<div class="usage-data">
+						<div class="data-box rounded p-2">
+							<div class="title">歪み率</div>
 
 							<div class="data">
 								<div class="value d-flex justify-content-end align-items-end">
@@ -328,7 +349,7 @@
 							</div>
 						</div>
 						<div class="data-box rounded p-2">
-							<div class="title">第二工場　歪み率</div>
+							<div class="title">第5次高調波電流</div>
 
 							<div class="data">
 								<div class="value d-flex justify-content-end align-items-end">
@@ -338,7 +359,7 @@
 							</div>
 						</div>
 						<div class="data-box rounded p-2">
-							<div class="title">第二工場　第5次含有率</div>
+							<div class="title">第7次高調波電流</div>
 
 							<div class="data">
 								<div class="value d-flex justify-content-end align-items-end">
@@ -348,17 +369,7 @@
 							</div>
 						</div>
 						<div class="data-box rounded p-2">
-							<div class="title">第二工場　第7次含有率</div>
-
-							<div class="data">
-								<div class="value d-flex justify-content-end align-items-end">
-									〇〇.〇
-								</div>
-								<div class="unit d-flex align-items-end">%</div>
-							</div>
-						</div>
-						<div class="data-box rounded p-2">
-							<div class="title">第二工場　第11次含有率</div>
+							<div class="title">第11次高調波電流</div>
 
 							<div class="data">
 								<div class="value d-flex justify-content-end align-items-end">

@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache,must-revalidate">
+	<meta http-equiv="Expires" content="0">
+	<!--如果是IE，会使用最新的渲染引擎进行渲染-->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<link href="./css/font-awesome/css/all.min.css" rel="stylesheet">
+	<link href="./css/bootstrap/bootstrap.min.css" rel="stylesheet">
+	<link href="./css/override.css" rel="stylesheet"/>
+	<link href="./css/css.css" rel="stylesheet">
+	<link href="./css/enoot.css" rel="stylesheet">
+	
+	<script type="text/javascript" src="./js/LAB.min.js"></script>
+	<script>
+		let contextPath = './';
+		let js_ver = '0000';
+		// system encoding
+		var systemEncode = 'SJIS';
+		sessionStorage.setItem('systemEncode', systemEncode);
+		// system language
+		var sysLanguage = 'ja';
+		sessionStorage.setItem('sysLanguage', sysLanguage);
+		// bootstrap color picker option
+		var btpColorPickerOption = {format: 'hex'};
+		sessionStorage.setItem('btpColorPickerOption', btpColorPickerOption);
+		// 
+		let formAction = null;
+		let zeusStore = {};
+		//-> set server sync system param
+		zeusStore.serverSync = {};
+		zeusStore.serverSync.hasComponent = 'false' == 'true';
+		if(zeusStore.serverSync.hasComponent){
+			zeusStore.serverSync.serverSyncCheck = 'true';
+		}
+		//<- set server sync system param
+	</script>
+	<script src="./js/import/zeus.js"></script>
+
+	<title>
+		デモ&nbsp;-&nbsp;サイネージ設定
+	</title>
+</head>
+<body>
+	<div id="app" class="hide">
+		<div class="d-flex justify-content-center">
+			<div class="template-container">
+				<div class="d-flex flex-column" style="min-height: 100vh;">
+					<div class="zeus-frame-line-bottom py-4">
+						
+						<div class="d-flex justify-content-between align-items-center">
+							<img src="./images/ecoCloud_headlogo.gif" height="51" onerror="$(this).hide();"/>
+							<div class="align-self-end d-flex align-items-end">
+								<div>
+									<span class="test-user1">demo-user</span>&nbsp;|&nbsp;
+									<span class="login1" style="font-size:12px;color:#808080;">
+										ログアウト
+									</span>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					<div class="d-flex flex-grow-1">
+						<div class="template-menu-td zeus-frame-line-bottom" align="left">
+							
+							<div class="zeus-menu-nav mt-3">
+								<div class="active menu-level${menuMap.value.level}">
+									サイネージ設定
+								</div>
+							</div>
+							
+						</div>
+						<div class="template-content-td zeus-frame-line-left zeus-frame-line-bottom">
+							<div class="width-720">
+
+								<div class="panel panel-primary">
+									<div class="panel-body">
+										<ul class="mt-3 nav nav-tabs" role="tablist">
+											<li role="presentation" class="active"><a href="#displayData" aria-controls="zeus" role="tab" data-toggle="tab">表示データ</a></li>
+											<li role="presentation"><a href="#group" aria-controls="zeus" role="tab" data-toggle="tab">グループ</a></li>
+									  	</ul>
+	  
+									  	<div class="tab-content">
+											<div id="group" class="py-3 tab-pane" role="tabpanel">
+												<div class="input-group input-group-sm">
+													<span class="input-group-addon">グループ名</span>
+													<input type="text" class="form-control">
+													<span class="input-group-btn">
+														<button class="btn button-zeus mx-0">
+															新規登録
+														</button>
+													</span>
+												</div>
+
+												<table class="mt-3 table table-sm">
+													<thead>
+														<th>グループ名</th>
+														<th></th>
+													</thead>
+													<tbody>
+														<tr>
+															<td>第一工場</td>
+															<td>
+																<div class="d-flex justify-content-end">
+																	<button class="btn button-zeus mx-0">削除</button>
+																</div>
+															</td>
+														</tr>
+														<tr>
+															<td>第二工場</td>
+															<td>
+																<div class="d-flex justify-content-end">
+																	<button class="btn button-zeus mx-0">削除</button>
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										  
+											<div id="displayData" class="my-3 tab-pane active" role="tabpanel">
+												<div class="d-flex justify-content-end">
+													<button id="displayDataRegisterButton" class="btn button-zeus mx-0">
+														新規登録
+													</button>
+												</div>
+
+												<table class="mt-3 table table-sm">
+													<thead>
+														<th>グループ</th>
+														<th>タイトル</th>
+														<th>サブタイトル</th>
+														<th>枠</th>
+														<th>データ種別</th>
+														<th>センサー</th>
+														<th>粒度</th>
+														<th>データタイプ</th>
+														<th>統計</th>
+														<th>単位</th>
+														<th></th>
+													</thead>
+													<tbody>
+														<tr>
+															<td>-</td>
+															<td>予測デマンド値</td>
+															<td>-</td>
+															<td>あり</td>
+															<td>zdaemon</td>
+															<td>-</td>
+															<td>-</td>
+															<td>0行5列</td>
+															<td>-</td>
+															<td>kW</td>
+															<td></td>
+														</tr>
+														<tr>
+															<td>-</td>
+															<td>月総量</td>
+															<td>-</td>
+															<td>あり</td>
+															<td>エネルギー</td>
+															<td>デマンド</td>
+															<td>月</td>
+															<td>使用量</td>
+															<td>合計</td>
+															<td>-</td>
+															<td>
+																<div class="d-flex justify-content-end">
+																	<button class="btn button-zeus mx-0">削除</button>
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="panel panel-primary">
+									<div class="panel-heading">カテゴリ</div>
+									<div class="panel-body">
+
+										<div class="d-flex justify-content-end">
+											<button class="btn button-zeus mx-0">
+												新規登録
+											</button>
+										</div>
+
+										<table class="table table-sm">
+											<thead>
+												<tr>
+													<th colspan="5">
+														<div class="d-flex justify-content-between">
+															<label for="">1 - デマンド状況</label>
+															<button class="btn button-zeus mx-0">変更</button>
+														</div>
+													</th>
+												</tr>
+												<tr>
+													<th>表示順</th>
+													<th>ID</th>
+													<th>グループ</th>
+													<th>タイトル</th>
+													<th>サブタイトル</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														<select name="" id="" class="form-control input-sm w-auto">
+															<option value="1">1</option>
+														</select>
+													</td>
+													<td>1</td>
+													<td>第一工場</td>
+													<td>歪み率</td>
+													<td>-</td>
+												</tr>
+											</tbody>
+										</table>
+
+										<table class="table table-sm">
+											<thead>
+												<tr>
+													<th colspan="5">
+														<div class="d-flex justify-content-between">
+															<label for="">2 - 使用電力状況</label>
+															<button class="btn button-zeus mx-0">変更</button>
+														</div>
+													</th>
+												</tr>
+												<tr>
+													<th>表示順</th>
+													<th>ID</th>
+													<th>グループ</th>
+													<th>タイトル</th>
+													<th>サブタイトル</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														<select name="" id="" class="form-control input-sm w-auto">
+															<option value="1">1</option>
+														</select>
+													</td>
+													<td>1</td>
+													<td>第一工場</td>
+													<td>歪み率</td>
+													<td>-</td>
+												</tr>
+											</tbody>
+										</table>
+
+										<table class="table table-sm">
+											<thead>
+												<tr>
+													<th colspan="5">
+														<div class="d-flex justify-content-between">
+															<label for="">3 - 使用電力状況</label>
+															<button class="btn button-zeus mx-0">変更</button>
+														</div>
+													</th>
+												</tr>
+												<tr>
+													<th>表示順</th>
+													<th>ID</th>
+													<th>グループ</th>
+													<th>タイトル</th>
+													<th>サブタイトル</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														<select name="" id="" class="form-control input-sm w-auto">
+															<option value="1">1</option>
+														</select>
+													</td>
+													<td>1</td>
+													<td>第一工場</td>
+													<td>歪み率</td>
+													<td>-</td>
+												</tr>
+											</tbody>
+										</table>
+
+										<table class="table table-sm">
+											<thead>
+												<tr>
+													<th colspan="5">
+														<div class="d-flex justify-content-between">
+															<label for="">4 - 高調波</label>
+															<button class="btn button-zeus mx-0">変更</button>
+														</div>
+													</th>
+												</tr>
+												<tr>
+													<th>表示順</th>
+													<th>ID</th>
+													<th>グループ</th>
+													<th>タイトル</th>
+													<th>サブタイトル</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														<select name="" id="" class="form-control input-sm w-auto">
+															<option value="1">1</option>
+														</select>
+													</td>
+													<td>1</td>
+													<td>第一工場</td>
+													<td>歪み率</td>
+													<td>-</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								
+								
+								<!-- content -->
+								<!-- Nav tabs -->
+								<ul class="mt-3 nav nav-tabs" role="tablist">
+								    <li role="presentation" class="active"><a href="#default" aria-controls="zeus" role="tab" data-toggle="tab">管理画面</a></li>
+								    <li role="presentation"><a href="#enoot" aria-controls="zeus" role="tab" data-toggle="tab">ENOOT</a></li>
+								    <li role="presentation"><a href="#simple" aria-controls="zeus" role="tab" data-toggle="tab">簡易画面</a></li>
+								</ul>
+								
+								<!-- Tab panes -->
+								<div class="tab-content">
+								    <div role="tabpanel" class="my-3 tab-pane active" id="default">
+
+										<div class="d-flex justify-content-end">
+											<div class="input-group input-group-sm">
+												<span class="input-group-addon">カテゴリ</span>
+												<select name="" id="" class="form-control w-auto">
+													<option value="1">1 - デマンド状況</option>
+													<option value="2">2 - 電力使用状況</option>
+													<option value="3">3 - 電力使用状況</option>
+													<option value="4">4 - 高調波</option>
+												</select>
+												<span class="input-group-btn">
+													<button type="button" id="categoryRegisterButton" class="btn button-zeus mx-0">
+														新規登録
+													</button>
+												</span>
+											</div>
+										</div>
+
+										<table class="mt-3 table table-sm">
+											<thead>
+												<tr>
+													<th>表示順</th>
+													<th>カテゴリ</th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														<select name="" id="" class="form-control input-sm w-auto">
+															<option value="1">1</option>
+														</select>
+													</td>
+													<td>デマンド状況</td>
+													<td>
+														<div class="d-flex justify-content-end">
+															<button class="btn button-zeus mx-0">削除</button>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<select name="" id="" class="form-control input-sm w-auto">
+															<option value="1">2</option>
+														</select>
+													</td>
+													<td>電力使用状況</td>
+													<td>
+														<div class="d-flex justify-content-end">
+															<button class="btn button-zeus mx-0">削除</button>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+					<div>
+						<div class="d-flex justify-content-between copyright1">
+							<div>
+								&copy;2010 JIT Consulting
+							</div>
+							<div>
+								<div id="fieldclock" class="font-bold"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="settingInfoImportDiv" class="modal fade" role="dialog">
+		<div class="modal-dialog" style="max-width: 500px;">
+			<div class="modal-content">
+				<div class="modal-body">
+					<iframe id="settingInfoImportFrame" scrolling="no" style="width: 100%; border: 0;"></iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="modal-settingInfoImport" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">設定情報入力</h4>
+				</div>
+				
+				<div class="modal-body">
+					<form id="form-settingInfoImport" enctype="multipart/form-data">
+						<div id="div-error-settingInfoImport" class="text-danger"></div>
+						<div class="form-group">
+						    <label class="text-info">ファイル</label>
+						    <input type="file" id="file-settingInfoImport" name="settingImportFile" accept=".csv">
+					  	</div>
+					</form>
+				</div>
+				
+				<div class="modal-footer">
+					<div class="btn-group btn-group-sm">
+    	    			<button type="button" id="btn-settingInfoUpload" class="btn button-zeus m-0">
+    	    				アップロード
+    	    			</button>
+						<button type="button" class="btn button-zeus m-0" data-dismiss="modal">
+							<fmt:message key='window.electricEnergySensor.button.cancel'/>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- **********************電池交換日履歴関連  -->
+	<div id="batteryExchangeInsertConfirmModal" class="modal fade" role="dialog">
+		<div class="modal-dialog" style="max-width: 300px;">
+			<div class="modal-content">
+		    	<div class="modal-header text-left" align="left">
+		      		<h4 class="modal-title bg1-word1">電池交換日登録確認</h4>
+		    	</div>
+		    	
+		    	<div class="modal-body bg1-word1">
+		      		<p>電池交換日: <span id="batteryExchangeDateConfirmSpan"></span></p>
+		      		<input id="sensorIdHidden" type="hidden"> 
+	    		</div>
+	    		
+		    	<div class="modal-footer">
+		      		<button type="button" class="btn button-zeus" onclick="insertBatteryExchangeDate();">登 録</button>
+		      		<button type="button" class="btn button-zeus" data-dismiss="modal">キャンセル</button>
+		    	</div>
+		  	</div>
+		</div>
+	</div>
+
+	<div id="batteryExchangeDeleteConfirmModal" class="modal fade" role="dialog">
+		<div class="modal-dialog" style="max-width: 300px;">
+		  	<div class="modal-content">
+		    	<div class="modal-header">
+			      	<h4 class="modal-title bg1-word1" style="text-align: left;">電池交換日削除確認</h4>
+			    </div>
+			    
+			    <div class="modal-body bg1-word1">
+			      	<p>電池交換日: <span id="batteryExchangeDateDeleteConfirmSpan"></span></p>
+			      	<input id="sensorIdDeleteHidden" type="hidden"> 
+			    </div>
+			    
+			    <div class="modal-footer">
+			     	<button type="button" class="btn button-zeus" onclick="deleteBatteryExchangeDate();">削 除</button>
+			      	<button type="button" class="btn button-zeus" data-dismiss="modal">キャンセル</button>
+			    </div>
+		  	</div>
+		</div>
+	</div>
+	<!-- _____________________________電池交換日履歴関連  -->
+	
+	<!-- *****************************共通エラーメッセージポップアップ -->
+	<div id="errorPopup" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		      	</div>
+				<div id="errorPopupBody" class="modal-body error">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ____________________________________________共通エラーメッセージポップアップ -->
+	<!-- * 共通メッセージポップアップ -->
+	<div id="modal-msg" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		      	</div>
+				<div class="modal-body msg">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- _ 共通メッセージポップアップ -->
+	<!-- * 共通イメージポップアップ -->
+	<div id="modal-img" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<img style="width: 100%;">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- _ 共通イメージポップアップ -->
+
+	<div id="categoryEditModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+		  	<div class="modal-content">
+		    	<div class="modal-header">
+			      	<h4 class="modal-title">表示データ</h4>
+			    </div>
+			    
+			    <div class="modal-body">
+					<table class="table table-sm">
+						<colgroup>
+							<col width="30%">
+							<col>
+						</colgroup>
+						<tbody>
+							<tr>
+								<td>タイトル</td>
+								<td>
+									<input type="text" name="title" class="form-control input-sm">
+								</td>
+							</tr>
+							<tr>
+								<td>表示データ</td>
+								<td>
+									<table class="table table-sm">
+										<thead>
+											<tr>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<label for="" class="checkbox-inline">
+												<input type="checkbox" value="1">
+												1 - 本日
+											</label>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+			    </div>
+			    
+			    <div class="modal-footer">
+			      	<button type="button" id="submitButton" class="btn button-zeus" data-dismiss="modal"></button>
+			    </div>
+		  	</div>
+		</div>
+	</div>
+
+	<div id="displayDataEditModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+		  	<div class="modal-content">
+		    	<div class="modal-header">
+			      	<h4 class="modal-title">表示データ</h4>
+			    </div>
+			    
+			    <div class="modal-body">
+					<table class="table table-sm">
+						<colgroup>
+							<col width="30%">
+							<col>
+						</colgroup>
+						<tbody>
+							<tr>
+								<td>グループ</td>
+								<td>
+									<select name="groupId" id="" class="form-control input-sm w-auto">
+										<option value="">せんたくしてください</option>
+										<option value="SG0001">第一工場</option>
+										<option value="SG0002">第二工場</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>タイトル</td>
+								<td>
+									<input type="text" name="itemName" class="form-control input-sm">
+								</td>
+							</tr>
+							<tr>
+								<td>サブタイトル</td>
+								<td>
+									<input type="text" name="itemName" class="form-control input-sm">
+								</td>
+							</tr>
+							<tr>
+								<td>枠</td>
+								<td>
+									<label class="radio-inline">
+										<input type="radio" name="frameStyle" value="1" checked>
+										あり
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="frameStyle" value="0">
+										なし
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<td>データ種別</td>
+								<td>
+									<label class="radio-inline">
+										<input type="radio" name="itemType" value="empty" checked>
+										空
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="itemType" value="energy">
+										エネルギー
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="itemType" value="env">
+										環境
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="itemType" value="env">
+										zdaemon
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<td>データタイプ</td>
+								<td>
+									<label for="" class="radio-inline">
+										<input type="radio" value="usage">
+										使用量
+									</label>
+									<label for="" class="radio-inline">
+										<input type="radio" value="reduction">
+										削減量
+									</label>
+									<label for="" class="radio-inline">
+										<input type="radio" value="reductionRate">
+										削減率
+									</label>
+									<label for="" class="radio-inline">
+										<input type="radio" value="harmonic">
+										高調波
+									</label>
+									<div class="input-group input-group-sm">
+										<input type="text" class="form-control">
+										<span class="input-group-addon">行</span>
+										<input type="text" class="form-control">
+										<span class="input-group-addon">列</span>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>エネルギーセンサー</td>
+								<td>
+									<label class="checkbox-inline">
+										<input type="checkbox" name="energySensor" value="D0001">
+										デマンド
+									</label>
+									<label class="checkbox-inline">
+										<input type="checkbox" name="energySensor" value="E0001">
+										kw7m
+									</label>
+									<label class="checkbox-inline">
+										<input type="checkbox" name="energySensor" value="E0002">
+										kmd1_a
+									</label>
+									<label class="checkbox-inline">
+										<input type="checkbox" name="energySensor" value="E0003">
+										SPP
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<td>環境センサー</td>
+								<td>
+									<label class="checkbox-inline">
+										<input type="checkbox" name="envSensor" value="T0001">
+										KT7
+									</label>
+									<label class="checkbox-inline">
+										<input type="checkbox" name="envSensor" value="T0002">
+										ED5c
+									</label>
+									<label class="checkbox-inline">
+										<input type="checkbox" name="envSensor" value="T0003">
+										THD
+									</label>
+									<label class="checkbox-inline">
+										<input type="checkbox" name="envSensor" value="T0004">
+										22UTH
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<td>粒度</td>
+								<td>
+									<label class="radio-inline">
+										<input type="radio" name="granularity" value="realtime">
+										リアルタイム
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="granularity" value="m">
+										分
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="granularity" value="h">
+										時
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="granularity" value="d">
+										日
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="granularity" value="M">
+										月
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="granularity" value="y">
+										年
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<td>統計</td>
+								<td>
+									<label class="radio-inline">
+										<input type="radio" name="valueType" value="sum">
+										合計
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="valueType" value="avg">
+										平均
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="valueType" value="max">
+										最大
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="valueType" value="min">
+										最小
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<td>単位</td>
+								<td>
+									<input type="text" name="dataUnit" class="form-control input-sm">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+			    </div>
+			    
+			    <div class="modal-footer">
+			      	<button type="button" id="submitButton" class="btn button-zeus" data-dismiss="modal"></button>
+			    </div>
+		  	</div>
+		</div>
+	</div>
+	
+	<script>
+		class DisplayDataEditModal {
+			constructor(){
+				this.root = document.querySelector('#displayDataEditModal');
+				this.frameStyleRdos = [...document.querySelectorAll('[name="frameStyle"]')];
+				this.itemNameTxt = document.querySelector('[name="itemName"]');
+				this.itemTypeRdos = [...document.querySelectorAll('[name="itemType"]')];
+				this.energySensorChks = [...document.querySelectorAll('[name="energySensor"]')];
+				this.envSensorChks = [...document.querySelectorAll('[name="envSensor"]')];
+				this.granularityRdos = [...document.querySelectorAll('[name="granularity"]')];
+				this.valueTypeRdos = [...document.querySelectorAll('[name="valueType"]')];
+				this.groupIdSlt = document.querySelector('[name="groupId"]');
+			}
+		}
+
+		// load main js files first
+		_zeus.loadJS();
+		
+		let app = document.querySelector('#app');
+		let cssClass = app.getAttribute('class');
+		app.setAttribute('class', '');
+
+		// initialization
+		let displayDataRegisterButton = document.querySelector('#displayDataRegisterButton');
+		let displayDataEditModal = document.querySelector('#displayDataEditModal');
+
+		let categoryRegisterButton = document.querySelector('#categoryRegisterButton');
+		let categoryEditModal = document.querySelector('#categoryEditModal');
+
+		displayDataRegisterButton.addEventListener('click', () => $(displayDataEditModal).modal('show'));
+		categoryRegisterButton.addEventListener('click', () => $(categoryEditModal).modal('show'));
+	</script>
+</body>
+</html>
