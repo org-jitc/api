@@ -83,6 +83,7 @@
      
         listItems.forEach(item => {
             item.addEventListener('dragstart', e => {
+                e.dataTransfer.setData('text/plain', 'hello');
                 draggedItem = draggables.find(obj => obj.el === item);
             });
      
