@@ -13,11 +13,15 @@
             margin: 0;
         }
         .positioned {
+            cursor: move;
             position: relative;
             background: yellow;
             top: 30px;
             left: 30px;
         }
+        .dragging {
+			opacity: 0.5; /* 拖动时的透明度 */
+		}
 	</style>
 
 	<title>
@@ -38,9 +42,11 @@
             item.addEventListener('dragstart', e => {
                 e.dataTransfer.setData('text/plain', 'hello');
                 draggedItem = item;
+                draggedItem.classList.add('dragging');
             });
      
             item.addEventListener('dragend', e => {
+                draggedItem.classList.remove('dragging');
                 draggedItem = null;
             });
         });
