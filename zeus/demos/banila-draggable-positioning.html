@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache,must-revalidate">
+	<meta http-equiv="Expires" content="0">
+
+	<style>
+        body{
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+        }
+        .positioned {
+            position: relative;
+            background: yellow;
+            top: 30px;
+            left: 30px;
+        }
+	</style>
+
+	<title>
+		デモ&nbsp;-&nbsp;テンプレート
+	</title>
+</head>
+<body>
+    <div id="root" style="width: 500px; height: 500px;margin-left: 300px;background-color: lightblue;">
+
+        <span class="positioned" draggable="true">test</span>
+    </div>
+
+    <script>
+        var draggedItem;
+
+        [...document.querySelectorAll('.positioned')]
+        .forEach(item => {
+            item.addEventListener('dragstart', e => {
+                e.dataTransfer.setData('text/plain', 'hello');
+                draggedItem = item;
+            });
+     
+            item.addEventListener('dragend', e => {
+                draggedItem = null;
+            });
+        });
+
+        let root = document.querySelector('#root');
+        root.addEventListener('dragover', function(e) {
+			e.preventDefault(); // 阻止默认行为以允许放置
+        });
+		
+        root.addEventListener('drop', function(e) {
+			e.preventDefault(); // 阻止默认行为以允许放置
+            let bounds = this.getBoundingClientRect();
+            let x = e.clientX - bounds.left - draggedItem.offsetWidth / 2;
+
+            if(x < 0){
+                x = 0;
+            }
+            if(x > root.clientWidth){
+                x = root.clientWidth;
+            }
+            let y = e.clientY -bounds.top - draggedItem.offsetHeight / 2;
+
+            if(y < 0){
+                y = 0;
+            }
+            if(y > root.clientHeight){
+                y = root.clientHeight;
+            }
+            draggedItem.style.top = `${y}px`;
+            draggedItem.style.left = `${x}px`;
+        });
+    </script>
+</body>
+</html>

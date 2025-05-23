@@ -76,10 +76,8 @@
     document.addEventListener('DOMContentLoaded', function() {
 		let ul = document.querySelector('#sortable-list');
         draggables = [...ul.children].map(el => ({el, y: getY(el)}));
-        console.log(draggables);
 
 		const listItems = document.querySelectorAll('#sortable-list li');
-        let draggedItem = null;
      
         listItems.forEach(item => {
             item.addEventListener('dragstart', e => {
@@ -90,10 +88,6 @@
             item.addEventListener('dragend', e => {
                 draggedItem = null;
             });
-
-			item.addEventListener('touchstart', e => {
-                draggedItem = draggables.find(obj => obj.el === item);
-			});
         });
 		
         ul.addEventListener('dragover', function(e) {
@@ -123,29 +117,6 @@
             ul.innerHTML = '';
             draggables.forEach(obj => ul.appendChild(obj.el));
         });
-		ul.addEventListener('touchend', e => {
-            e.preventDefault(); // 阻止默认行为以允许放置
-
-            if(draggedItem == null){
-                return;
-            }
-            if(draggedItem.el === e.target){
-                return;
-            }
-            let targetObj = draggables.find(obj => obj.el === e.target);
-
-            if(targetObj == null){
-                return;
-            }
-            if(draggedItem.y < targetObj.y){
-                draggedItem.y = targetObj.y + 1;
-            }else{
-                draggedItem.y = targetObj.y - 1;
-            }
-            draggables.sort((a,b) => a.y - b.y);
-            ul.innerHTML = '';
-            draggables.forEach(obj => ul.appendChild(obj.el));
-		});
     });
     </script>
 </body>
